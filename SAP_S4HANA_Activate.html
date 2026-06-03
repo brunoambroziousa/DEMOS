@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP S/4HANA — Activate Methodology Reference</title>
+<style>
+  :root {
+    --primary: #0070C0;
+    --primary-dark: #003C71;
+    --accent: #E5F0F8;
+    --bg: #F7F9FB;
+    --card: #FFFFFF;
+    --border: #DDE3EA;
+    --text: #1A1A1A;
+    --muted: #5A6370;
+    --alt-row: #F4F7FA;
+    --public: #16A34A;
+    --public-bg: #DCFCE7;
+    --private: #D97706;
+    --private-bg: #FEF3C7;
+    --onprem: #6366F1;
+    --onprem-bg: #E0E7FF;
+    --qgate: #DC2626;
+    --qgate-bg: #FEE2E2;
+    --workstream: #7C3AED;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+    font-size: 14px;
+  }
+  /* HERO */
+  header.hero {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: white;
+    padding: 32px 24px 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  header.hero .inner { max-width: 1320px; margin: 0 auto; }
+  header.hero h1 { margin: 0 0 6px; font-size: 26px; font-weight: 700; }
+  header.hero .subtitle { opacity: 0.92; font-size: 14px; margin: 0 0 14px; }
+  header.hero .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  header.hero .badge {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* EDITION FILTER */
+  .edition-bar {
+    position: sticky;
+    top: 0;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    padding: 10px 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  }
+  .edition-bar .inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .edition-bar .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+  }
+  .edition-bar button {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .edition-bar button:hover { border-color: var(--primary); }
+  .edition-bar button.active.all     { background: var(--primary); color: white; border-color: var(--primary); }
+  .edition-bar button.active.public  { background: var(--public);  color: white; border-color: var(--public);  }
+  .edition-bar button.active.private { background: var(--private); color: white; border-color: var(--private); }
+  .edition-bar button.active.onprem  { background: var(--onprem);  color: white; border-color: var(--onprem);  }
+  .edition-bar .right { margin-left: auto; display: flex; gap: 6px; }
+  .edition-bar .right button { font-size: 12px; padding: 5px 10px; }
+
+  /* TOC */
+  nav.toc {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 24px;
+    position: sticky;
+    top: 53px;
+    z-index: 98;
+  }
+  nav.toc .inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+  }
+  nav.toc a {
+    text-decoration: none;
+    color: var(--primary-dark);
+    background: var(--accent);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  nav.toc a:hover { background: var(--primary); color: white; }
+  nav.toc a.active { background: var(--primary-dark); color: white; }
+  nav.toc .sep { color: var(--muted); font-size: 11px; margin: 0 4px; }
+
+  /* MAIN */
+  main { max-width: 1320px; margin: 0 auto; padding: 22px 24px 60px; }
+
+  /* SEARCH */
+  .search-bar {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .search-bar input {
+    flex: 1; border: none; outline: none; font-size: 14px; padding: 4px; background: transparent;
+  }
+  .hit { background: #FFF3A0; padding: 0 2px; border-radius: 2px; }
+
+  /* PHASE TIMELINE STRIP */
+  .timeline {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 22px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    overflow-x: auto;
+  }
+  .timeline .t-phase {
+    flex: 1;
+    min-width: 140px;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: white;
+    padding: 10px 12px;
+    border-radius: 6px;
+    text-align: center;
+    position: relative;
+  }
+  .timeline .t-phase .t-num {
+    font-size: 10px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .timeline .t-phase .t-name { font-size: 14px; font-weight: 700; margin-top: 2px; }
+  .timeline .t-phase .t-q {
+    margin-top: 6px;
+    font-size: 10px;
+    background: rgba(255,255,255,0.18);
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+  .timeline .t-arrow { display: flex; align-items: center; color: var(--muted); font-size: 18px; }
+
+  /* SECTIONS */
+  section.phase, section.cross {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    scroll-margin-top: 110px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .phase-header {
+    background: linear-gradient(to right, var(--primary-dark), var(--primary));
+    color: white;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+  .phase-header .left { display: flex; align-items: baseline; gap: 12px; }
+  .phase-header .phase-num {
+    background: rgba(255,255,255,0.2);
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .phase-header h2 { margin: 0; font-size: 17px; font-weight: 600; }
+  .phase-header .toggle { font-size: 13px; transition: transform 0.2s; }
+  .phase.collapsed .toggle { transform: rotate(-90deg); }
+  .phase.collapsed .phase-body { display: none; }
+  .phase-body { padding: 18px 20px; }
+
+  .objective {
+    background: var(--alt-row);
+    border-left: 3px solid var(--primary);
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    border-radius: 0 6px 6px 0;
+  }
+  .objective strong {
+    color: var(--primary-dark);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* GRID */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 800px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background: var(--alt-row);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .panel h4 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary-dark);
+  }
+  .panel ul { margin: 0; padding-left: 18px; }
+  .panel li { margin: 3px 0; }
+
+  /* TABLES */
+  table.deliverables {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 4px 0 10px;
+  }
+  table.deliverables th {
+    background: var(--primary-dark);
+    color: white;
+    text-align: left;
+    padding: 7px 10px;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  table.deliverables td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.deliverables tr:nth-child(even) td { background: var(--alt-row); }
+  table.deliverables td:first-child { font-weight: 600; color: var(--primary-dark); }
+
+  /* EDITION CALLOUTS */
+  .edition-notes { margin: 14px 0 6px; display: grid; gap: 8px; }
+  .edition-note {
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    border-left: 4px solid;
+  }
+  .edition-note .ed-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+  }
+  .edition-note.public  { background: var(--public-bg);  border-color: var(--public);  }
+  .edition-note.public  .ed-tag { background: var(--public);  color: white; }
+  .edition-note.private { background: var(--private-bg); border-color: var(--private); }
+  .edition-note.private .ed-tag { background: var(--private); color: white; }
+  .edition-note.onprem  { background: var(--onprem-bg);  border-color: var(--onprem);  }
+  .edition-note.onprem  .ed-tag { background: var(--onprem);  color: white; }
+
+  /* Q-GATE */
+  .qgate {
+    margin-top: 14px;
+    background: var(--qgate-bg);
+    border: 1px dashed var(--qgate);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: #7F1D1D;
+    font-size: 13px;
+  }
+  .qgate strong {
+    color: var(--qgate);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 11px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* COMPARISON MATRIX */
+  table.matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  table.matrix th, table.matrix td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    text-align: left;
+  }
+  table.matrix thead th { background: var(--primary-dark); color: white; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+  table.matrix tbody tr:nth-child(even) td { background: var(--alt-row); }
+  table.matrix td:first-child { font-weight: 600; color: var(--primary-dark); width: 200px; }
+  .col-public  { color: var(--public);  font-weight: 600; }
+  .col-private { color: var(--private); font-weight: 600; }
+  .col-onprem  { color: var(--onprem);  font-weight: 600; }
+
+  /* TOOLS GRID */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .tool-card {
+    background: var(--alt-row);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .tool-card h5 { margin: 0 0 4px; font-size: 13px; color: var(--primary-dark); }
+  .tool-card p { margin: 0; font-size: 12px; color: var(--muted); }
+  .tool-card .scope {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-top: 6px;
+    margin-right: 4px;
+    font-weight: 600;
+  }
+  .scope.public  { background: var(--public-bg);  color: var(--public);  }
+  .scope.private { background: var(--private-bg); color: var(--private); }
+  .scope.onprem  { background: var(--onprem-bg);  color: var(--onprem);  }
+
+  /* WORKSTREAMS */
+  .workstreams {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .ws-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--workstream);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .ws-card h5 { margin: 0 0 4px; font-size: 13px; color: var(--workstream); }
+  .ws-card p { margin: 0; font-size: 12px; color: var(--muted); }
+
+  /* SECTION HEADER for cross-cutting */
+  .cross .phase-header { background: linear-gradient(to right, var(--workstream), #A78BFA); }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 30px;
+  }
+
+  /* Edition filter mode */
+  body.filter-public  .edition-note.private,
+  body.filter-public  .edition-note.onprem,
+  body.filter-private .edition-note.public,
+  body.filter-private .edition-note.onprem,
+  body.filter-onprem  .edition-note.public,
+  body.filter-onprem  .edition-note.private {
+    display: none;
+  }
+  body.filter-public .scope.private, body.filter-public .scope.onprem,
+  body.filter-private .scope.public, body.filter-private .scope.onprem,
+  body.filter-onprem .scope.public, body.filter-onprem .scope.private {
+    opacity: 0.25;
+  }
+
+  .acronym {
+    border-bottom: 1px dotted var(--muted);
+    cursor: help;
+  }
+
+  @media print {
+    .edition-bar, nav.toc, .search-bar { display: none; }
+    .phase.collapsed .phase-body { display: block !important; }
+    .phase-header { background: var(--primary-dark) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body class="filter-all">
+
+<header class="hero">
+  <div class="inner">
+    <h1>SAP S/4HANA — Activate Methodology Reference</h1>
+    <p class="subtitle">Official 6-phase methodology with Quality Gates, deliverables, tools and edition-specific differences across Public Cloud, Private Cloud and On-Premise.</p>
+    <div class="badges">
+      <span class="badge">6 Phases</span>
+      <span class="badge">5 Q-Gates</span>
+      <span class="badge">3 Editions</span>
+      <span class="badge">10 Workstreams</span>
+      <span class="badge">Agile-iterative</span>
+    </div>
+  </div>
+</header>
+
+<!-- Edition filter -->
+<div class="edition-bar">
+  <div class="inner">
+    <span class="label">View:</span>
+    <button class="active all" data-edition="all">All editions</button>
+    <button class="public" data-edition="public">Public Cloud</button>
+    <button class="private" data-edition="private">Private Cloud</button>
+    <button class="onprem" data-edition="onprem">On-Premise</button>
+    <div class="right">
+      <button onclick="expandAll()">Expand all</button>
+      <button onclick="collapseAll()">Collapse all</button>
+      <button onclick="window.print()">Print</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase TOC -->
+<nav class="toc">
+  <div class="inner">
+    <a href="#timeline">Timeline</a>
+    <span class="sep">·</span>
+    <a href="#phase-discover">1. Discover</a>
+    <a href="#phase-prepare">2. Prepare</a>
+    <a href="#phase-explore">3. Explore</a>
+    <a href="#phase-realize">4. Realize</a>
+    <a href="#phase-deploy">5. Deploy</a>
+    <a href="#phase-run">6. Run</a>
+    <span class="sep">·</span>
+    <a href="#workstreams">Workstreams</a>
+    <a href="#matrix">Edition Matrix</a>
+    <a href="#tools">Tools</a>
+    <a href="#glossary">Glossary</a>
+  </div>
+</nav>
+
+<main>
+
+  <div class="search-bar">
+    <span style="color:var(--muted);">🔍</span>
+    <input type="text" id="search" placeholder="Search deliverables, tools, roles, acronyms...">
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline" id="timeline">
+    <div class="t-phase"><div class="t-num">Phase 1</div><div class="t-name">Discover</div><div class="t-q">Q1 →</div></div>
+    <div class="t-arrow">→</div>
+    <div class="t-phase"><div class="t-num">Phase 2</div><div class="t-name">Prepare</div><div class="t-q">Q2 →</div></div>
+    <div class="t-arrow">→</div>
+    <div class="t-phase"><div class="t-num">Phase 3</div><div class="t-name">Explore</div><div class="t-q">Q3 →</div></div>
+    <div class="t-arrow">→</div>
+    <div class="t-phase"><div class="t-num">Phase 4</div><div class="t-name">Realize</div><div class="t-q">Q4 →</div></div>
+    <div class="t-arrow">→</div>
+    <div class="t-phase"><div class="t-num">Phase 5</div><div class="t-name">Deploy</div><div class="t-q">Q5 →</div></div>
+    <div class="t-arrow">→</div>
+    <div class="t-phase"><div class="t-num">Phase 6</div><div class="t-name">Run</div><div class="t-q">Continuous</div></div>
+  </div>
+
+  <!-- PHASE 1: DISCOVER -->
+  <section class="phase" id="phase-discover">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">PHASE 1</span><h2>Discover</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <div class="objective"><strong>Objective</strong>Understand business value, build the business case, explore S/4HANA capabilities, decide on edition & implementation approach (Greenfield / Brownfield / Bluefield).</div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h4>Key Activities</h4>
+          <ul>
+            <li>Digital Discovery Assessment (DDA) workshop</li>
+            <li>Trial / sandbox system access &amp; demo</li>
+            <li>Business case &amp; value mapping</li>
+            <li>Edition selection (Public / Private / On-Prem)</li>
+            <li>Approach selection (Greenfield / Brownfield / Bluefield)</li>
+            <li>SAP Readiness Check 2.0 (for conversion scenarios)</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Key Roles</h4>
+          <ul>
+            <li>Customer Sponsor / CIO</li>
+            <li>SAP Account Executive &amp; Solution Advisor</li>
+            <li>Enterprise / Solution Architect</li>
+            <li>Pre-Sales Lead</li>
+            <li>Business Process SMEs</li>
+          </ul>
+        </div>
+      </div>
+
+      <table class="deliverables">
+        <thead><tr><th>Deliverable</th><th>Created By</th><th>Approved By</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Digital Discovery Assessment (DDA)</td><td>SAP / Pre-Sales</td><td>Customer Sponsor</td><td>Output: target solution scope, edition, deployment, roadmap</td></tr>
+          <tr><td>Customer Vision Statement</td><td>Customer + SAP</td><td>Executive Sponsor</td><td>Strategic alignment</td></tr>
+          <tr><td>Business Case</td><td>Customer / Advisory</td><td>CFO / Sponsor</td><td>TCO, value drivers, ROI</td></tr>
+          <tr><td>Solution Roadmap</td><td>Enterprise Architect</td><td>Steering</td><td>Phased adoption plan</td></tr>
+          <tr><td>SAP Readiness Check Report</td><td>Customer / Partner</td><td>Architect</td><td>Conversion only — sizing, custom code, simplification items</td></tr>
+          <tr><td>Statement of Work (SOW)</td><td>SAP / Partner</td><td>Customer</td><td>Commercial &amp; delivery scope</td></tr>
+        </tbody>
+      </table>
+
+      <div class="edition-notes">
+        <div class="edition-note public"><span class="ed-tag">Public Cloud</span>Greenfield only. DDA scopes against standard SAP Best Practices content; rapid 3–6 month implementations. No code migration.</div>
+        <div class="edition-note private"><span class="ed-tag">Private Cloud</span>Greenfield, Brownfield (System Conversion) or Bluefield (Selective Data Transition) all supported. Readiness Check mandatory for conversion.</div>
+        <div class="edition-note onprem"><span class="ed-tag">On-Premise</span>Full flexibility on implementation approach. Customer-provisioned infrastructure sizing required.</div>
+      </div>
+
+      <div class="qgate">
+        <strong>Quality Gate Q1 — Discover Exit</strong>
+        Business case approved · Edition &amp; approach decided · Scope &amp; high-level architecture signed off · SOW executed · Steering Committee approved kickoff.
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2: PREPARE -->
+  <section class="phase" id="phase-prepare">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">PHASE 2</span><h2>Prepare</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <div class="objective"><strong>Objective</strong>Mobilize the team, establish governance, set up the project tooling and infrastructure, plan the sprints.</div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h4>Key Activities</h4>
+          <ul>
+            <li>Project kickoff &amp; team mobilization</li>
+            <li>Set up Cloud ALM / Solution Manager workspace</li>
+            <li>Provision Starter / Sandbox system</li>
+            <li>Define Solution Standardization Board (SSB) charter</li>
+            <li>Define test, OCM, training, cutover strategies</li>
+            <li>Sprint &amp; release planning (Realize horizon)</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Key Roles</h4>
+          <ul>
+            <li>Project Manager / Engagement Lead</li>
+            <li>PMO &amp; Workstream Leads</li>
+            <li>Solution Architect</li>
+            <li>OCM Lead</li>
+            <li>Steering Committee</li>
+          </ul>
+        </div>
+      </div>
+
+      <table class="deliverables">
+        <thead><tr><th>Deliverable</th><th>Created By</th><th>Approved By</th></tr></thead>
+        <tbody>
+          <tr><td>Project Charter</td><td>PM</td><td>Steering Committee</td></tr>
+          <tr><td>Project Plan &amp; Schedule (Cloud ALM)</td><td>PM</td><td>Sponsor</td></tr>
+          <tr><td>Communication &amp; OCM Plan</td><td>PM / OCM Lead</td><td>Sponsor</td></tr>
+          <tr><td>RAID Log</td><td>PM</td><td>Project Team</td></tr>
+          <tr><td>Resource Plan &amp; RACI</td><td>PM</td><td>Sponsor</td></tr>
+          <tr><td>Solution Standardization Board (SSB) Charter</td><td>Solution Architect</td><td>Steering</td></tr>
+          <tr><td>Test Strategy</td><td>Test Lead</td><td>PM</td></tr>
+          <tr><td>Sprint &amp; Release Plan</td><td>Scrum Master / PM</td><td>PM</td></tr>
+          <tr><td>System Landscape Design</td><td>Architect / Basis</td><td>Architect</td></tr>
+        </tbody>
+      </table>
+
+      <div class="edition-notes">
+        <div class="edition-note public"><span class="ed-tag">Public Cloud</span>SAP provisions Starter system within days. SAP Cloud ALM is mandatory. SSB enforces fit-to-standard discipline. Quarterly release calendar pre-defined.</div>
+        <div class="edition-note private"><span class="ed-tag">Private Cloud</span>SAP provisions infrastructure (RISE). Cloud ALM strongly recommended. Customer retains release control with annual upgrade cadence.</div>
+        <div class="edition-note onprem"><span class="ed-tag">On-Premise</span>Customer-provisioned infrastructure (sandbox, dev, QA, prod). Solution Manager 7.2 or Cloud ALM for ALM. Customer controls release strategy.</div>
+      </div>
+
+      <div class="qgate">
+        <strong>Quality Gate Q2 — Prepare Exit</strong>
+        Governance in place · Team onboarded · Tooling set up · Starter/Sandbox system available · Test &amp; OCM strategies signed off.
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3: EXPLORE -->
+  <section class="phase" id="phase-explore">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">PHASE 3</span><h2>Explore</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <div class="objective"><strong>Objective</strong>Conduct Fit-to-Standard workshops, validate the SAP standard against requirements, capture deltas into the backlog, design integrations, extensions and data migration.</div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h4>Key Activities</h4>
+          <ul>
+            <li>Fit-to-Standard (F2S) workshops by Line of Business</li>
+            <li>Demonstrate standard SAP Best Practices content</li>
+            <li>Capture gaps into Backlog in Cloud ALM</li>
+            <li>Design extensions (key-user, developer, side-by-side BTP)</li>
+            <li>Design integrations (Integration Suite / CPI)</li>
+            <li>Data migration mapping &amp; approach</li>
+            <li>Security &amp; Business Role design (S/4HANA roles)</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Key Roles</h4>
+          <ul>
+            <li>Process Lead / Business Process Owner</li>
+            <li>Functional Consultants (per LoB)</li>
+            <li>Solution &amp; Integration Architect</li>
+            <li>Extension Lead</li>
+            <li>Data Migration Lead</li>
+            <li>Security Lead</li>
+          </ul>
+        </div>
+      </div>
+
+      <table class="deliverables">
+        <thead><tr><th>Deliverable</th><th>Created By</th><th>Approved By</th></tr></thead>
+        <tbody>
+          <tr><td>Fit-to-Standard Workshop Outcomes</td><td>Functional Lead</td><td>Process Owner</td></tr>
+          <tr><td>Backlog (User Stories / Requirements in Cloud ALM)</td><td>Functional Team</td><td>Product Owner</td></tr>
+          <tr><td>Solution Design Document</td><td>Solution Architect</td><td>Process Owner</td></tr>
+          <tr><td>Process Flows &amp; Configuration Rationale</td><td>Functional Consultant</td><td>Process Owner</td></tr>
+          <tr><td>Functional Specifications (per gap)</td><td>Functional Consultant</td><td>Process Owner</td></tr>
+          <tr><td>Integration Design (APIs / events / iFlows)</td><td>Integration Architect</td><td>Solution Architect</td></tr>
+          <tr><td>Data Migration Plan &amp; Mapping</td><td>Data Migration Lead</td><td>Business Data Owner</td></tr>
+          <tr><td>Extensibility Design</td><td>Extension Lead</td><td>Solution Architect</td></tr>
+          <tr><td>Security &amp; Business Role Design</td><td>Security Lead</td><td>Process Owner + CISO</td></tr>
+        </tbody>
+      </table>
+
+      <div class="edition-notes">
+        <div class="edition-note public"><span class="ed-tag">Public Cloud</span>Strict fit-to-standard — gaps must be addressed via standard config, key-user extensibility, or BTP side-by-side extensions. <strong>No classic ABAP development possible.</strong> SSB approves any deviation.</div>
+        <div class="edition-note private"><span class="ed-tag">Private Cloud</span>Allows in-app key-user extensibility, classic ABAP (with care, on cloud-compatible "tier-2" model), plus BTP side-by-side. WRICEF still relevant but oriented toward clean core.</div>
+        <div class="edition-note onprem"><span class="ed-tag">On-Premise</span>Full WRICEF (Workflow, Reports, Interfaces, Conversions, Enhancements, Forms). Maximum customization flexibility, but clean-core principles still recommended.</div>
+      </div>
+
+      <div class="qgate">
+        <strong>Quality Gate Q3 — Explore Exit</strong>
+        F2S workshops complete · Backlog signed off · Solution &amp; integration design approved · Data migration &amp; security designs approved · SSB approved all deviations.
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 4: REALIZE -->
+  <section class="phase" id="phase-realize">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">PHASE 4</span><h2>Realize</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <div class="objective"><strong>Objective</strong>Build the solution iteratively in sprints — configure, develop extensions, integrate, test, migrate data, train. Iterate until business sign-off (UAT).</div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h4>Key Activities</h4>
+          <ul>
+            <li>Agile sprints (typically 2–4 weeks)</li>
+            <li>Configuration per backlog item</li>
+            <li>Extension / development build</li>
+            <li>Integration build &amp; iFlow deployment</li>
+            <li>Data migration mock loads (typically 3 cycles)</li>
+            <li>Unit Test → String Test → SIT → UAT</li>
+            <li>Test automation (TAT in Cloud)</li>
+            <li>Training material development</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Test Layers</h4>
+          <ul>
+            <li><strong>Unit Test</strong> — by consultant / developer</li>
+            <li><strong>String Test</strong> — end-to-end within process</li>
+            <li><strong>SIT</strong> — cross-module &amp; cross-system (e.g. SuccessFactors↔S/4, Ariba↔S/4, MM↔FI)</li>
+            <li><strong>Regression / Automation</strong> — TAT or 3rd-party</li>
+            <li><strong>UAT</strong> — business validation by key users</li>
+            <li><strong>Performance / Load Test</strong> — pre-production</li>
+          </ul>
+        </div>
+      </div>
+
+      <table class="deliverables">
+        <thead><tr><th>Deliverable</th><th>Created By</th><th>Approved By</th></tr></thead>
+        <tbody>
+          <tr><td>Configuration Workbook</td><td>Functional Consultant</td><td>Lead Consultant</td></tr>
+          <tr><td>Development / Extension Objects</td><td>Developer / Extension Team</td><td>Tech Lead / Architect</td></tr>
+          <tr><td>Technical Specifications (per gap)</td><td>Technical Consultant</td><td>Solution Architect</td></tr>
+          <tr><td>Transport Requests / Deployment Packages</td><td>Functional + Tech Team</td><td>Release Manager</td></tr>
+          <tr><td>Unit Test Scripts &amp; Evidence</td><td>Consultant / Developer</td><td>Lead Consultant</td></tr>
+          <tr><td>SIT Scenarios, Scripts &amp; Evidence</td><td>Functional + Integration Team</td><td>Test Lead</td></tr>
+          <tr><td>UAT Scenarios, Scripts &amp; Evidence</td><td>Functional + Key Users</td><td>Process Owner</td></tr>
+          <tr><td>UAT Sign-Off</td><td>Customer</td><td>Business Sponsor</td></tr>
+          <tr><td>Data Migration Mock Run Reports</td><td>Data Migration Team</td><td>Business Data Owner</td></tr>
+          <tr><td>Training Materials &amp; QRGs</td><td>Functional Consultant / Training Lead</td><td>Process Owner</td></tr>
+          <tr><td>Cutover Plan (draft)</td><td>PM / Cutover Lead</td><td>PM</td></tr>
+        </tbody>
+      </table>
+
+      <div class="edition-notes">
+        <div class="edition-note public"><span class="ed-tag">Public Cloud</span>SAP <strong>Test Automation Tool (TAT)</strong> is the recommended automation platform. Quarterly upgrades require regression testing of automated scripts. Migration via Migration Cockpit only.</div>
+        <div class="edition-note private"><span class="ed-tag">Private Cloud</span>Mix of manual + automated testing. Migration via Migration Cockpit (LTMC) and/or custom programs. Customer-controlled transport strategy.</div>
+        <div class="edition-note onprem"><span class="ed-tag">On-Premise</span>Customer-driven test automation strategy (Worksoft, Tricentis, Panaya, etc.). Migration via LSMW, LTMC, and custom ABAP programs. Full transport / CTS+ flexibility.</div>
+      </div>
+
+      <div class="qgate">
+        <strong>Quality Gate Q4 — Realize Exit</strong>
+        All sprints complete · UAT signed off · All test layers passed · Data migration validated · Training materials approved · Cutover plan finalized.
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 5: DEPLOY -->
+  <section class="phase" id="phase-deploy">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">PHASE 5</span><h2>Deploy</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <div class="objective"><strong>Objective</strong>Execute the production cutover, go live, stabilize through hypercare.</div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h4>Cutover Activities</h4>
+          <ul>
+            <li>Mock cutovers (typically 3 rehearsals)</li>
+            <li>End-user training &amp; communications</li>
+            <li>Go/No-Go decision meeting</li>
+            <li>Final transports &amp; deployment</li>
+            <li>Production data load (master + open transactions)</li>
+            <li>User &amp; role provisioning</li>
+            <li>Production validation</li>
+            <li>Business sign-off &amp; Go-Live</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Hypercare</h4>
+          <ul>
+            <li>War room / command center</li>
+            <li>Daily status reports</li>
+            <li>Incident triage &amp; resolution</li>
+            <li>Period-end close validation (first close)</li>
+            <li>Hypercare exit criteria review</li>
+            <li>Transition to AMS / steady state</li>
+          </ul>
+        </div>
+      </div>
+
+      <table class="deliverables">
+        <thead><tr><th>Deliverable</th><th>Created By</th><th>Approved By</th></tr></thead>
+        <tbody>
+          <tr><td>Final Cutover Plan</td><td>Cutover Lead / PM</td><td>Customer + Steering</td></tr>
+          <tr><td>Mock Cutover Reports (×3)</td><td>Cutover Team</td><td>PM</td></tr>
+          <tr><td>Go-Live Readiness Assessment</td><td>PM / PMO</td><td>Steering Committee</td></tr>
+          <tr><td>Go / No-Go Decision Record</td><td>Steering</td><td>Sponsor</td></tr>
+          <tr><td>Production Validation Report</td><td>Project Team</td><td>Business Process Owner</td></tr>
+          <tr><td>Go-Live Approval</td><td>Customer</td><td>Business Sponsor</td></tr>
+          <tr><td>Hypercare Plan</td><td>PM / Support Lead</td><td>PM</td></tr>
+          <tr><td>Incident Log &amp; Daily Status Reports</td><td>Support Team / PM</td><td>PM</td></tr>
+          <tr><td>Hypercare Closure Report</td><td>PM</td><td>Customer</td></tr>
+          <tr><td>AMS Transition Plan</td><td>PM / AMS Lead</td><td>Customer</td></tr>
+        </tbody>
+      </table>
+
+      <div class="edition-notes">
+        <div class="edition-note public"><span class="ed-tag">Public Cloud</span>SAP-managed Go-Live activities (system promotion). Hypercare typically 4–8 weeks. Built-in support via Cloud Support model.</div>
+        <div class="edition-note private"><span class="ed-tag">Private Cloud</span>Joint SAP + customer/partner managed. SAP Enterprise Support / MaxAttention available. Hypercare 6–12 weeks typical.</div>
+        <div class="edition-note onprem"><span class="ed-tag">On-Premise</span>Customer/partner-managed Go-Live. Customer responsibility for Basis, OS, DB. Hypercare 8–12 weeks typical, then transition to internal/AMS support.</div>
+      </div>
+
+      <div class="qgate">
+        <strong>Quality Gate Q5 — Deploy Exit</strong>
+        Go-Live successful · Hypercare exit criteria met (incident volume normalized, first close completed) · AMS transition signed off.
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 6: RUN -->
+  <section class="phase" id="phase-run">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">PHASE 6</span><h2>Run</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <div class="objective"><strong>Objective</strong>Operate the solution, adopt SAP releases, continuously improve, expand scope.</div>
+
+      <div class="two-col">
+        <div class="panel">
+          <h4>Run Activities</h4>
+          <ul>
+            <li>Incident, problem &amp; change management (ITIL)</li>
+            <li>Release adoption &amp; regression testing</li>
+            <li>Continuous improvement backlog</li>
+            <li>Periodic health checks (SAP EarlyWatch, etc.)</li>
+            <li>Roadmap reviews against SAP innovation pipeline</li>
+            <li>Roll-outs to additional countries / LoBs</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h4>Operational Reviews</h4>
+          <ul>
+            <li>Monthly Service Reviews</li>
+            <li>Quarterly Business Reviews</li>
+            <li>Yearly Roadmap Refresh</li>
+            <li>License optimization reviews</li>
+          </ul>
+        </div>
+      </div>
+
+      <table class="deliverables">
+        <thead><tr><th>Deliverable</th><th>Created By</th></tr></thead>
+        <tbody>
+          <tr><td>Operations Handbook</td><td>AMS / Support Lead</td></tr>
+          <tr><td>Service Level Agreement (SLA) Tracking</td><td>Service Manager</td></tr>
+          <tr><td>Release Adoption Plan</td><td>Architect / Release Manager</td></tr>
+          <tr><td>Regression Test Pack (kept current)</td><td>Test Lead</td></tr>
+          <tr><td>Continuous Improvement Backlog</td><td>Product Owner</td></tr>
+          <tr><td>Innovation / Roadmap Review</td><td>Architect</td></tr>
+        </tbody>
+      </table>
+
+      <div class="edition-notes">
+        <div class="edition-note public"><span class="ed-tag">Public Cloud</span><strong>Two mandatory releases per year</strong> (1H, 2H). Regression test cycles required. New features auto-available; opt-in via SSB review.</div>
+        <div class="edition-note private"><span class="ed-tag">Private Cloud</span>Customer-scheduled upgrades (typically annual). FPS &amp; SPS levels managed jointly with SAP. Greater control on timing.</div>
+        <div class="edition-note onprem"><span class="ed-tag">On-Premise</span>Customer fully controls release strategy &amp; upgrade timing. SAP support lifecycle dates apply (mainstream maintenance 2040).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CROSS-CUTTING WORKSTREAMS -->
+  <section class="cross" id="workstreams">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">CROSS-CUTTING</span><h2>Workstreams (span all 6 phases)</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <p style="margin-top:0; color:var(--muted); font-size:13px;">SAP Activate workstreams run vertically across the 6 phases. Each has its own lead, deliverables and Q-Gate criteria.</p>
+      <div class="workstreams">
+        <div class="ws-card"><h5>Project Management</h5><p>Governance, planning, RAID, status reporting</p></div>
+        <div class="ws-card"><h5>Solution / Architecture</h5><p>Solution design, SSB, architecture decisions</p></div>
+        <div class="ws-card"><h5>Application Design &amp; Configuration</h5><p>F2S, configuration, business process docs</p></div>
+        <div class="ws-card"><h5>Custom Code / Extensibility</h5><p>WRICEF (on-prem), key-user &amp; BTP side-by-side</p></div>
+        <div class="ws-card"><h5>Integration</h5><p>iFlows on Integration Suite, APIs, events</p></div>
+        <div class="ws-card"><h5>Data Migration</h5><p>Mapping, mock loads, validation, sign-off</p></div>
+        <div class="ws-card"><h5>Testing</h5><p>Strategy, scripts, evidence, automation</p></div>
+        <div class="ws-card"><h5>Security &amp; Authorizations</h5><p>S/4HANA Business Roles, IAS, IPS, segregation of duties</p></div>
+        <div class="ws-card"><h5>Organizational Change Mgmt (OCM)</h5><p>Stakeholder, comms, training, adoption</p></div>
+        <div class="ws-card"><h5>Technical Infrastructure / Basis</h5><p>System provisioning, transports, monitoring</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITION MATRIX -->
+  <section class="cross" id="matrix">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">REFERENCE</span><h2>Edition Comparison Matrix</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Aspect</th>
+            <th class="col-public">Public Cloud</th>
+            <th class="col-private">Private Cloud (RISE)</th>
+            <th class="col-onprem">On-Premise</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Implementation approach</td>
+            <td>Greenfield only</td>
+            <td>Greenfield · Brownfield · Bluefield</td>
+            <td>Greenfield · Brownfield · Bluefield</td>
+          </tr>
+          <tr>
+            <td>Typical duration</td>
+            <td>3–6 months</td>
+            <td>9–18 months</td>
+            <td>12–24 months</td>
+          </tr>
+          <tr>
+            <td>Methodology cadence</td>
+            <td>Strict Activate, fit-to-standard</td>
+            <td>Activate, agile-iterative</td>
+            <td>Activate (flexible / waterfall acceptable)</td>
+          </tr>
+          <tr>
+            <td>ALM tool</td>
+            <td>SAP Cloud ALM (mandatory)</td>
+            <td>SAP Cloud ALM (recommended)</td>
+            <td>Solution Manager 7.2 or Cloud ALM</td>
+          </tr>
+          <tr>
+            <td>Extensibility</td>
+            <td>Key-user + BTP side-by-side only</td>
+            <td>Key-user + classic (clean-core) + BTP</td>
+            <td>Full WRICEF + BTP</td>
+          </tr>
+          <tr>
+            <td>Custom ABAP</td>
+            <td>Not allowed (core)</td>
+            <td>Allowed (cloud-compatible model)</td>
+            <td>Fully allowed</td>
+          </tr>
+          <tr>
+            <td>Release cadence</td>
+            <td>2×/year mandatory (1H/2H)</td>
+            <td>Customer-scheduled (typ. annual)</td>
+            <td>Customer-controlled</td>
+          </tr>
+          <tr>
+            <td>Infrastructure</td>
+            <td>SAP-managed multi-tenant</td>
+            <td>SAP-managed single-tenant (RISE)</td>
+            <td>Customer-provisioned (any IaaS / on-prem)</td>
+          </tr>
+          <tr>
+            <td>Migration tooling</td>
+            <td>Migration Cockpit (LTMC)</td>
+            <td>LTMC · LSMW · custom</td>
+            <td>LSMW · LTMC · custom · DMC</td>
+          </tr>
+          <tr>
+            <td>Testing</td>
+            <td>SAP TAT recommended</td>
+            <td>Mix (manual + automation)</td>
+            <td>Customer choice</td>
+          </tr>
+          <tr>
+            <td>Country / language coverage</td>
+            <td>~42 countries</td>
+            <td>~64 countries, 39 languages</td>
+            <td>~64 countries, 39 languages</td>
+          </tr>
+          <tr>
+            <td>Best fit</td>
+            <td>New entities · subsidiaries · greenfield SMB/MM</td>
+            <td>Enterprises wanting cloud benefits + flexibility</td>
+            <td>Highly customized · complex industry · regulatory</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="cross" id="tools">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">REFERENCE</span><h2>Tools &amp; Accelerators</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <div class="tools-grid">
+        <div class="tool-card"><h5>SAP Cloud ALM</h5><p>Cloud-native ALM: project, requirements, tests, transports, monitoring</p><span class="scope public">Public</span><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>SAP Solution Manager 7.2</h5><p>Traditional ALM for on-premise &amp; hybrid</p><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>SAP Activate Roadmap Viewer (SAP for Me)</h5><p>Official roadmaps, deliverables, accelerators</p><span class="scope public">Public</span><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>SAP Readiness Check 2.0</h5><p>Pre-conversion analysis: sizing, custom code, simplification items</p><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>SAP Best Practices Explorer</h5><p>Preconfigured business scenarios &amp; content</p><span class="scope public">Public</span><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>SAP Migration Cockpit (LTMC)</h5><p>Modern data migration with built-in objects</p><span class="scope public">Public</span><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>Signavio Process Insights / Manager</h5><p>Process mining &amp; transformation analysis</p><span class="scope public">Public</span><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>SAP Test Automation Tool (TAT)</h5><p>Built-in regression automation for Cloud</p><span class="scope public">Public</span></div>
+        <div class="tool-card"><h5>SAP Integration Suite</h5><p>iFlows, APIs, events, B2B integrations</p><span class="scope public">Public</span><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>SAP Build (Apps / Process / Code)</h5><p>Low-code &amp; pro-code extensibility on BTP</p><span class="scope public">Public</span><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+        <div class="tool-card"><h5>Identity Auth / IPS</h5><p>SSO &amp; identity provisioning for cloud</p><span class="scope public">Public</span><span class="scope private">Private</span></div>
+        <div class="tool-card"><h5>LeanIX (SAP)</h5><p>Enterprise architecture &amp; transformation planning</p><span class="scope public">Public</span><span class="scope private">Private</span><span class="scope onprem">On-Prem</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section class="cross" id="glossary">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="left"><span class="phase-num">REFERENCE</span><h2>Glossary &amp; Acronyms</h2></div>
+      <span class="toggle">▼</span>
+    </div>
+    <div class="phase-body">
+      <table class="matrix">
+        <thead><tr><th>Acronym</th><th>Meaning</th><th>Context</th></tr></thead>
+        <tbody>
+          <tr><td>ALM</td><td>Application Lifecycle Management</td><td>Cloud ALM, Solution Manager</td></tr>
+          <tr><td>AMS</td><td>Application Management Services</td><td>Steady-state support after hypercare</td></tr>
+          <tr><td>BPD</td><td>Business Process Document</td><td>Explore / Realize deliverable</td></tr>
+          <tr><td>BTP</td><td>Business Technology Platform</td><td>SAP's PaaS — integration, extensions, data, AI</td></tr>
+          <tr><td>CPI / Integration Suite</td><td>Cloud Platform Integration</td><td>iFlow-based integration on BTP</td></tr>
+          <tr><td>DDA</td><td>Digital Discovery Assessment</td><td>Discover phase intake artefact</td></tr>
+          <tr><td>F2S</td><td>Fit-to-Standard</td><td>Explore phase workshop approach</td></tr>
+          <tr><td>FPS / SPS</td><td>Feature Pack Stack / Support Pack Stack</td><td>Release levels (Private / On-Prem)</td></tr>
+          <tr><td>FS / TS</td><td>Functional / Technical Specification</td><td>Per-gap documentation</td></tr>
+          <tr><td>IAS / IPS</td><td>Identity Authentication Service / Provisioning Service</td><td>BTP identity components</td></tr>
+          <tr><td>LTMC / LTMOM</td><td>Migration Cockpit / Object Modeler</td><td>S/4HANA migration tools</td></tr>
+          <tr><td>OCM</td><td>Organizational Change Management</td><td>Cross-cutting workstream</td></tr>
+          <tr><td>Q-Gate</td><td>Quality Gate</td><td>Phase exit checkpoint (5 in Activate)</td></tr>
+          <tr><td>RAID</td><td>Risks · Assumptions · Issues · Dependencies</td><td>PM log</td></tr>
+          <tr><td>RISE</td><td>RISE with SAP</td><td>Bundled cloud transformation offer</td></tr>
+          <tr><td>SIT / UAT</td><td>System Integration / User Acceptance Test</td><td>Realize phase test layers</td></tr>
+          <tr><td>SSB</td><td>Solution Standardization Board</td><td>Governance body — approves deviations</td></tr>
+          <tr><td>TAT</td><td>Test Automation Tool</td><td>SAP-provided test automation</td></tr>
+          <tr><td>WRICEF</td><td>Workflow · Reports · Interfaces · Conversions · Enhancements · Forms</td><td>Custom development catalog (Private / On-Prem)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  SAP S/4HANA Activate Methodology — Reference one-pager. Editions: Public Cloud · Private Cloud (RISE) · On-Premise.
+</footer>
+
+<script>
+  function togglePhase(headerEl) { headerEl.parentElement.classList.toggle('collapsed'); }
+  function expandAll()   { document.querySelectorAll('section.phase, section.cross').forEach(s => s.classList.remove('collapsed')); }
+  function collapseAll() { document.querySelectorAll('section.phase, section.cross').forEach(s => s.classList.add('collapsed')); }
+
+  // Edition filter
+  const filterButtons = document.querySelectorAll('.edition-bar button[data-edition]');
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const ed = btn.dataset.edition;
+      document.body.className = 'filter-' + ed;
+    });
+  });
+
+  // Search
+  const searchInput = document.getElementById('search');
+  searchInput.addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    document.querySelectorAll('section.phase, section.cross').forEach(sec => {
+      sec.querySelectorAll('.hit').forEach(h => {
+        const t = document.createTextNode(h.textContent);
+        h.parentNode.replaceChild(t, h);
+      });
+      if (!q) { sec.style.opacity = ''; return; }
+      const text = sec.textContent.toLowerCase();
+      if (text.includes(q)) {
+        sec.style.opacity = '';
+        sec.classList.remove('collapsed');
+        sec.querySelectorAll('td, .objective, .panel li, .edition-note, .tool-card, .ws-card').forEach(el => {
+          highlight(el, q);
+        });
+      } else {
+        sec.style.opacity = '0.25';
+      }
+    });
+  });
+  function highlight(node, q) {
+    if (node.nodeType === 3) {
+      const idx = node.nodeValue.toLowerCase().indexOf(q);
+      if (idx >= 0) {
+        const before = node.nodeValue.slice(0, idx);
+        const match = node.nodeValue.slice(idx, idx + q.length);
+        const after = node.nodeValue.slice(idx + q.length);
+        const span = document.createElement('span');
+        span.className = 'hit';
+        span.textContent = match;
+        const parent = node.parentNode;
+        parent.insertBefore(document.createTextNode(before), node);
+        parent.insertBefore(span, node);
+        parent.insertBefore(document.createTextNode(after), node);
+        parent.removeChild(node);
+      }
+    } else if (node.nodeType === 1 && !['SCRIPT','STYLE'].includes(node.tagName)) {
+      Array.from(node.childNodes).forEach(c => highlight(c, q));
+    }
+  }
+
+  // Active TOC link on scroll
+  const tocLinks = document.querySelectorAll('nav.toc a');
+  const targets = Array.from(tocLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  function updateActive() {
+    const y = window.scrollY + 130;
+    let current = '';
+    targets.forEach(t => { if (t.offsetTop <= y) current = t.id; });
+    tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  }
+  window.addEventListener('scroll', updateActive);
+  updateActive();
+</script>
+</body>
+</html>
