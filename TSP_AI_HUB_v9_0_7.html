@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TSP AI Hub</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script><script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script><script>
 /* nav + navTo — defined in isolated early script so onclick handlers always resolve
    regardless of whether the main script block has a parse/runtime error */
 
@@ -53,7 +54,8 @@ function navTo(pageKey, parentKey) {
     'workshop-schedule':     'wsInit',
     'raci-matrix':           'raciInit',
     'functional-spec-hub':   'fshInit',
-    'security-role-hub':     'srInit'
+    'security-role-hub':     'srInit',
+    'unit-test-hub':         'uthInit'
   };
   var fn = initFns[pageKey];
   if (fn && typeof window[fn] === 'function') {
@@ -1604,7 +1606,7 @@ window.navTo = navTo;
     </div>
 
     <div class="nav-item" data-page="test-genius" onclick="nav(this)">
-      <span class="ni">🧬</span>Test Genius +
+      <span class="ni">🧬</span>Aria Test
     </div>
 
   </nav>
@@ -1621,17 +1623,17 @@ window.navTo = navTo;
       <div class="home-hero-inner">
         <div class="home-hero-logomark">✦</div>
         <div class="home-hero-text">
-          <div class="home-hero-eyebrow">TSP AI Hub &nbsp;·&nbsp; Powered by TSP Aria</div>
+          <div class="home-hero-eyebrow">TSP AI Hub &nbsp;·&nbsp; Powered by Aria for Config</div>
           <div class="home-hero-title">Your AI-Powered SAP<br>Delivery Platform</div>
           <div class="home-hero-tagline">
-            <strong>TSP's AI knowledgebase, agents and AI assisted project delivery with TSP Aria</strong> —
+            <strong>TSP's AI knowledgebase, agents and AI assisted project delivery with Aria for Config</strong> —
             combining deep SAP expertise with intelligent automation to accelerate every stage of your engagement.
           </div>
           <div class="home-pillars">
             <div class="home-pillar"><div class="home-pillar-dot sky"></div>AI Knowledgebase</div>
             <div class="home-pillar"><div class="home-pillar-dot green"></div>Intelligent Agents</div>
             <div class="home-pillar"><div class="home-pillar-dot amber"></div>AI-Assisted Delivery</div>
-            <div class="home-pillar"><div class="home-pillar-dot" style="background:#ce93d8;"></div>TSP Aria</div>
+            <div class="home-pillar"><div class="home-pillar-dot" style="background:#ce93d8;"></div>Aria for Config</div>
           </div>
         </div>
       </div>
@@ -1714,9 +1716,9 @@ window.navTo = navTo;
       <div style="margin-top:28px;background:var(--bg-white);border:1px solid var(--border);border-left:4px solid var(--tsp-blue);border-radius:9px;padding:16px 20px;display:flex;align-items:flex-start;gap:14px;">
         <div style="font-size:22px;flex-shrink:0;margin-top:1px;">✦</div>
         <div>
-          <div style="font-size:12.5px;font-weight:700;color:var(--tsp-blue);margin-bottom:4px;">About TSP Aria</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--tsp-blue);margin-bottom:4px;">About Aria for Config</div>
           <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">
-            TSP Aria is TSP's proprietary AI layer embedded throughout the Hub — drawing on TSP's accumulated SAP delivery knowledgebase, intelligent agents, and project accelerators to support your team at every phase, from pre-sales through to HyperCare. Select any workspace above to get started, or open <span onclick="navTo('ai-assistant')" style="color:var(--tsp-blue);font-weight:600;cursor:pointer;">TSP Aria directly ↗</span>
+            Aria for Config is TSP's proprietary AI layer embedded throughout the Hub — drawing on TSP's accumulated SAP delivery knowledgebase, intelligent agents, and project accelerators to support your team at every phase, from pre-sales through to HyperCare. Select any workspace above to get started, or open <span onclick="navTo('ai-assistant')" style="color:var(--tsp-blue);font-weight:600;cursor:pointer;">Aria for Config directly ↗</span>
           </div>
         </div>
       </div>
@@ -2514,7 +2516,7 @@ window.navTo = navTo;
           <div class="ps-card-title">🏗️ SAP Enterprise Structure</div>
           <p style="font-size:12.5px;color:var(--text-muted);line-height:1.6;margin-bottom:14px;">
             Import the SAP Enterprise Structure Template to register your client&#x2019;s org units (Company Codes, Plants, Sales Orgs, etc.).
-            The data is editable at any time throughout the project and drives downstream tools such as Process Atlas, Test Genius Plus, and the Cutover Hub.
+            The data is editable at any time throughout the project and drives downstream tools such as Process Atlas, Aria Test, and the Cutover Hub.
           </p>
 
           <!-- Import zone -->
@@ -3239,8 +3241,8 @@ window.navTo = navTo;
     
     <div class="page-header">
       <div>
-        <div class="page-title">TSP Aria</div>
-        <div class="page-subtitle">Intelligent delivery automation powered by TSP Aria</div>
+        <div class="page-title">Aria for Config</div>
+        <div class="page-subtitle">Intelligent delivery automation powered by Aria for Config</div>
       </div>
       <button class="new-btn">＋ New</button>
     </div>
@@ -3257,7 +3259,6 @@ window.navTo = navTo;
         <div class="tile t-green"><div class="tile-icon ic-green">📋</div><div class="tile-text"><div class="tile-name">Process Scope List</div><div class="tile-desc">In-scope business processes</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-amber" onclick="navTo('project-key-users','project-exec')"><div class="tile-icon ic-amber">👥</div><div class="tile-text"><div class="tile-name">Project Key User List</div><div class="tile-desc">Team directory · contacts · project roles</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-indigo" onclick="navTo('data-objects','project-exec')"><div class="tile-icon ic-indigo">🗃️</div><div class="tile-text"><div class="tile-name">Data Objects List</div><div class="tile-desc">Master data object register</div></div><div class="tile-arrow">↗</div></div>
-        <div class="tile t-teal"><div class="tile-icon ic-teal">📊</div><div class="tile-text"><div class="tile-name">Test Management</div><div class="tile-desc">Test planning and execution</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-blue" onclick="navTo('project-raci','project-exec')"><div class="tile-icon ic-blue">📈</div><div class="tile-text"><div class="tile-name">Project RACI Matrix</div><div class="tile-desc">Roles and responsibilities matrix</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-orange" onclick="navTo('aria-raid','project-exec')"><div class="tile-icon ic-orange">⚠️</div><div class="tile-text"><div class="tile-name">RAID Log</div><div class="tile-desc">Risks · Actions · Issues · Decisions — AI-powered</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-blue"><div class="tile-icon ic-blue">📰</div><div class="tile-text"><div class="tile-name">Project Status Report</div><div class="tile-desc">Weekly status and progress updates</div></div><div class="tile-arrow">↗</div></div>
@@ -3298,8 +3299,8 @@ window.navTo = navTo;
         <div class="tile t-red" onclick="navTo('aria-defects','project-exec')"><div class="tile-icon ic-red">🐛</div><div class="tile-text"><div class="tile-name">Defect Management</div><div class="tile-desc">AI-powered defect tracking with resolution engine</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-purple" onclick="navTo('aria-gen-docs','project-exec')"><div class="tile-icon ic-purple">📄</div><div class="tile-text"><div class="tile-name">Test Documents</div><div class="tile-desc">AI-generated test documents</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-teal"><div class="tile-icon ic-teal">💻</div><div class="tile-text"><div class="tile-name">Developer Assistant</div><div class="tile-desc">AI-assisted SAP development support</div></div><div class="tile-arrow">↗</div></div>
-        <div class="tile t-orange"><div class="tile-icon ic-orange">🤖</div><div class="tile-text"><div class="tile-name">TSP Aria</div><div class="tile-desc">Intelligent delivery automation</div></div><div class="tile-arrow">↗</div></div>
-        <div class="tile t-green"><div class="tile-icon ic-green">✔️</div><div class="tile-text"><div class="tile-name">TSP Unit Test Hub</div><div class="tile-desc">Unit testing and validation</div></div><div class="tile-arrow">↗</div></div>
+        <div class="tile t-orange" onclick="navTo('aria-config-hub','project-exec')"><div class="tile-icon ic-orange">🤖</div><div class="tile-text"><div class="tile-name">Aria for Config</div><div class="tile-desc">Intelligent delivery automation</div></div><div class="tile-arrow">↗</div></div>
+        <div class="tile t-green" onclick="navTo('unit-test-hub','project-exec')"><div class="tile-icon ic-green">✔️</div><div class="tile-text"><div class="tile-name">Unit Test Hub</div><div class="tile-desc">3-stage unit test lifecycle with agentic notifications</div></div><div class="tile-arrow">↗</div></div>
       </div>
 
       <div class="phase-label" style="margin-top:28px;">Deploy Phase</div>
@@ -3342,7 +3343,7 @@ window.navTo = navTo;
   <div class="page" id="page-aria-extract-upload">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('project-exec')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">TSP Aria</span>
+        <span onclick="navTo('project-exec')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria for Config</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Extract / Upload Data</div>
@@ -3455,7 +3456,7 @@ window.navTo = navTo;
   <div class="page" id="page-aria-scenarios">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('project-exec')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">TSP Aria</span>
+        <span onclick="navTo('project-exec')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria for Config</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Test Scenario Hub</div>
@@ -3547,7 +3548,7 @@ window.navTo = navTo;
   <div class="page" id="page-aria-scripts">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('project-exec')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">TSP Aria</span>
+        <span onclick="navTo('project-exec')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria for Config</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Test Script Hub</div>
@@ -3658,7 +3659,7 @@ window.navTo = navTo;
   <div class="page" id="page-aria-gen-docs">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('project-exec')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">TSP Aria</span>
+        <span onclick="navTo('project-exec')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria for Config</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Test Documents</div>
@@ -3725,7 +3726,7 @@ window.navTo = navTo;
       <div class="ov-header-top">
         <div>
           <div class="ov-breadcrumb">
-            <a id="ovBreadcrumbLink" onclick="navBack()">TSP Aria</a>
+            <a id="ovBreadcrumbLink" onclick="navBack()">Aria for Config</a>
             <span style="opacity:.4">/</span>
             Milestone Project Plan
           </div>
@@ -4071,7 +4072,7 @@ window.navTo = navTo;
       <div class="ov-header-top">
         <div>
           <div class="ov-breadcrumb">
-            <a onclick="navTo('project-exec')">TSP Aria</a>
+            <a onclick="navTo('project-exec')">Aria for Config</a>
             <span style="opacity:.4">/</span>
             <a onclick="navTo('project-overview')">Milestone Project Plan</a>
             <span style="opacity:.4">/</span>
@@ -4887,7 +4888,7 @@ window.navTo = navTo;
   <div class="page" id="page-test-genius">
     <div class="page-header">
       <div>
-        <div class="page-title">Test Genius +</div>
+        <div class="page-title">Aria Test</div>
         <div class="page-subtitle">AI-powered test scenario and script generation for SAP transformations</div>
       </div>
       <button class="new-btn" onclick="navTo('tg-setup')">＋ New Connection</button>
@@ -4898,7 +4899,7 @@ window.navTo = navTo;
       <div style="background:var(--tsp-blue-light);border:1px solid var(--border);border-left:4px solid var(--tsp-blue);border-radius:10px;padding:16px 20px;margin-bottom:24px;display:flex;align-items:center;gap:14px;">
         <span style="font-size:22px;">🔄</span>
         <div>
-          <div style="font-size:12.5px;font-weight:700;color:var(--tsp-blue);margin-bottom:3px;">Test Genius + Lifecycle</div>
+          <div style="font-size:12.5px;font-weight:700;color:var(--tsp-blue);margin-bottom:3px;">Aria Test Lifecycle</div>
           <div style="font-size:11.5px;color:var(--text-muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
             <span style="background:var(--tsp-blue);color:#fff;border-radius:20px;padding:2px 10px;font-weight:700;font-size:10.5px;">1</span><span>Extract / Upload Data</span>
             <span style="color:var(--border);">→</span>
@@ -4924,7 +4925,7 @@ window.navTo = navTo;
         <div class="tile t-blue" onclick="navTo('tg-setup','test-genius')" style="border-top-color:var(--tsp-blue);">
           <div class="tile-icon ic-blue" style="background:var(--tsp-blue-light);">⚙️</div>
           <div class="tile-text">
-            <div class="tile-name">Test Genius + Setup</div>
+            <div class="tile-name">Aria Test Setup</div>
             <div class="tile-desc">Connect to your ECC or S/4HANA system and configure extraction settings</div>
           </div>
           <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
@@ -5040,7 +5041,7 @@ window.navTo = navTo;
   <div class="page" id="page-tg-testing-plan">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Genius +</span>
+        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria Test</span>
         <span style="color:var(--border);">›</span>
         <span style="font-size:12px;color:var(--text-muted);font-weight:500;">Project</span>
         <span style="color:var(--border);">›</span>
@@ -5496,7 +5497,7 @@ window.navTo = navTo;
   <div class="page" id="page-tg-extract-upload">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Genius +</span>
+        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria Test</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Extract / Upload Data</div>
@@ -5669,7 +5670,7 @@ window.navTo = navTo;
   <div class="page" id="page-tg-gen-docs">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Genius +</span>
+        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria Test</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Generated Documents</div>
@@ -5760,7 +5761,7 @@ window.navTo = navTo;
   <div class="page" id="page-tg-setup">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Genius +</span>
+        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria Test</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">System Setup</div>
@@ -5934,7 +5935,7 @@ window.navTo = navTo;
       <!-- SharePoint Configuration -->
       <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:24px;">
         <div style="font-size:13px;font-weight:700;color:var(--tsp-blue);margin-bottom:6px;">SharePoint Output Configuration</div>
-        <div style="font-size:11.5px;color:var(--text-muted);margin-bottom:18px;">Specify where Test Genius + should publish generated scenarios and scripts.</div>
+        <div style="font-size:11.5px;color:var(--text-muted);margin-bottom:18px;">Specify where Aria Test should publish generated scenarios and scripts.</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
           <div>
             <label style="font-size:11.5px;font-weight:600;color:var(--text-primary);display:block;margin-bottom:6px;">Test Scenarios SharePoint URL</label>
@@ -5954,7 +5955,7 @@ window.navTo = navTo;
   <div class="page" id="page-tg-scenarios">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Genius +</span>
+        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria Test</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Test Scenario Hub</div>
@@ -6089,7 +6090,7 @@ window.navTo = navTo;
   <div class="page" id="page-tg-scenario-detail">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Genius +</span>
+        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria Test</span>
         <span style="color:var(--border);">›</span>
         <span onclick="navTo('tg-scenarios')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Scenarios</span>
         <span style="color:var(--border);">›</span>
@@ -6149,7 +6150,7 @@ window.navTo = navTo;
       <div style="background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:10px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
         <div>
           <div style="font-size:12.5px;font-weight:700;color:var(--tsp-blue);">Ready to generate test scripts?</div>
-          <div style="font-size:11.5px;color:var(--text-muted);margin-top:3px;">Test Genius + can automatically generate detailed step-by-step test scripts for this scenario.</div>
+          <div style="font-size:11.5px;color:var(--text-muted);margin-top:3px;">Aria Test can automatically generate detailed step-by-step test scripts for this scenario.</div>
         </div>
         <button onclick="navTo('tg-scripts','test-genius')" style="background:var(--tsp-blue);color:#fff;border:none;padding:10px 22px;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;">🧬 Generate Scripts →</button>
       </div>
@@ -6160,7 +6161,7 @@ window.navTo = navTo;
   <div class="page" id="page-tg-scripts">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Genius +</span>
+        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria Test</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Test Script Hub</div>
@@ -6520,7 +6521,7 @@ window.navTo = navTo;
               <div style="display:flex;gap:8px;margin-bottom:10px;">
                 <button class="aw-tab-btn active" id="awts-tab-paste" onclick="awToggleTab('ts','paste')">📝 Paste Text</button>
                 <button class="aw-tab-btn" id="awts-tab-upload" onclick="awToggleTab('ts','upload')">📎 Upload File</button>
-                <button class="aw-tab-btn" id="awts-tab-aria" onclick="awToggleTab('ts','aria')">🔗 TSP Aria Scope</button>
+                <button class="aw-tab-btn" id="awts-tab-aria" onclick="awToggleTab('ts','aria')">🔗 Aria for Config Scope</button>
               </div>
               <div id="awts-src-paste">
                 <textarea class="aw-textarea" id="awts-paste-text" placeholder="Paste Process Design Document or FSD content here..."></textarea>
@@ -6536,8 +6537,8 @@ window.navTo = navTo;
               </div>
               <div id="awts-src-aria" style="display:none;">
                 <div style="background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12.5px;color:var(--text-primary);">
-                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from TSP Aria</div>
-                  <div style="color:var(--text-muted);">The agent will read process scope and requirements from the active project in TSP Aria based on your project context above.</div>
+                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from Aria for Config</div>
+                  <div style="color:var(--text-muted);">The agent will read process scope and requirements from the active project in Aria for Config based on your project context above.</div>
                 </div>
               </div>
             </div>
@@ -6586,7 +6587,7 @@ window.navTo = navTo;
           <!-- ── TEST SCRIPT FORM ── -->
           <div id="awf-test_scripts" class="aw-form-panel" style="display:none;">
             <div class="aw-form-title">📋 Test Script Generator</div>
-            <div class="aw-form-desc">Generate an ad hoc test script from a reference document. The output will be a formatted Word or PDF document. For bulk scripts across many scenarios, use the Test Script Hub in Test Genius+.</div>
+            <div class="aw-form-desc">Generate an ad hoc test script from a reference document. The output will be a formatted Word or PDF document. For bulk scripts across many scenarios, use the Test Script Hub in Aria Test.</div>
 
             <div class="aw-field-group">
               <label class="aw-label">Source Document</label>
@@ -6631,7 +6632,7 @@ window.navTo = navTo;
             </div>
 
             <div style="background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:12px;color:var(--text-muted);">
-              💡 <strong>Generating multiple scripts?</strong> Use the <span onclick="navTo('tg-scripts','test-genius')" style="color:var(--tsp-blue);cursor:pointer;font-weight:600;">Test Script Hub in Test Genius+ →</span> for bulk generation from approved scenarios.
+              💡 <strong>Generating multiple scripts?</strong> Use the <span onclick="navTo('tg-scripts','test-genius')" style="color:var(--tsp-blue);cursor:pointer;font-weight:600;">Test Script Hub in Aria Test →</span> for bulk generation from approved scenarios.
             </div>
 
             <button class="aw-run-btn" onclick="awRunAgent('test_scripts')">📋 Generate Test Script</button>
@@ -6832,7 +6833,7 @@ window.navTo = navTo;
               <div style="display:flex;gap:8px;margin-bottom:10px;">
                 <button class="aw-tab-btn active" id="awtd-tab-paste" onclick="awToggleTab('td','paste')">📝 Paste Text</button>
                 <button class="aw-tab-btn" id="awtd-tab-upload" onclick="awToggleTab('td','upload')">📎 Upload File</button>
-                <button class="aw-tab-btn" id="awtd-tab-aria" onclick="awToggleTab('td','aria')">🔗 TSP Aria Scope</button>
+                <button class="aw-tab-btn" id="awtd-tab-aria" onclick="awToggleTab('td','aria')">🔗 Aria for Config Scope</button>
               </div>
               <div id="awtd-src-paste">
                 <textarea class="aw-textarea" id="awtd-paste-text" placeholder="Paste process documentation, BPP, FSD, or training requirements here..."></textarea>
@@ -6848,8 +6849,8 @@ window.navTo = navTo;
               </div>
               <div id="awtd-src-aria" style="display:none;">
                 <div style="background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12.5px;">
-                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from TSP Aria</div>
-                  <div style="color:var(--text-muted);">Process scope, requirements, and FSDs will be read from the active project in TSP Aria based on your context above.</div>
+                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from Aria for Config</div>
+                  <div style="color:var(--text-muted);">Process scope, requirements, and FSDs will be read from the active project in Aria for Config based on your context above.</div>
                 </div>
               </div>
             </div>
@@ -6903,7 +6904,7 @@ window.navTo = navTo;
               <div style="display:flex;gap:8px;margin-bottom:10px;">
                 <button class="aw-tab-btn active" id="awpd-tab-paste" onclick="awToggleTab('pd','paste')">📝 Paste Text</button>
                 <button class="aw-tab-btn" id="awpd-tab-upload" onclick="awToggleTab('pd','upload')">📎 Upload File</button>
-                <button class="aw-tab-btn" id="awpd-tab-aria" onclick="awToggleTab('pd','aria')">🔗 TSP Aria Scope</button>
+                <button class="aw-tab-btn" id="awpd-tab-aria" onclick="awToggleTab('pd','aria')">🔗 Aria for Config Scope</button>
               </div>
               <div id="awpd-src-paste">
                 <textarea class="aw-textarea" id="awpd-paste-text" placeholder="Paste scope list, requirements, or PDD input content here..."></textarea>
@@ -6919,7 +6920,7 @@ window.navTo = navTo;
               </div>
               <div id="awpd-src-aria" style="display:none;">
                 <div style="background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12.5px;">
-                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from TSP Aria</div>
+                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from Aria for Config</div>
                   <div style="color:var(--text-muted);">Process scope, requirements, and linked FSDs will be read from the active project.</div>
                 </div>
               </div>
@@ -6962,7 +6963,7 @@ window.navTo = navTo;
               <div style="display:flex;gap:8px;margin-bottom:10px;">
                 <button class="aw-tab-btn active" id="awbp-tab-paste" onclick="awToggleTab('bp','paste')">📝 Paste Text</button>
                 <button class="aw-tab-btn" id="awbp-tab-upload" onclick="awToggleTab('bp','upload')">📎 Upload File</button>
-                <button class="aw-tab-btn" id="awbp-tab-aria" onclick="awToggleTab('bp','aria')">🔗 TSP Aria Scope</button>
+                <button class="aw-tab-btn" id="awbp-tab-aria" onclick="awToggleTab('bp','aria')">🔗 Aria for Config Scope</button>
               </div>
               <div id="awbp-src-paste">
                 <textarea class="aw-textarea" id="awbp-paste-text" placeholder="Paste scope list, requirements, FSDs, or BPP input content here..."></textarea>
@@ -6978,8 +6979,8 @@ window.navTo = navTo;
               </div>
               <div id="awbp-src-aria" style="display:none;">
                 <div style="background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12.5px;">
-                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from TSP Aria</div>
-                  <div style="color:var(--text-muted);">Process scope, requirements, and FSDs will be read from the active project in TSP Aria.</div>
+                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from Aria for Config</div>
+                  <div style="color:var(--text-muted);">Process scope, requirements, and FSDs will be read from the active project in Aria for Config.</div>
                 </div>
               </div>
             </div>
@@ -7075,13 +7076,13 @@ window.navTo = navTo;
             <div class="aw-field-group">
               <label class="aw-label">Process Scope & RICEFW Source</label>
               <div style="display:flex;gap:8px;margin-bottom:10px;">
-                <button class="aw-tab-btn active" id="awua-tab-aria" onclick="awToggleTab('ua','aria')">🔗 TSP Aria Project</button>
+                <button class="aw-tab-btn active" id="awua-tab-aria" onclick="awToggleTab('ua','aria')">🔗 Aria for Config Project</button>
                 <button class="aw-tab-btn" id="awua-tab-upload" onclick="awToggleTab('ua','upload')">📎 Upload Scope File</button>
                 <button class="aw-tab-btn" id="awua-tab-paste" onclick="awToggleTab('ua','paste')">📝 Paste Content</button>
               </div>
               <div id="awua-src-aria">
                 <div style="background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12.5px;">
-                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from TSP Aria Project</div>
+                  <div style="font-weight:600;margin-bottom:6px;">📡 Reading from Aria for Config Project</div>
                   <div style="color:var(--text-muted);">Process scope, RICEFW register, and FSDs will be read from the active project based on your context selection above.</div>
                 </div>
               </div>
@@ -7792,7 +7793,7 @@ window.navTo = navTo;
     <div class="page-header">
       <div>
         <div class="page-title">Transformation Command Center</div>
-        <div class="page-subtitle">Live aggregation across all TSP Aria modules — read-only</div>
+        <div class="page-subtitle">Live aggregation across all Aria for Config modules — read-only</div>
       </div>
       <div style="display:flex;gap:10px;align-items:center;">
         <select style="padding:7px 12px;border:1px solid var(--border);border-radius:7px;font-size:12.5px;color:var(--text-primary);">
@@ -8027,7 +8028,7 @@ window.navTo = navTo;
       <div class="ov-header-top">
         <div>
           <div class="ov-breadcrumb">
-            <span onclick="navTo('project-exec')" style="cursor:pointer;">TSP Aria</span>
+            <span onclick="navTo('project-exec')" style="cursor:pointer;">Aria for Config</span>
             <span style="opacity:.4;margin:0 4px;">/</span>
             Key Design Decisions
           </div>
@@ -8232,7 +8233,7 @@ window.navTo = navTo;
       <div class="ov-header-top">
         <div>
           <div class="ov-breadcrumb">
-            <span onclick="navTo('project-exec')" style="cursor:pointer;">TSP Aria</span>
+            <span onclick="navTo('project-exec')" style="cursor:pointer;">Aria for Config</span>
             <span style="opacity:.4;margin:0 4px;">/</span>
             Defect Management
           </div>
@@ -8420,7 +8421,7 @@ window.navTo = navTo;
       </div>
     </div>
     <div class="page-body">
-      <div class="breadcrumb-link" onclick="navTo('project-exec')">← TSP Aria</div>
+      <div class="breadcrumb-link" onclick="navTo('project-exec')">← Aria for Config</div>
 
       <!-- Readiness Score strip -->
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px;">
@@ -8655,7 +8656,7 @@ window.navTo = navTo;
       <div class="ov-header-top">
         <div>
           <div class="ov-breadcrumb">
-            <span onclick="navTo('project-exec')" style="cursor:pointer;">TSP Aria</span>
+            <span onclick="navTo('project-exec')" style="cursor:pointer;">Aria for Config</span>
             <span style="opacity:.4;margin:0 4px;">/</span>
             RAID Log
           </div>
@@ -8976,7 +8977,7 @@ window.navTo = navTo;
   <div class="page" id="page-tg-execution">
     <div class="page-header">
       <div style="display:flex;align-items:center;gap:12px;">
-        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Test Genius +</span>
+        <span onclick="navTo('test-genius')" style="font-size:12px;color:var(--text-muted);cursor:pointer;font-weight:500;">Aria Test</span>
         <span style="color:var(--border);">›</span>
         <div>
           <div class="page-title">Test Execution Hub</div>
@@ -9477,10 +9478,10 @@ window.navTo = navTo;
           <div style="font-size:28px;flex-shrink:0;">🔬</div>
           <div style="flex:1;">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-              <div style="font-size:14px;font-weight:700;color:var(--tsp-blue);">TSP Aria Automated Execution Engine</div>
+              <div style="font-size:14px;font-weight:700;color:var(--tsp-blue);">Aria for Config Automated Execution Engine</div>
               <span style="background:var(--tsp-blue);color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px;">V2.0 — Planned</span>
             </div>
-            <div style="font-size:12.5px;color:var(--text-primary);line-height:1.6;margin-bottom:10px;">Run test scripts <strong>directly against your connected SAP system</strong> without a third-party automation tool. TSP Aria will orchestrate execution against S/4HANA or Cloud, capture results automatically, raise defects on failure, and sync everything to Cloud ALM — with no manual result recording required.</div>
+            <div style="font-size:12.5px;color:var(--text-primary);line-height:1.6;margin-bottom:10px;">Run test scripts <strong>directly against your connected SAP system</strong> without a third-party automation tool. Aria for Config will orchestrate execution against S/4HANA or Cloud, capture results automatically, raise defects on failure, and sync everything to Cloud ALM — with no manual result recording required.</div>
             <div style="display:flex;gap:20px;font-size:11.5px;color:var(--text-muted);">
               <span>✓ SAP GUI &amp; Fiori execution</span>
               <span>✓ AI-powered result validation</span>
@@ -9585,7 +9586,7 @@ This may indicate the automated test script needs updating or the manual executi
         </div>
         <div class="table-wrap">
           <table class="data-table">
-            <thead><tr><th>Defect ID</th><th>Cloud ALM Defect</th><th>Title</th><th>Linked Script</th><th>Severity</th><th>TSP Aria Status</th><th>ALM Status</th><th>Sync</th><th>Days Open</th></tr></thead>
+            <thead><tr><th>Defect ID</th><th>Cloud ALM Defect</th><th>Title</th><th>Linked Script</th><th>Severity</th><th>Aria for Config Status</th><th>ALM Status</th><th>Sync</th><th>Days Open</th></tr></thead>
             <tbody>
               <tr>
                 <td style="font-weight:700;color:var(--tsp-blue);cursor:pointer;" onclick="navTo('aria-defects')">DEF-041 ↗</td>
@@ -9635,7 +9636,7 @@ This may indicate the automated test script needs updating or the manual executi
       <div class="ov-header-top">
         <div>
           <div class="ov-breadcrumb">
-            <span onclick="navTo('project-exec')" style="cursor:pointer;">TSP Aria</span>
+            <span onclick="navTo('project-exec')" style="cursor:pointer;">Aria for Config</span>
             <span style="opacity:.4;margin:0 4px;">/</span> Development Intelligence
           </div>
           <div class="ov-project-title">BAC Global Template Greenfield Project</div>
@@ -10134,7 +10135,7 @@ This may indicate the automated test script needs updating or the manual executi
     <div class="ov-header" style="flex-shrink:0;">
       <div class="ov-header-top">
         <div>
-          <div class="ov-breadcrumb"><span onclick="navTo('project-exec')" style="cursor:pointer;">TSP Aria</span><span style="opacity:.4;margin:0 4px;">/</span>Run Stabilization</div>
+          <div class="ov-breadcrumb"><span onclick="navTo('project-exec')" style="cursor:pointer;">Aria for Config</span><span style="opacity:.4;margin:0 4px;">/</span>Run Stabilization</div>
           <div class="ov-project-title">BAC Global Template Greenfield Project</div>
           <div class="ov-scope">Post-Go-Live Stabilization · S/4HANA 2023 Public Cloud · Go-Live: Jul 17, 2026</div>
         </div>
@@ -10567,7 +10568,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
       <div class="ov-header-top">
         <div>
           <div class="ov-breadcrumb">
-            <span onclick="navTo('project-exec')" style="cursor:pointer;">TSP Aria</span>
+            <span onclick="navTo('project-exec')" style="cursor:pointer;">Aria for Config</span>
             <span style="opacity:.4;margin:0 4px;">/</span>
             Project Key User List
           </div>
@@ -10758,7 +10759,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
       <div class="ov-header-top">
         <div>
           <div class="ov-breadcrumb">
-            <span id="dol-breadcrumb-parent" onclick="dolBack()" style="cursor:pointer;">TSP Aria</span>
+            <span id="dol-breadcrumb-parent" onclick="dolBack()" style="cursor:pointer;">Aria for Config</span>
             <span style="opacity:.4;margin:0 4px;">/</span>
             Data Objects List
           </div>
@@ -11023,7 +11024,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
   <div class="ov-header" style="flex-shrink:0;">
     <div>
       <div class="ov-breadcrumb">
-        <span style="cursor:pointer;" onclick="navTo('project-exec')">TSP Aria</span>
+        <span style="cursor:pointer;" onclick="navTo('project-exec')">Aria for Config</span>
         <span> / </span>
         <span>Data Migration Hub</span>
       </div>
@@ -11392,7 +11393,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
     <div class="ov-header" style="flex-shrink:0;">
       <div>
         <div class="ov-breadcrumb">
-          <span style="cursor:pointer;" onclick="navTo('project-exec')">TSP Aria</span>
+          <span style="cursor:pointer;" onclick="navTo('project-exec')">Aria for Config</span>
           <span> / </span>
           <span>Project RACI Matrix</span>
         </div>
@@ -11609,7 +11610,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
     <div class="ov-header" style="flex-shrink:0;">
       <div>
         <div class="ov-breadcrumb">
-          <span style="cursor:pointer;" onclick="navTo('project-exec')">TSP Aria</span>
+          <span style="cursor:pointer;" onclick="navTo('project-exec')">Aria for Config</span>
           <span> / </span><span>Functional Spec Hub</span>
         </div>
         <div class="ov-project-title">Functional Spec Hub</div>
@@ -11804,7 +11805,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
     <div class="ov-header" style="flex-shrink:0;">
       <div>
         <div class="ov-breadcrumb">
-          <span style="cursor:pointer;" onclick="navTo('project-exec')">TSP Aria</span>
+          <span style="cursor:pointer;" onclick="navTo('project-exec')">Aria for Config</span>
           <span> / </span><span>Requirements List</span>
         </div>
         <div class="ov-project-title">Requirements List</div>
@@ -11940,7 +11941,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
     <div class="ov-header" style="flex-shrink:0;">
       <div>
         <div class="ov-breadcrumb">
-          <span style="cursor:pointer;" onclick="navTo('project-exec')">TSP Aria</span>
+          <span style="cursor:pointer;" onclick="navTo('project-exec')">Aria for Config</span>
           <span> / </span><span>Workshop Schedule</span>
         </div>
         <div class="ov-project-title">Workshop Schedule</div>
@@ -12085,7 +12086,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
     <div class="ov-header" style="flex-shrink:0;">
       <div>
         <div class="ov-breadcrumb">
-          <span style="cursor:pointer;" onclick="navTo('project-exec')">TSP Aria</span>
+          <span style="cursor:pointer;" onclick="navTo('project-exec')">Aria for Config</span>
           <span> / </span><span>Process Design Hub</span>
         </div>
         <div class="ov-project-title">Process Design Hub</div>
@@ -12123,7 +12124,7 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
     <div class="ov-header" style="flex-shrink:0;">
       <div>
         <div class="ov-breadcrumb">
-          <span style="cursor:pointer;" onclick="navTo('project-exec')">TSP Aria</span>
+          <span style="cursor:pointer;" onclick="navTo('project-exec')">Aria for Config</span>
           <span> / </span>
           <span style="cursor:pointer;" onclick="navTo('pdd-hub','project-exec')">Process Design Hub</span>
           <span> / </span><span id="pdd-detail-breadcrumb">PDD</span>
@@ -12225,8 +12226,19 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
     </div>
     <div id="sr-tab-users" style="display:none;flex:1;min-height:0;flex-direction:column;">
       <div style="padding:10px 16px;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;gap:8px;flex-shrink:0;background:#F8FAFC;">
-        <input id="sr-user-search" type="text" placeholder="Search users..." oninput="srUserSearch()" style="padding:6px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;width:260px;outline:none;"/>
+        <input id="sr-user-search" type="text" placeholder="Search users..." oninput="srUserSearch()" style="padding:6px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;width:220px;outline:none;"/>
+        <select id="sr-user-ws-filter" onchange="srRenderUsers()" style="padding:5px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;color:#374151;background:#fff;cursor:pointer;">
+          <option value="">All Workstreams</option>
+          <option value="Finance">Finance</option>
+          <option value="Procurement">Procurement</option>
+          <option value="OTC/Sales">OTC / Sales</option>
+          <option value="Warehouse">Warehouse</option>
+          <option value="Manufacturing">Manufacturing</option>
+          <option value="Master Data">Master Data</option>
+          <option value="BASIS">BASIS / Admin</option>
+        </select>
         <button onclick="srImportUsersClick()" style="padding:5px 12px;background:#1E3A5F;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">&#8679; Import Excel</button>
+        <button onclick="srDownloadTemplate()" style="padding:5px 12px;background:#065F46;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">&#8681; Template</button>
         <button onclick="srOpenAddUser()" style="padding:5px 12px;background:#1E3A5F;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">+ User</button>
         <input type="file" id="sr-excel-input" accept=".xlsx,.xls" style="display:none;" onchange="srHandleExcelImport(event)"/>
       </div>
@@ -12354,6 +12366,240 @@ This formal document will be shared with the client for AMS handoff sign-off.')"
   </div>
 </div>
 <!-- /SECURITY ROLE HUB -->
+
+<!-- PHASE GATE DASHBOARD -->
+<div id="page-phase-gate-dashboard" class="page">
+
+  <!-- blue header -->
+  <div class="ov-header" style="flex-shrink:0;">
+    <div>
+      <div class="ov-title">Phase Gate Dashboard</div>
+      <div class="ov-sub">SAP Activate · Five-Phase Delivery · Gates 1 – 5</div>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
+      <span id="pg-sync-badge" style="font-size:11px;color:#93C5FD;background:rgba(255,255,255,0.12);padding:3px 12px;border-radius:12px;white-space:nowrap;">⟳ Last sync: just now</span>
+    </div>
+  </div>
+
+  <!-- Phase tab bar (non-scrolling) -->
+  <div id="pg-tab-bar" style="flex-shrink:0;display:flex;background:#fff;border-bottom:2px solid #E5E7EB;overflow-x:auto;scrollbar-width:none;"></div>
+
+  <!-- Phase summary bar (non-scrolling) -->
+  <div id="pg-summary-bar" style="flex-shrink:0;background:#F8FAFC;border-bottom:1px solid #E5E7EB;padding:10px 32px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;min-height:52px;"></div>
+
+  <!-- Scrollable register -->
+  <div class="page-body" id="pg-body" style="flex:1;min-height:0;overflow-y:auto;padding:24px 32px;">
+    <div id="pg-register"></div>
+  </div>
+
+  <!-- CSO Modal -->
+  <div id="pg-cso-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:300;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:10px;width:520px;max-width:96vw;max-height:90vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,0.22);">
+      <div style="background:#1E3A5F;color:#fff;padding:16px 20px;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:14px;font-weight:700;">Conditional Sign-Off — Deliverable Level</div>
+          <div id="pg-cso-subtitle" style="font-size:11px;color:#93C5FD;margin-top:2px;"></div>
+        </div>
+        <button onclick="pgCancelCSO()" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;line-height:1;">✕</button>
+      </div>
+      <div style="padding:20px;">
+        <div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:6px;padding:10px 14px;font-size:12px;color:#92400E;margin-bottom:14px;">
+          <strong>⚠ Warning:</strong> Setting this deliverable to Conditional Sign-Off means the phase can proceed with this item outstanding. A written recovery plan and commit date are required.
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Recovery Commit Date <span style="color:#EF4444;">*</span></label>
+          <input id="pg-cso-date" type="date" style="width:100%;padding:7px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:13px;box-sizing:border-box;"/>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Recovery Plan <span style="color:#EF4444;">*</span> <span style="font-weight:400;color:#6B7280;">(minimum 30 characters)</span></label>
+          <textarea id="pg-cso-plan" rows="4" placeholder="Describe the recovery actions, responsible party, and how completion will be confirmed..." style="width:100%;padding:8px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:13px;box-sizing:border-box;resize:vertical;"></textarea>
+        </div>
+        <div id="pg-cso-err" style="display:none;background:#FEE2E2;border:1px solid #FCA5A5;border-radius:6px;padding:8px 12px;font-size:12px;color:#B91C1C;margin-bottom:12px;"></div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button onclick="pgCancelCSO()" style="padding:7px 18px;border:1px solid #D1D5DB;background:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:#374151;">Cancel — Revert Status</button>
+          <button onclick="pgSaveCSO()" style="padding:7px 18px;background:#D97706;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">Save Conditional</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase Approval Modal -->
+  <div id="pg-approval-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:300;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:10px;width:540px;max-width:96vw;max-height:90vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,0.22);">
+      <div style="background:#1E3A5F;color:#fff;padding:16px 20px;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div id="pg-apv-title" style="font-size:14px;font-weight:700;">Request Client Sign-Off</div>
+          <div id="pg-apv-subtitle" style="font-size:11px;color:#93C5FD;margin-top:2px;"></div>
+        </div>
+        <button onclick="pgCloseApproval()" style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;line-height:1;">✕</button>
+      </div>
+      <div style="padding:20px;">
+        <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:6px;padding:10px 14px;font-size:12px;color:#1E40AF;margin-bottom:14px;">
+          This will send an approval request email to the Client PMO with a link to review the deliverable register and provide electronic sign-off.
+        </div>
+        <div id="pg-apv-cso-warn" style="display:none;background:#FEF3C7;border:1px solid #F59E0B;border-radius:6px;padding:10px 14px;font-size:12px;color:#92400E;margin-bottom:14px;"></div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Approver Email (Client PMO)</label>
+          <input id="pg-apv-email" type="email" value="pmo@bacglobal.com" style="width:100%;padding:7px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:13px;box-sizing:border-box;"/>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:4px;">CC</label>
+          <input id="pg-apv-cc" type="email" placeholder="optional" style="width:100%;padding:7px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:13px;box-sizing:border-box;"/>
+        </div>
+        <div style="margin-bottom:16px;">
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Message</label>
+          <textarea id="pg-apv-msg" rows="4" style="width:100%;padding:8px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:13px;box-sizing:border-box;resize:vertical;"></textarea>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button onclick="pgCloseApproval()" style="padding:7px 18px;border:1px solid #D1D5DB;background:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:#374151;">Cancel</button>
+          <button onclick="pgSendApproval()" style="padding:7px 18px;background:#1E3A5F;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">Send Request</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approval confirmation banner -->
+  <div id="pg-apv-confirm" style="display:none;position:fixed;bottom:24px;right:24px;background:#065F46;color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:400;box-shadow:0 4px 16px rgba(0,0,0,0.2);">✓ Approval request sent — awaiting client sign-off</div>
+
+</div>
+<!-- /PHASE GATE DASHBOARD -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     UNIT TEST HUB PAGE
+     ══════════════════════════════════════════════════════════════════════ -->
+<div id="page-unit-test-hub" class="page">
+
+  <!-- ── Header ─────────────────────────────────────────────────────── -->
+  <div class="ov-header" style="background:linear-gradient(135deg,#065F46 0%,#047857 100%);padding:0 32px;height:52px;display:flex;align-items:center;flex-shrink:0;gap:16px;">
+    <span style="font-size:17px;font-weight:700;color:#fff;flex:1;">✔️ Unit Test Hub</span>
+    <span style="font-size:11px;color:rgba(255,255,255,0.75);">All requirement types · Ready for Test → 3-Stage Lifecycle → Integration Ready</span>
+    <button onclick="uthRefresh()" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.4);border-radius:6px;padding:4px 12px;font-size:11px;font-weight:600;cursor:pointer;">⟳ Refresh from Cloud ALM</button>
+    <span id="uth-sync-ts" style="font-size:10px;color:rgba(255,255,255,0.6);">Last sync: just now</span>
+  </div>
+
+  <!-- ── KPI Strip ───────────────────────────────────────────────────── -->
+  <div id="uth-kpi" style="display:flex;flex-shrink:0;border-bottom:2px solid #E5E7EB;background:#fff;min-height:60px;"></div>
+
+  <!-- ── Filter Bar ──────────────────────────────────────────────────── -->
+  <div style="flex-shrink:0;background:#F8FAFC;border-bottom:1px solid #E5E7EB;padding:8px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+    <input id="uth-search" type="text" placeholder="🔍 Search req ID, title…" oninput="uthRender()"
+      style="padding:5px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;width:220px;outline:none;"/>
+    <select id="uth-filter-ws" onchange="uthRender()"
+      style="padding:5px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;color:#374151;background:#fff;">
+      <option value="">All Workstreams</option>
+      <option value="Finance">Finance</option>
+      <option value="Procurement">Procurement</option>
+      <option value="OTC/Sales">OTC / Sales</option>
+      <option value="Manufacturing">Manufacturing</option>
+      <option value="Warehouse">Warehouse</option>
+      <option value="Master Data">Master Data</option>
+      <option value="BASIS">BASIS / Admin</option>
+    </select>
+    <select id="uth-filter-type" onchange="uthRender()"
+      style="padding:5px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;color:#374151;background:#fff;">
+      <option value="">All Types</option>
+      <option value="Config">Configuration</option>
+      <option value="RICEFW">RICEFW / Dev Object</option>
+      <option value="Integration">Integration</option>
+      <option value="Data Migration">Data Migration</option>
+    </select>
+    <select id="uth-filter-stage" onchange="uthRender()"
+      style="padding:5px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;color:#374151;background:#fff;">
+      <option value="">All Stages</option>
+      <option value="0">Technical UT Pending</option>
+      <option value="1">Functional UT Pending</option>
+      <option value="2">BPO Approval Pending</option>
+      <option value="done">All Clear</option>
+    </select>
+    <select id="uth-filter-resp" onchange="uthRender()"
+      style="padding:5px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;color:#374151;background:#fff;">
+      <option value="">All Responsible</option>
+      <option value="Sarah Chen">Sarah Chen</option>
+      <option value="James Wright">James Wright</option>
+      <option value="Priya Nair">Priya Nair</option>
+      <option value="Tom Maguire">Tom Maguire</option>
+      <option value="Diana Kovacs">Diana Kovacs</option>
+    </select>
+    <span id="uth-count-label" style="margin-left:auto;font-size:11px;color:#6B7280;font-style:italic;"></span>
+  </div>
+
+  <!-- ── Queue Table ─────────────────────────────────────────────────── -->
+  <div class="page-body" id="uth-body" style="flex:1;min-height:0;overflow-y:auto;padding:0;">
+    <div id="uth-table-wrap" style="overflow-x:auto;min-height:100%;"></div>
+  </div>
+
+  <!-- ── Detail Panel ────────────────────────────────────────────────── -->
+  <div id="uth-detail-backdrop"
+    onclick="if(event.target===this)uthCloseDetail()"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:8000;align-items:flex-start;justify-content:flex-end;">
+    <div id="uth-detail-panel"
+      style="width:480px;max-width:96vw;height:100vh;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,0.18);overflow-y:auto;padding:28px 24px;">
+      <div id="uth-detail-content"></div>
+    </div>
+  </div>
+
+  <!-- ── Notify Modal ────────────────────────────────────────────────── -->
+  <div id="uth-notify-backdrop"
+    onclick="if(event.target===this)uthCloseNotify()"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9000;align-items:center;justify-content:center;">
+    <div id="uth-notify-modal"
+      style="background:#fff;border-radius:12px;padding:28px;width:520px;max-width:96vw;box-shadow:0 20px 60px rgba(0,0,0,0.25);"
+      onclick="event.stopPropagation()">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <span style="font-size:20px;">🔔</span>
+        <h3 style="margin:0;font-size:15px;color:#065F46;font-weight:700;">Agentic Notification</h3>
+        <span id="uth-notify-stage-badge" style="margin-left:auto;font-size:10px;font-weight:700;border-radius:20px;padding:3px 10px;"></span>
+      </div>
+      <div style="font-size:12px;color:#6B7280;margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">To</div>
+      <div id="uth-notify-to" style="font-size:13px;font-weight:700;color:#1E3A5F;margin-bottom:14px;"></div>
+      <div style="font-size:12px;color:#6B7280;margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;">Message</div>
+      <textarea id="uth-notify-msg"
+        style="width:100%;height:140px;padding:10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;font-family:inherit;resize:vertical;box-sizing:border-box;outline:none;line-height:1.5;color:#374151;"></textarea>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;">
+        <button onclick="uthCloseNotify()" style="padding:7px 18px;border:1px solid #D1D5DB;background:#fff;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600;color:#374151;">Cancel</button>
+        <button onclick="uthSendNotify()" style="padding:7px 18px;background:#065F46;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">✓ Send Notification</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Stage Advance Modal ─────────────────────────────────────────── -->
+  <div id="uth-advance-backdrop"
+    onclick="if(event.target===this)uthCloseAdvance()"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9000;align-items:center;justify-content:center;">
+    <div id="uth-advance-modal"
+      style="background:#fff;border-radius:12px;padding:28px;width:480px;max-width:96vw;box-shadow:0 20px 60px rgba(0,0,0,0.25);"
+      onclick="event.stopPropagation()">
+      <h3 id="uth-adv-title" style="margin:0 0 8px;font-size:15px;color:#1E3A5F;font-weight:700;"></h3>
+      <p id="uth-adv-desc" style="font-size:12px;color:#6B7280;margin:0 0 18px;line-height:1.5;"></p>
+      <div style="margin-bottom:14px;">
+        <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Outcome</label>
+        <select id="uth-adv-outcome"
+          style="width:100%;padding:7px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:13px;box-sizing:border-box;">
+          <option value="passed">✅ Passed</option>
+          <option value="failed">❌ Failed — needs re-test</option>
+          <option value="blocked">⛔ Blocked</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Notes (optional)</label>
+        <textarea id="uth-adv-notes"
+          style="width:100%;height:72px;padding:7px 10px;border:1px solid #D1D5DB;border-radius:6px;font-size:12px;font-family:inherit;resize:none;box-sizing:border-box;outline:none;"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:18px;">
+        <button onclick="uthCloseAdvance()" style="padding:7px 18px;border:1px solid #D1D5DB;background:#fff;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600;color:#374151;">Cancel</button>
+        <button onclick="uthConfirmAdvance()" style="padding:7px 18px;background:#1E3A5F;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;" id="uth-adv-confirm-btn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Notify Toast ────────────────────────────────────────────────── -->
+  <div id="uth-toast" style="display:none;position:fixed;bottom:28px;right:32px;z-index:99999;background:#065F46;color:#fff;border-radius:8px;padding:12px 20px;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.2);">
+    ✓ Notification sent
+  </div>
+
+</div><!-- /page-unit-test-hub -->
+
 </div><!-- /main -->
 
 <script>
@@ -12812,15 +13058,15 @@ function navTo(pageKey, parentKey) {
     }
     // Update breadcrumb & back button text dynamically
     const labels = {
-      'project-exec':  'TSP Aria'
+      'project-exec':  'Aria for Config'
     };
-    const label = labels[_ovParent] || 'TSP Aria';
+    const label = labels[_ovParent] || 'Aria for Config';
     const bc = document.getElementById('ovBreadcrumbLink');
     if (bc) bc.textContent = label;
     // Update SOW KPI tile to active phase
     updateSowKpi();
     // Show page
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.page').forEach(p => { p.classList.remove('visible'); p.style.display = ''; });
     const target = document.getElementById('page-project-overview');
     if (target) { target.style.display = 'flex'; target.classList.add('visible'); }
     // Init charts once
@@ -12844,10 +13090,10 @@ function navTo(pageKey, parentKey) {
     if (atomNav) atomNav.classList.add('active');
   }
   // Clear both regular pages AND any open ps-sub-pages
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.page').forEach(p => { p.classList.remove('visible'); p.style.display = ''; });
   document.querySelectorAll('.ps-page').forEach(p => p.classList.remove('ps-visible'));
   const target = document.getElementById('page-' + pageKey);
-  if (target) target.classList.add('visible');
+  if (target) { target.style.display = 'flex'; target.classList.add('visible'); }
 }
 
 function navBack() {
@@ -13545,16 +13791,16 @@ function navTo(pageKey, parentKey) {
     const navEl = document.querySelector('[data-page="' + _ovParent + '"]');
     if (navEl) { document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); navEl.classList.add('active'); }
     updateSowKpi();
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.page').forEach(p => { p.classList.remove('visible'); p.style.display = ''; });
     const target = document.getElementById('page-project-overview');
-    if (target) target.classList.add('visible');
+    if (target) { target.style.display = 'flex'; target.classList.add('visible'); }
     if (!window._burnInit) { window._burnInit=true; setTimeout(initBurndown,60); setTimeout(initBdChart,80); setTimeout(animateBars,120); }
     return;
   }
   if (pageKey === 'project-plan') {
     const navEl = document.querySelector('[data-page="project-exec"]');
     if (navEl) { document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); navEl.classList.add('active'); }
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.page').forEach(p => { p.classList.remove('visible'); p.style.display = ''; });
     const target = document.getElementById('page-project-plan');
     if (target) { target.style.display='flex'; target.classList.add('visible'); }
     if (!window._planRendered) { window._planRendered=true; setTimeout(renderPlan,80); }
@@ -13580,7 +13826,7 @@ function navTo(pageKey, parentKey) {
     var pgDol = document.getElementById('page-data-objects');
     if (pgDol) pgDol.dataset.parent = parentKey || 'project-exec';
     var bc = document.getElementById('dol-breadcrumb-parent');
-    if (bc) bc.textContent = 'TSP Aria';
+    if (bc) bc.textContent = 'Aria for Config';
     setTimeout(function(){ if(typeof dolInit==='function') dolInit(); }, 30);
   }
   if (pageKey === 'data-migration-hub') {
@@ -13625,6 +13871,11 @@ function navTo(pageKey, parentKey) {
     var pg = document.getElementById('page-security-role-hub');
     if (pg) pg.dataset.parent = parentKey || 'project-exec';
     setTimeout(function(){ if(typeof srInit==='function') srInit(); }, 30);
+  }
+  if (pageKey === 'unit-test-hub') {
+    var pg = document.getElementById('page-unit-test-hub');
+    if (pg) pg.dataset.parent = parentKey || 'project-exec';
+    setTimeout(function(){ if(typeof uthInit==='function') uthInit(); }, 30);
   }
 }
 function navBack() { navTo(_ovParent); }
@@ -21035,7 +21286,7 @@ function wsSaveAndNotify() {
     var subj = encodeURIComponent('Workshop Schedule Update — Please Review Your Sessions');
     var body = encodeURIComponent(
       'Dear Workshop Attendees,\n\n'
-      + 'The workshop schedule has been updated. Please log in to the TSP Aria project portal to review your updated session assignments.\n\n'
+      + 'The workshop schedule has been updated. Please log in to the Aria for Config project portal to review your updated session assignments.\n\n'
       + 'If you have any questions, please contact your workstream lead or the project manager.\n\n'
       + 'Kind regards,\nTSP Project Team'
     );
@@ -22232,9 +22483,13 @@ function srRenderUsers() {
   var wrap = document.getElementById('sr-users-wrap');
   if (!wrap) return;
   var q = ((document.getElementById('sr-user-search') || {}).value || '').toLowerCase();
-  var roles = _srRoles.filter(function(r) { return r.visible; });
+  var wsFilter = ((document.getElementById('sr-user-ws-filter') || {}).value || '');
+  var roles = _srRoles.filter(function(r) { return r.visible && (!wsFilter || r.ws === wsFilter); });
   if (!roles.length) {
-    wrap.innerHTML = '<div style="padding:40px;text-align:center;color:#9CA3AF;">No roles in the design matrix yet.</div>';
+    var noMsg = wsFilter
+      ? 'No in-scope roles for the <strong>' + wsFilter + '</strong> workstream yet.'
+      : 'No roles in the design matrix yet.';
+    wrap.innerHTML = '<div style="padding:40px;text-align:center;color:#9CA3AF;font-size:13px;">' + noMsg + '</div>';
     return;
   }
   var users = _srUsers.filter(function(u) {
@@ -22404,6 +22659,37 @@ function srImportUsersClick() {
   var inp = document.getElementById('sr-excel-input');
   if (inp) inp.click();
 }
+function srDownloadTemplate() {
+  if (typeof XLSX === 'undefined') {
+    alert('SheetJS library not loaded yet — please wait a moment and try again.');
+    return;
+  }
+  var headers = ['User ID', 'Module / Workstream', 'Org Role / Job Title', 'First Name', 'Last Name', 'Department', 'Email'];
+  var sample  = ['U00001', 'Finance', 'AP Accountant', 'Jane', 'Smith', 'Accounts Payable', 'jane.smith@company.com'];
+  var wb = XLSX.utils.book_new();
+  var ws = XLSX.utils.aoa_to_sheet([headers, sample]);
+
+  /* Column widths */
+  ws['!cols'] = [
+    {wch:12},{wch:22},{wch:24},{wch:14},{wch:14},{wch:20},{wch:30}
+  ];
+
+  /* Header row styling */
+  var headerStyle = {
+    font: {bold:true, color:{rgb:'FFFFFF'}},
+    fill: {fgColor:{rgb:'1E3A5F'}},
+    alignment: {horizontal:'center', vertical:'center'},
+    border: {bottom:{style:'thin',color:{rgb:'AAAAAA'}}}
+  };
+  headers.forEach(function(_, ci) {
+    var cellRef = XLSX.utils.encode_cell({r:0, c:ci});
+    if (ws[cellRef]) ws[cellRef].s = headerStyle;
+  });
+
+  XLSX.utils.book_append_sheet(wb, ws, 'User Import');
+  XLSX.writeFile(wb, 'TSP_UserImport_Template.xlsx');
+}
+
 function srHandleExcelImport(evt) {
   var file = evt.target.files[0];
   if (!file) return;
@@ -22456,6 +22742,528 @@ function srCloseAll() {
   if (bd) bd.style.display = 'none';
 }
 
+
+// ══ PHASE GATE DASHBOARD ═══════════════════════════════════════════════════
+
+var _pgActivePhase = 'prepare';
+var _pgExpanded    = {};   // catId -> true/false
+var _pgCsoItemId   = null;
+var _pgCsoOldStatus = null;
+
+var _pgPhases = [
+  { id:'prepare', name:'Prepare', gate:1, duration:'1–3 weeks',  gateDate:'2026-07-15', state:'active' },
+  { id:'explore', name:'Explore', gate:2, duration:'5–10 weeks', gateDate:'2026-09-19', state:'active' },
+  { id:'realize', name:'Realize', gate:3, duration:'12–20 wks',  gateDate:'2026-12-19', state:'locked' },
+  { id:'deploy',  name:'Deploy',  gate:4, duration:'4–6 weeks',  gateDate:'2027-01-30', state:'locked' },
+  { id:'run',     name:'Run',     gate:5, duration:'Ongoing',    gateDate:'TBD',        state:'locked' }
+];
+
+var _pgDeliverables = {
+  prepare: [
+    { id:'pc01', name:'Project Charter & Governance', module:'Deliverables', sowRef:'SOW § 2.1', fixed:true,
+      items:[
+        {id:'i001',name:'Project Charter',          module:'Deliverables',     owner:'Chris York',  commitDate:'2026-07-01',status:'Approved'},
+        {id:'i002',name:'Project Governance Framework', module:'Deliverables', owner:'Chris York',  commitDate:'2026-07-05',status:'Approved'},
+        {id:'i003',name:'Project Management Plan',  module:'Deliverables',     owner:'Chris York',  commitDate:'2026-07-08',status:'In Progress'}
+      ]
+    },
+    { id:'pc02', name:'Workshop Schedule', module:'Workshop Schedule', sowRef:'SOW § 2.2', fixed:true,
+      items:[
+        {id:'i004',name:'Explore Workshop Schedule',module:'Workshop Schedule',owner:'Chris York',  commitDate:'2026-07-10',status:'Approved'}
+      ]
+    },
+    { id:'pc03', name:'Security Strategy', module:'Security Role Hub', sowRef:'SOW § 2.3', fixed:true,
+      items:[
+        {id:'i005',name:'Authorization Concept Document',module:'Security Role Hub',owner:'TSP Security',commitDate:'2026-07-12',status:'Complete'},
+        {id:'i006',name:'SoD Risk Assessment',            module:'Security Role Hub',owner:'TSP Security',commitDate:'2026-07-15',status:'Not Started'}
+      ]
+    },
+    { id:'pc04', name:'Cloud ALM Setup', module:'Deliverables', sowRef:'SOW § 2.4', fixed:true,
+      items:[
+        {id:'i007',name:'Cloud ALM Project Configuration',module:'Deliverables',owner:'TSP Basis',commitDate:'2026-07-05',status:'Approved'}
+      ]
+    }
+  ],
+  explore: [
+    { id:'ec01', name:'Fit-Gap Workshop Sign-Offs', module:'Workshop Schedule', sowRef:'SOW § 3.1', fixed:false,
+      countNote:'Count determined by number of workshops in the approved schedule.',
+      items:[
+        {id:'i010',name:'FI Fit-Gap Workshop — Session 1',module:'Workshop Schedule',owner:'Chris York',commitDate:'2026-08-01',status:'Approved'},
+        {id:'i011',name:'MM Fit-Gap Workshop — Session 1',module:'Workshop Schedule',owner:'Chris York',commitDate:'2026-08-08',status:'In Progress'},
+        {id:'i012',name:'SD Fit-Gap Workshop — Session 1',module:'Workshop Schedule',owner:'Chris York',commitDate:'2026-08-15',status:'Not Started'}
+      ]
+    },
+    { id:'ec02', name:'Functional Requirements Register', module:'Requirements List', sowRef:'SOW § 3.2', fixed:false,
+      countNote:'Count determined by requirements logged during Explore workshops.',
+      items:[
+        {id:'i013',name:'FI Requirements — Initial Baseline',module:'Requirements List',owner:'BAC Global PMO',commitDate:'2026-08-20',status:'In Progress'}
+      ]
+    },
+    { id:'ec03', name:'Functional Specification Documents', module:'Functional Spec Hub', sowRef:'SOW § 3.3', fixed:false,
+      countNote:'Count determined by number of approved RICEFW gaps in the Requirements List.',
+      items:[
+        {id:'i014',name:'FSD-001: Custom Payment Run Report',module:'Functional Spec Hub',owner:'TSP Functional',commitDate:'2026-09-01',status:'Not Started'}
+      ]
+    },
+    { id:'ec04', name:'Process Design Documents', module:'Process Design Hub', sowRef:'SOW § 3.4', fixed:false,
+      countNote:'Count determined by number of in-scope business processes.',
+      items:[
+        {id:'i015',name:'PDD-AP-01: Accounts Payable Process',  module:'Process Design Hub',owner:'TSP Functional',commitDate:'2026-09-05',status:'Not Started'},
+        {id:'i016',name:'PDD-AR-01: Accounts Receivable Process',module:'Process Design Hub',owner:'TSP Functional',commitDate:'2026-09-05',status:'Not Started'}
+      ]
+    }
+  ],
+  realize: [
+    { id:'rc01', name:'Technical Specification Documents', module:'Technical Spec Hub', sowRef:'SOW § 4.1', fixed:false,
+      countNote:'One per approved Functional Specification requiring development.',
+      items:[]
+    },
+    { id:'rc02', name:'Configuration Documents', module:'Deliverables', sowRef:'SOW § 4.2', fixed:false,
+      countNote:'One per configuration area signed off during Realize.',
+      items:[]
+    },
+    { id:'rc03', name:'Security Role Matrices', module:'Security Role Hub', sowRef:'SOW § 4.3', fixed:true, items:[] },
+    { id:'rc04', name:'Data Migration Templates & Reconciliation', module:'Data Migration Hub', sowRef:'SOW § 4.4', fixed:false,
+      countNote:'One per in-scope data migration object.',
+      items:[]
+    },
+    { id:'rc05', name:'SIT Execution & Sign-Off', module:'Test Execution Hub', sowRef:'SOW § 4.5', fixed:false,
+      countNote:'Count determined by number of SIT packages in the approved test plan.',
+      items:[]
+    }
+  ],
+  deploy: [
+    { id:'dc01', name:'UAT Execution & Sign-Off', module:'Test Execution Hub', sowRef:'SOW § 5.1', fixed:false,
+      countNote:'Count determined by number of UAT scripts in the test plan.',
+      items:[]
+    },
+    { id:'dc02', name:'Cutover Plan & Go-Live Readiness Checklist', module:'Deliverables', sowRef:'SOW § 5.2', fixed:true, items:[] },
+    { id:'dc03', name:'End-User Training Completion Records', module:'Training Execution Hub', sowRef:'SOW § 5.3', fixed:false,
+      countNote:'Count determined by number of end-user training sessions delivered.',
+      items:[]
+    }
+  ],
+  run: [
+    { id:'gc01', name:'Hypercare Support Records', module:'Deliverables', sowRef:'SOW § 6.1', fixed:false,
+      countNote:'Count determined by hypercare period duration and incident volume.',
+      items:[]
+    },
+    { id:'gc02', name:'Knowledge Transfer Documentation', module:'Deliverables', sowRef:'SOW § 6.2', fixed:true, items:[] },
+    { id:'gc03', name:'Project Closure Report',            module:'Deliverables', sowRef:'SOW § 6.3', fixed:true, items:[] }
+  ]
+};
+
+// CSO data: itemId -> { date, plan }
+var _pgCsoData = {};
+
+// ── helpers ──────────────────────────────────────────────────────────
+function pgPhaseObj(id) { return _pgPhases.find(function(p){return p.id===id;}); }
+
+function pgAllItems(phaseId) {
+  var cats = _pgDeliverables[phaseId] || [];
+  var out = [];
+  cats.forEach(function(c){ c.items.forEach(function(i){ out.push(i); }); });
+  return out;
+}
+
+function pgApprovedCount(phaseId) {
+  return pgAllItems(phaseId).filter(function(i){return i.status==='Approved';}).length;
+}
+
+function pgTotalCount(phaseId) {
+  return pgAllItems(phaseId).length;
+}
+
+function pgPct(phaseId) {
+  var tot = pgTotalCount(phaseId);
+  if (!tot) return 0;
+  return Math.round((pgApprovedCount(phaseId)/tot)*100);
+}
+
+function pgFindItem(itemId) {
+  var found = null;
+  Object.keys(_pgDeliverables).forEach(function(ph){
+    _pgDeliverables[ph].forEach(function(cat){
+      cat.items.forEach(function(it){ if(it.id===itemId) found=it; });
+    });
+  });
+  return found;
+}
+
+function pgDateColor(dateStr, isActive) {
+  if (!isActive || !dateStr || dateStr==='TBD') return '#374151';
+  var d = new Date(dateStr), today = new Date();
+  today.setHours(0,0,0,0);
+  var diff = Math.floor((d-today)/(1000*60*60*24));
+  if (diff < 0)  return '#EF4444';
+  if (diff <= 7) return '#F59E0B';
+  return '#374151';
+}
+
+function pgStatusCfg(s) {
+  var M = {
+    'Not Started':         {bg:'#F3F4F6',color:'#374151',dot:'#9CA3AF'},
+    'In Progress':         {bg:'#FEF3C7',color:'#92400E',dot:'#F59E0B'},
+    'Complete':            {bg:'#DBEAFE',color:'#1E40AF',dot:'#3B82F6'},
+    'Approved':            {bg:'#D1FAE5',color:'#065F46',dot:'#10B981'},
+    'Conditional Sign-Off':{bg:'#FDE68A',color:'#92400E',dot:'#D97706'}
+  };
+  return M[s] || M['Not Started'];
+}
+
+function pgSvgRing(pct, signed) {
+  var R=14, C=2*Math.PI*R, offset=C*(1-pct/100);
+  var stroke = signed ? '#10B981' : (pct===100 ? '#10B981' : '#2563EB');
+  var bg = '#E5E7EB';
+  return '<svg width="36" height="36" viewBox="0 0 36 36" style="flex-shrink:0;">'
+       + '<circle cx="18" cy="18" r="'+R+'" fill="none" stroke="'+bg+'" stroke-width="3"/>'
+       + '<circle cx="18" cy="18" r="'+R+'" fill="none" stroke="'+stroke+'" stroke-width="3"'
+       + ' stroke-dasharray="'+C.toFixed(2)+'" stroke-dashoffset="'+offset.toFixed(2)+'"'
+       + ' stroke-linecap="round" transform="rotate(-90 18 18)"/>'
+       + '<text x="18" y="22" text-anchor="middle" font-size="8" font-weight="700" fill="'+stroke+'">'+pct+'%</text>'
+       + '</svg>';
+}
+
+// ── init ──────────────────────────────────────────────────────────
+function pgInit() {
+  _pgActivePhase = 'prepare';
+  pgRenderTabs();
+  pgRenderSummary();
+  pgRenderRegister();
+  pgStartSync();
+}
+
+// ── tabs ──────────────────────────────────────────────────────────
+function pgRenderTabs() {
+  var bar = document.getElementById('pg-tab-bar');
+  if (!bar) return;
+  var html = '';
+  _pgPhases.forEach(function(ph) {
+    var pct = pgPct(ph.id);
+    var signed = ph.state === 'signed-off';
+    var locked = ph.state === 'locked';
+    var active = ph.id === _pgActivePhase;
+    var ring = pgSvgRing(signed ? 100 : pct, signed);
+    var badge = '';
+    if (signed)      badge = '<span style="font-size:10px;background:#D1FAE5;color:#065F46;padding:1px 7px;border-radius:10px;font-weight:600;">Signed Off</span>';
+    else if (locked) badge = '<span style="font-size:10px;background:#F3F4F6;color:#6B7280;padding:1px 7px;border-radius:10px;font-weight:600;">🔒 Locked</span>';
+    else             badge = '<span style="font-size:10px;background:#DBEAFE;color:#1E40AF;padding:1px 7px;border-radius:10px;font-weight:600;">Active</span>';
+
+    var borderBottom = active ? 'border-bottom:3px solid #1E3A5F;' : 'border-bottom:3px solid transparent;';
+    var opacity = locked ? 'opacity:0.6;' : '';
+    var cursor = locked ? 'cursor:default;' : 'cursor:pointer;';
+    var click = locked ? '' : ('onclick="pgSelectPhase(\''+ph.id+'\')"');
+
+    html += '<div '+click+' style="display:flex;align-items:center;gap:10px;padding:10px 20px;white-space:nowrap;'+borderBottom+opacity+cursor+'">';
+    html += ring;
+    html += '<div><div style="font-size:13px;font-weight:'+(active?'700':'500')+';color:'+(active?'#1E3A5F':'#374151')+';">'+ph.name+'</div>';
+    html += '<div style="display:flex;align-items:center;gap:6px;margin-top:2px;">'+badge+'<span style="font-size:10px;color:#9CA3AF;">Gate '+ph.gate+'</span></div></div>';
+    html += '</div>';
+  });
+  bar.innerHTML = html;
+}
+
+// ── summary bar ───────────────────────────────────────────────────
+function pgRenderSummary() {
+  var bar = document.getElementById('pg-summary-bar');
+  if (!bar) return;
+  var ph = pgPhaseObj(_pgActivePhase);
+  if (!ph) return;
+  var tot = pgTotalCount(_pgActivePhase);
+  var apv = pgApprovedCount(_pgActivePhase);
+  var pct = pgPct(_pgActivePhase);
+  var cats = (_pgDeliverables[_pgActivePhase]||[]).length;
+  var csoCount = pgAllItems(_pgActivePhase).filter(function(i){return i.status==='Conditional Sign-Off';}).length;
+  var locked = ph.state==='locked', signed=ph.state==='signed-off';
+
+  var html = '';
+  // donut-style pct
+  html += '<div style="display:flex;align-items:center;gap:8px;">';
+  html += pgSvgRing(signed?100:pct,signed);
+  html += '<div><div style="font-size:12px;font-weight:700;color:#1E3A5F;">'+pct+'% complete</div>'
+        + '<div style="font-size:11px;color:#6B7280;">'+apv+' / '+tot+' approved</div></div>';
+  html += '</div>';
+
+  // divider
+  html += '<div style="width:1px;height:36px;background:#E5E7EB;flex-shrink:0;"></div>';
+
+  // categories
+  html += '<div style="font-size:12px;"><div style="font-weight:700;color:#374151;">'+cats+'</div><div style="color:#6B7280;">SOW categories</div></div>';
+
+  // gate date
+  html += '<div style="font-size:12px;"><div style="font-weight:700;color:#374151;">Gate '+ph.gate+'</div><div style="color:#6B7280;">'+ph.gateDate+'</div></div>';
+
+  // CSO warning if any
+  if (csoCount > 0) {
+    html += '<div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:6px;padding:4px 12px;font-size:11px;font-weight:600;color:#92400E;">⚠ '+csoCount+' Conditional Sign-Off'+(csoCount>1?'s':'')+'</div>';
+  }
+
+  // spacer
+  html += '<div style="flex:1;"></div>';
+
+  // sign-off button
+  if (!locked && !signed) {
+    html += '<button onclick="pgOpenApproval()" style="padding:7px 16px;background:#1E3A5F;color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;">📋 Request Client Sign-Off</button>';
+  } else if (signed) {
+    html += '<div style="background:#D1FAE5;border:1px solid #6EE7B7;border-radius:6px;padding:6px 14px;font-size:12px;font-weight:600;color:#065F46;">✓ Signed Off</div>';
+  }
+
+  bar.innerHTML = html;
+}
+
+// ── register ──────────────────────────────────────────────────────
+function pgRenderRegister() {
+  var reg = document.getElementById('pg-register');
+  if (!reg) return;
+  var ph = pgPhaseObj(_pgActivePhase);
+  var cats = _pgDeliverables[_pgActivePhase] || [];
+  var isActive = ph && (ph.state==='active');
+  var isSigned = ph && (ph.state==='signed-off');
+  var isLocked = ph && (ph.state==='locked');
+
+  var html = '';
+
+  if (isLocked) {
+    html += '<div style="text-align:center;padding:60px 20px;color:#9CA3AF;">'
+          + '<div style="font-size:32px;margin-bottom:10px;">🔒</div>'
+          + '<div style="font-size:14px;font-weight:600;color:#6B7280;">Phase Locked</div>'
+          + '<div style="font-size:12px;margin-top:6px;">The '+ph.name+' phase has not yet started. Deliverables will appear here once the preceding phase is signed off.</div>'
+          + '</div>';
+    reg.innerHTML = html;
+    return;
+  }
+
+  if (cats.length === 0) {
+    html += '<div style="text-align:center;padding:60px 20px;color:#9CA3AF;font-size:13px;">No SOW categories defined for this phase.</div>';
+    reg.innerHTML = html;
+    return;
+  }
+
+  cats.forEach(function(cat) {
+    var expanded = !!_pgExpanded[cat.id];
+    var apvItems = cat.items.filter(function(i){return i.status==='Approved';});
+    var pct = cat.items.length ? Math.round((apvItems.length/cat.items.length)*100) : 0;
+    var barW = cat.items.length ? Math.round((apvItems.length/cat.items.length)*100) : 0;
+
+    // SOW category row (Tier 1)
+    html += '<div style="border:1px solid #E5E7EB;border-radius:8px;margin-bottom:10px;overflow:hidden;">';
+    html += '<div onclick="pgToggleCat(\''+cat.id+'\')" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#F8FAFC;cursor:pointer;user-select:none;">';
+    html += '<span style="font-size:12px;color:#6B7280;transform:'+(expanded?'rotate(90deg)':'rotate(0deg)')+';display:inline-block;transition:transform 0.15s;">▶</span>';
+    html += '<div style="flex:1;min-width:0;">';
+    html += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">';
+    html += '<span style="font-size:13px;font-weight:700;color:#1E3A5F;">'+pgEsc(cat.name)+'</span>';
+    html += '<span style="font-size:10px;background:#EFF6FF;color:#1D4ED8;padding:1px 8px;border-radius:10px;font-weight:600;">'+pgEsc(cat.module)+'</span>';
+    html += '<span style="font-size:10px;color:#9CA3AF;">'+pgEsc(cat.sowRef)+'</span>';
+    html += '</div>';
+    if (!cat.fixed && cat.countNote) {
+      html += '<div style="font-size:11px;color:#6B7280;margin-top:3px;font-style:italic;">'+pgEsc(cat.countNote)+'</div>';
+    }
+    html += '</div>';
+    // progress
+    html += '<div style="text-align:right;flex-shrink:0;">';
+    html += '<div style="font-size:12px;font-weight:700;color:#374151;">'+apvItems.length+' / '+cat.items.length+'</div>';
+    html += '<div style="width:80px;height:5px;background:#E5E7EB;border-radius:3px;margin-top:4px;overflow:hidden;">';
+    html += '<div style="height:100%;width:'+barW+'%;background:#10B981;border-radius:3px;"></div>';
+    html += '</div></div>';
+    html += '</div>'; // end category header
+
+    // Tier 2 — items accordion
+    if (expanded) {
+      if (cat.countNote && !cat.fixed) {
+        html += '<div style="background:#FFFBEB;border-top:1px solid #FDE68A;padding:8px 16px;font-size:11px;color:#92400E;">📌 '+pgEsc(cat.countNote)+'</div>';
+      }
+      html += '<table style="width:100%;border-collapse:collapse;">';
+      html += '<thead><tr style="background:#F3F4F6;">';
+      html += '<th style="padding:8px 16px;font-size:11px;font-weight:600;color:#374151;text-align:left;border-bottom:1px solid #E5E7EB;">Deliverable</th>';
+      html += '<th style="padding:8px 12px;font-size:11px;font-weight:600;color:#374151;text-align:left;border-bottom:1px solid #E5E7EB;white-space:nowrap;">Owner</th>';
+      html += '<th style="padding:8px 12px;font-size:11px;font-weight:600;color:#374151;text-align:left;border-bottom:1px solid #E5E7EB;white-space:nowrap;">Commit Date</th>';
+      html += '<th style="padding:8px 12px;font-size:11px;font-weight:600;color:#374151;text-align:left;border-bottom:1px solid #E5E7EB;min-width:160px;">Status</th>';
+      html += '</tr></thead><tbody>';
+
+      if (cat.items.length === 0) {
+        html += '<tr><td colspan="4" style="padding:16px;text-align:center;font-size:12px;color:#9CA3AF;font-style:italic;">No items yet — items will appear as they are created in the source module.</td></tr>';
+      } else {
+        cat.items.forEach(function(item) {
+          var cfg = pgStatusCfg(item.status);
+          var dc = pgDateColor(item.commitDate, isActive);
+          var cso = _pgCsoData[item.id];
+          html += '<tr style="border-bottom:1px solid #F3F4F6;">';
+          // deliverable name
+          html += '<td style="padding:10px 16px;font-size:12px;">';
+          html += '<div style="font-weight:600;color:#1E3A5F;">'+pgEsc(item.name)+'</div>';
+          html += '<div style="font-size:10px;color:#9CA3AF;margin-top:1px;">'+pgEsc(item.module)+'</div>';
+          if (cso) {
+            html += '<div style="margin-top:4px;display:flex;align-items:center;gap:6px;">';
+            html += '<span style="font-size:10px;background:#FDE68A;color:#92400E;padding:1px 7px;border-radius:10px;font-weight:600;">CSO</span>';
+            html += '<span style="font-size:10px;color:#D97706;">Recovery: '+pgEsc(cso.date)+'</span>';
+            html += '</div>';
+          }
+          html += '</td>';
+          // owner
+          html += '<td style="padding:10px 12px;"><span style="font-size:11px;background:#EFF6FF;color:#1D4ED8;padding:2px 8px;border-radius:10px;">'+pgEsc(item.owner)+'</span></td>';
+          // commit date
+          html += '<td style="padding:10px 12px;font-size:12px;font-weight:600;color:'+dc+';white-space:nowrap;">'+pgFmtDate(item.commitDate)+'</td>';
+          // status
+          html += '<td style="padding:10px 12px;">';
+          if (isSigned || isLocked) {
+            html += '<span style="font-size:11px;padding:3px 10px;border-radius:10px;background:'+cfg.bg+';color:'+cfg.color+';font-weight:600;">'+pgEsc(item.status)+'</span>';
+          } else {
+            html += '<select onchange="pgStatusChange(\''+item.id+'\',this)" '
+                  + 'style="font-size:11px;padding:3px 8px;border:1px solid #D1D5DB;border-radius:6px;background:'+cfg.bg+';color:'+cfg.color+';font-weight:600;cursor:pointer;">';
+            ['Not Started','In Progress','Complete','Approved','Conditional Sign-Off'].forEach(function(s){
+              html += '<option value="'+pgEsc(s)+'"'+(item.status===s?' selected':'')+'>'+pgEsc(s)+'</option>';
+            });
+            html += '</select>';
+          }
+          html += '</td>';
+          html += '</tr>';
+        });
+      }
+      html += '</tbody></table>';
+    }
+    html += '</div>'; // end card
+  });
+
+  reg.innerHTML = html;
+}
+
+function pgEsc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function pgFmtDate(d) {
+  if (!d || d==='TBD') return d||'TBD';
+  try {
+    var dt = new Date(d+'T00:00:00');
+    return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  } catch(e) { return d; }
+}
+
+// ── interactions ──────────────────────────────────────────────────
+function pgSelectPhase(phaseId) {
+  var ph = pgPhaseObj(phaseId);
+  if (!ph || ph.state==='locked') return;
+  _pgActivePhase = phaseId;
+  pgRenderTabs();
+  pgRenderSummary();
+  pgRenderRegister();
+}
+
+function pgToggleCat(catId) {
+  _pgExpanded[catId] = !_pgExpanded[catId];
+  pgRenderRegister();
+}
+
+function pgStatusChange(itemId, selectEl) {
+  var newStatus = selectEl.value;
+  var item = pgFindItem(itemId);
+  if (!item) return;
+  if (newStatus === 'Conditional Sign-Off') {
+    _pgCsoItemId = itemId;
+    _pgCsoOldStatus = item.status;
+    pgOpenCSO(item);
+  } else {
+    item.status = newStatus;
+    pgRenderSummary();
+    pgRenderTabs();
+    pgRenderRegister();
+  }
+}
+
+// ── CSO Modal ─────────────────────────────────────────────────────
+function pgOpenCSO(item) {
+  var modal = document.getElementById('pg-cso-modal');
+  if (!modal) return;
+  document.getElementById('pg-cso-subtitle').textContent = 'Set conditional sign-off for: ' + item.name;
+  document.getElementById('pg-cso-date').value = '';
+  document.getElementById('pg-cso-plan').value = '';
+  document.getElementById('pg-cso-err').style.display = 'none';
+  // pre-fill if CSO already exists
+  var existing = _pgCsoData[item.id];
+  if (existing) {
+    document.getElementById('pg-cso-date').value = existing.date;
+    document.getElementById('pg-cso-plan').value = existing.plan;
+  }
+  modal.style.display = 'flex';
+}
+
+function pgCancelCSO() {
+  var modal = document.getElementById('pg-cso-modal');
+  if (modal) modal.style.display = 'none';
+  // revert item status
+  if (_pgCsoItemId) {
+    var item = pgFindItem(_pgCsoItemId);
+    if (item) item.status = _pgCsoOldStatus;
+  }
+  _pgCsoItemId = null; _pgCsoOldStatus = null;
+  pgRenderRegister();
+}
+
+function pgSaveCSO() {
+  var date = (document.getElementById('pg-cso-date').value||'').trim();
+  var plan = (document.getElementById('pg-cso-plan').value||'').trim();
+  var err  = document.getElementById('pg-cso-err');
+  if (!date) { err.textContent='Recovery commit date is required.'; err.style.display='block'; return; }
+  if (plan.length < 30) { err.textContent='Recovery plan must be at least 30 characters.'; err.style.display='block'; return; }
+  err.style.display = 'none';
+  var item = pgFindItem(_pgCsoItemId);
+  if (item) {
+    item.status = 'Conditional Sign-Off';
+    _pgCsoData[item.id] = { date: date, plan: plan };
+  }
+  document.getElementById('pg-cso-modal').style.display = 'none';
+  _pgCsoItemId = null; _pgCsoOldStatus = null;
+  pgRenderTabs();
+  pgRenderSummary();
+  pgRenderRegister();
+}
+
+// ── Approval Modal ────────────────────────────────────────────────
+function pgOpenApproval() {
+  var modal = document.getElementById('pg-approval-modal');
+  if (!modal) return;
+  var ph = pgPhaseObj(_pgActivePhase);
+  document.getElementById('pg-apv-title').textContent = 'Request Client Sign-Off — '+ph.name+' Phase (Gate '+ph.gate+')';
+  document.getElementById('pg-apv-subtitle').textContent = ph.gateDate !== 'TBD' ? 'Scheduled gate: '+ph.gateDate : '';
+  // CSO warning
+  var csoItems = pgAllItems(_pgActivePhase).filter(function(i){return i.status==='Conditional Sign-Off';});
+  var warnEl = document.getElementById('pg-apv-cso-warn');
+  if (csoItems.length > 0) {
+    warnEl.innerHTML = '<strong>⚠ '+csoItems.length+' deliverable'+(csoItems.length>1?'s have':' has')+' a Conditional Sign-Off</strong> and will be included with their recovery plans in the approval package.';
+    warnEl.style.display = 'block';
+  } else {
+    warnEl.style.display = 'none';
+  }
+  // pre-fill message
+  document.getElementById('pg-apv-msg').value = 'Dear Client PMO,\n\nAll deliverables for the '+ph.name+' phase of the TSP ARIA S/4HANA project are complete and ready for your review. Please follow the link below to review the deliverable register and provide electronic sign-off for Gate '+ph.gate+'.\n\nKind regards,\nChris York — TSP Project Manager';
+  modal.style.display = 'flex';
+}
+
+function pgCloseApproval() {
+  document.getElementById('pg-approval-modal').style.display = 'none';
+}
+
+function pgSendApproval() {
+  pgCloseApproval();
+  var banner = document.getElementById('pg-apv-confirm');
+  var email = (document.getElementById('pg-apv-email').value||'').trim();
+  banner.textContent = '✓ Approval request sent to '+email+' — awaiting client sign-off';
+  banner.style.display = 'block';
+  setTimeout(function(){ banner.style.display='none'; }, 9000);
+}
+
+// ── auto sync ─────────────────────────────────────────────────────
+function pgStartSync() {
+  setInterval(function() {
+    var el = document.getElementById('pg-sync-badge');
+    if (el) el.textContent = '⟳ Last sync: just now';
+  }, 60000);
+}
+
+// ── END PHASE GATE DASHBOARD ────────────────────────────────────
+
+
 // ── END SECURITY ROLE HUB ─────────────────────────────────────────────────────
 
 // ── NAV FALLBACK LISTENER ─────────────────────────────────────────────────────
@@ -22473,6 +23281,441 @@ function srCloseAll() {
     attachNavListeners();
   }
 })();
+
+
+// ══════════════════════════════════════════════════════════════════════════
+//  UNIT TEST HUB — uthXxx functions
+// ══════════════════════════════════════════════════════════════════════════
+
+// ── Data ───────────────────────────────────────────────────────────────────
+var _uthReqs = [
+  { id:'UTH-001', reqId:'3-2101', title:'AP Invoice Posting Configuration', type:'Config',
+    ws:'Finance', responsible:'Sarah Chen', respEmail:'s.chen@bacglobal.com',
+    dueDate:'2026-07-10', almStatus:'Ready for Test',
+    narrative:'Configure the AP invoice posting workflow including tolerance groups, posting keys, and document types for BAC Global standard AP process.',
+    featureId:'F-1044', featureDesc:'AP Posting Workflow',
+    stages:[{status:'passed',by:'Sarah Chen',date:'2026-06-25',notes:'All steps verified in QA.'},
+            {status:'passed',by:'James Wright',date:'2026-06-27',notes:'Functional review complete.'},
+            {status:'pending',by:null,date:null,notes:''}] },
+  { id:'UTH-002', reqId:'3-2108', title:'Cost Center Hierarchy Setup', type:'Config',
+    ws:'Finance', responsible:'James Wright', respEmail:'j.wright@bacglobal.com',
+    dueDate:'2026-07-12', almStatus:'Ready for Test',
+    narrative:'Define and activate the BAC Global cost center hierarchy in Controlling, including profit center assignments and allocation cycles.',
+    featureId:'F-1051', featureDesc:'Controlling Master Data',
+    stages:[{status:'passed',by:'James Wright',date:'2026-06-26',notes:''},
+            {status:'in-progress',by:'Priya Nair',date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''}] },
+  { id:'UTH-003', reqId:'3-2145', title:'Custom ABAP Enhancement — PO Approval Workflow', type:'RICEFW',
+    ws:'Procurement', responsible:'Tom Maguire', respEmail:'t.maguire@bacglobal.com',
+    dueDate:'2026-07-08', almStatus:'Ready for Test',
+    narrative:'Z-enhancement to extend standard PO approval workflow with multi-level approval based on value thresholds and category codes.',
+    featureId:'F-1063', featureDesc:'Procurement Workflow Enhancements',
+    stages:[{status:'in-progress',by:'Tom Maguire',date:null,notes:'Unit test session started 2026-07-01.'},
+            {status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''}] },
+  { id:'UTH-004', reqId:'3-2162', title:'Sales Order BAdI — Pricing Rules', type:'RICEFW',
+    ws:'OTC/Sales', responsible:'Diana Kovacs', respEmail:'d.kovacs@bacglobal.com',
+    dueDate:'2026-07-15', almStatus:'Ready for Test',
+    narrative:'Custom BAdI implementation for pricing rule determination based on customer segment, region, and product hierarchy.',
+    featureId:'F-1078', featureDesc:'Pricing Engine Extensions',
+    stages:[{status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''}] },
+  { id:'UTH-005', reqId:'3-2172', title:'Material Ledger Activation — Manufacturing Plants', type:'Config',
+    ws:'Manufacturing', responsible:'Priya Nair', respEmail:'p.nair@bacglobal.com',
+    dueDate:'2026-07-09', almStatus:'Ready for Test',
+    narrative:'Activate material ledger for all manufacturing plants with actual costing variant. Configure parallel currencies and transfer price settings.',
+    featureId:'F-1082', featureDesc:'Material Ledger & Actual Costing',
+    stages:[{status:'passed',by:'Priya Nair',date:'2026-06-29',notes:'All plants activated successfully.'},
+            {status:'passed',by:'Sarah Chen',date:'2026-06-30',notes:'Cross-functional check passed.'},
+            {status:'passed',by:'James Wright',date:'2026-07-01',notes:'BPO sign-off confirmed.'}] },
+  { id:'UTH-006', reqId:'3-2188', title:'IDoc Inbound Processing — EDI 810 Invoice', type:'Integration',
+    ws:'Finance', responsible:'Tom Maguire', respEmail:'t.maguire@bacglobal.com',
+    dueDate:'2026-07-14', almStatus:'Ready for Test',
+    narrative:'Configure inbound IDoc pipeline for EDI 810 (Invoice) messages from key trading partners. Partner profiles, message control, and error handling.',
+    featureId:'F-1091', featureDesc:'EDI Integration — Invoice Processing',
+    stages:[{status:'passed',by:'Tom Maguire',date:'2026-06-30',notes:'IDoc parsing verified.'},
+            {status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''}] },
+  { id:'UTH-007', reqId:'3-2201', title:'Warehouse Transfer Order Smartform', type:'RICEFW',
+    ws:'Warehouse', responsible:'Diana Kovacs', respEmail:'d.kovacs@bacglobal.com',
+    dueDate:'2026-07-18', almStatus:'Ready for Test',
+    narrative:'Custom SAP Smartform for transfer order printing with barcode, bin location layout, and multi-language support.',
+    featureId:'F-1095', featureDesc:'Warehouse Print Forms',
+    stages:[{status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''}] },
+  { id:'UTH-008', reqId:'3-2214', title:'Business Partner Data Migration — Legacy Vendors', type:'Data Migration',
+    ws:'Master Data', responsible:'Sarah Chen', respEmail:'s.chen@bacglobal.com',
+    dueDate:'2026-07-11', almStatus:'Ready for Test',
+    narrative:'LSMW migration of 4,200 vendor master records from legacy ERP to S/4HANA Business Partner. Field mapping, transformation rules, and duplicate check.',
+    featureId:'F-1102', featureDesc:'Vendor Master Migration',
+    stages:[{status:'passed',by:'Sarah Chen',date:'2026-06-28',notes:'Test migration of 50 records passed.'},
+            {status:'in-progress',by:'James Wright',date:null,notes:'Functional validation in progress.'},
+            {status:'pending',by:null,date:null,notes:''}] },
+  { id:'UTH-009', reqId:'3-2229', title:'Custom Report — Aged AR by Sales Office', type:'RICEFW',
+    ws:'OTC/Sales', responsible:'Priya Nair', respEmail:'p.nair@bacglobal.com',
+    dueDate:'2026-07-20', almStatus:'Ready for Test',
+    narrative:'ABAP report for aged accounts receivable analysis segmented by sales office, customer group, and dunning level.',
+    featureId:'F-1108', featureDesc:'OTC Reporting Suite',
+    stages:[{status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''}] },
+  { id:'UTH-010', reqId:'3-2241', title:'Production Scheduling Board Configuration', type:'Config',
+    ws:'Manufacturing', responsible:'Tom Maguire', respEmail:'t.maguire@bacglobal.com',
+    dueDate:'2026-07-16', almStatus:'Ready for Test',
+    narrative:'Configure the S/4HANA Production Scheduling Board including resource groups, capacity categories, and visual scheduling parameters.',
+    featureId:'F-1115', featureDesc:'Production Planning & Scheduling',
+    stages:[{status:'passed',by:'Tom Maguire',date:'2026-07-01',notes:'Board renders correctly.'},
+            {status:'pending',by:null,date:null,notes:''},
+            {status:'pending',by:null,date:null,notes:''}] }
+];
+
+var _uthAdvReqId  = null;  // req ID being advanced
+var _uthAdvStage  = null;  // stage index being advanced
+var _uthNotifyId  = null;  // req ID for notification
+
+// ── Colour helpers ─────────────────────────────────────────────────────────
+var _uthTypeColor = {
+  'Config':'#1E3A5F','RICEFW':'#5B21B6','Integration':'#0E7490','Data Migration':'#92400E'
+};
+var _uthStageName = ['Technical UT','Functional UT','BPO Approval'];
+var _uthStageColor = { 'passed':'#166534','failed':'#991B1B','in-progress':'#1565C0','pending':'#6B7280','blocked':'#B45309' };
+var _uthStageBg   = { 'passed':'#DCFCE7','failed':'#FEE2E2','in-progress':'#DBEAFE','pending':'#F3F4F6','blocked':'#FEF3C7' };
+var _uthStageIcon = { 'passed':'✓','failed':'✗','in-progress':'⏳','pending':'○','blocked':'⛔' };
+
+function uthInit() { uthRenderKpi(); uthRender(); }
+function uthRefresh() {
+  var ts = document.getElementById('uth-sync-ts');
+  if (ts) { ts.textContent = 'Syncing…'; setTimeout(function(){ ts.textContent = 'Last sync: just now'; uthRenderKpi(); uthRender(); }, 900); }
+}
+
+// ── KPI ────────────────────────────────────────────────────────────────────
+function uthRenderKpi() {
+  var el = document.getElementById('uth-kpi');
+  if (!el) return;
+  var total = _uthReqs.length;
+  var techPend = _uthReqs.filter(function(r){ return r.stages[0].status === 'pending' || r.stages[0].status === 'in-progress'; }).length;
+  var fnPend   = _uthReqs.filter(function(r){ return r.stages[0].status === 'passed' && (r.stages[1].status === 'pending' || r.stages[1].status === 'in-progress'); }).length;
+  var bpoPend  = _uthReqs.filter(function(r){ return r.stages[1].status === 'passed' && r.stages[2].status !== 'passed'; }).length;
+  var allClear = _uthReqs.filter(function(r){ return r.stages[2].status === 'passed'; }).length;
+  var kpis = [
+    {label:'Ready for Test',   val:total,    fg:'#1E3A5F', bg:'#EFF6FF'},
+    {label:'Technical UT',     val:techPend, fg:'#1565C0', bg:'#DBEAFE'},
+    {label:'Functional UT',    val:fnPend,   fg:'#5B21B6', bg:'#EDE9FE'},
+    {label:'BPO Approval',     val:bpoPend,  fg:'#D97706', bg:'#FEF3C7'},
+    {label:'Integration Ready',val:allClear, fg:'#166534', bg:'#DCFCE7'}
+  ];
+  el.innerHTML = kpis.map(function(k){
+    return '<div style="flex:1;padding:10px 18px;border-right:1px solid #E5E7EB;background:' + k.bg + ';display:flex;flex-direction:column;justify-content:center;">'
+      + '<div style="font-size:22px;font-weight:800;color:' + k.fg + ';">' + k.val + '</div>'
+      + '<div style="font-size:10px;color:#6B7280;font-weight:600;margin-top:2px;text-transform:uppercase;letter-spacing:.04em;">' + k.label + '</div>'
+      + '</div>';
+  }).join('') + '<div style="width:36px;flex-shrink:0;"></div>';
+}
+
+// ── Stage Pipeline SVG ─────────────────────────────────────────────────────
+function uthStagePipeline(stages) {
+  var h = '<div style="display:flex;align-items:center;gap:0;">';
+  stages.forEach(function(s, i) {
+    var color = _uthStageColor[s.status] || '#6B7280';
+    var bg    = _uthStageBg[s.status]   || '#F3F4F6';
+    var icon  = _uthStageIcon[s.status] || '○';
+    var label = _uthStageName[i];
+    h += '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;">'
+       + '<div style="width:28px;height:28px;border-radius:50%;background:' + bg + ';border:2px solid ' + color + ';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:' + color + ';" title="' + label + ': ' + s.status + '">' + icon + '</div>'
+       + '<div style="font-size:8px;color:' + color + ';font-weight:600;white-space:nowrap;">' + (i===0?'Tech':i===1?'Func':'BPO') + '</div>'
+       + '</div>';
+    if (i < 2) {
+      var lineColor = (s.status === 'passed') ? '#166534' : '#D1D5DB';
+      h += '<div style="width:18px;height:2px;background:' + lineColor + ';margin-bottom:14px;flex-shrink:0;"></div>';
+    }
+  });
+  h += '</div>';
+  return h;
+}
+
+// ── Current active stage index ─────────────────────────────────────────────
+function uthActiveStage(req) {
+  if (req.stages[2].status === 'passed') return -1; // done
+  for (var i = 0; i < 3; i++) {
+    if (req.stages[i].status !== 'passed') return i;
+  }
+  return -1;
+}
+
+// ── Render queue ───────────────────────────────────────────────────────────
+function uthRender() {
+  var wrap = document.getElementById('uth-table-wrap');
+  if (!wrap) return;
+
+  var q    = ((document.getElementById('uth-search') || {}).value || '').toLowerCase();
+  var ws   = ((document.getElementById('uth-filter-ws') || {}).value || '');
+  var type = ((document.getElementById('uth-filter-type') || {}).value || '');
+  var stg  = ((document.getElementById('uth-filter-stage') || {}).value || '');
+  var resp = ((document.getElementById('uth-filter-resp') || {}).value || '');
+
+  var reqs = _uthReqs.filter(function(r) {
+    if (ws   && r.ws !== ws) return false;
+    if (type && r.type !== type) return false;
+    if (resp && r.responsible !== resp) return false;
+    if (stg === 'done' && !(r.stages[2].status === 'passed')) return false;
+    if (stg === '0' && !(r.stages[0].status !== 'passed')) return false;
+    if (stg === '1' && !(r.stages[0].status === 'passed' && r.stages[1].status !== 'passed')) return false;
+    if (stg === '2' && !(r.stages[1].status === 'passed' && r.stages[2].status !== 'passed')) return false;
+    if (q && r.reqId.toLowerCase().indexOf(q) === -1 && r.title.toLowerCase().indexOf(q) === -1 && r.responsible.toLowerCase().indexOf(q) === -1) return false;
+    return true;
+  });
+
+  var lbl = document.getElementById('uth-count-label');
+  if (lbl) lbl.textContent = reqs.length + ' of ' + _uthReqs.length + ' requirements';
+
+  if (!reqs.length) {
+    wrap.innerHTML = '<div style="padding:60px;text-align:center;color:#9CA3AF;font-size:13px;">No requirements match the current filters.</div>';
+    return;
+  }
+
+  var h = '<table style="width:100%;border-collapse:collapse;font-size:12px;">';
+  // Header
+  h += '<thead><tr style="background:#1E3A5F;color:#fff;">';
+  ['Req ID','Title','Type','Workstream','Responsible','Stage Pipeline','Due Date','Actions'].forEach(function(col) {
+    h += '<th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;white-space:nowrap;border-right:1px solid rgba(255,255,255,0.15);">' + col + '</th>';
+  });
+  h += '</tr></thead><tbody>';
+
+  reqs.forEach(function(r, ri) {
+    var activeStage = uthActiveStage(r);
+    var isDone = activeStage === -1;
+    var rowBg = ri % 2 === 0 ? '#fff' : '#F9FAFB';
+    if (isDone) rowBg = '#F0FDF4';
+
+    var typeColor = _uthTypeColor[r.type] || '#374151';
+    var typeBg    = r.type === 'Config' ? '#EFF6FF' : r.type === 'RICEFW' ? '#EDE9FE' : r.type === 'Integration' ? '#ECFEFF' : '#FEF3C7';
+
+    // Due date colouring
+    var today = new Date(); today.setHours(0,0,0,0);
+    var due = new Date(r.dueDate);
+    var diff = Math.ceil((due - today) / 86400000);
+    var dueFg = diff < 0 ? '#DC2626' : diff <= 3 ? '#D97706' : '#374151';
+
+    // Action buttons
+    var actions = '';
+    if (!isDone) {
+      var stageLbl = _uthStageName[activeStage];
+      var btnColor = activeStage === 0 ? '#1565C0' : activeStage === 1 ? '#5B21B6' : '#065F46';
+      var btnLabel = r.stages[activeStage].status === 'in-progress'
+        ? 'Complete ' + (activeStage===0?'Tech UT':activeStage===1?'Func UT':'BPO Review')
+        : 'Start ' + (activeStage===0?'Tech UT':activeStage===1?'Func UT':'BPO Review');
+      actions += '<button data-rid="' + r.id + '" data-stage="' + activeStage + '" onclick="uthOpenAdvance(this.dataset.rid, parseInt(this.dataset.stage))"'
+               + ' style="padding:4px 10px;background:' + btnColor + ';color:#fff;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;margin-right:4px;">'
+               + btnLabel + '</button>';
+    } else {
+      actions += '<span style="font-size:11px;font-weight:700;color:#166534;background:#DCFCE7;border-radius:20px;padding:3px 10px;">✓ Integration Ready</span>';
+    }
+    actions += ' <button data-rid="' + r.id + '" onclick="uthOpenNotify(this.dataset.rid)"'
+             + ' style="padding:4px 8px;background:#F3F4F6;color:#374151;border:1px solid #D1D5DB;border-radius:5px;font-size:11px;cursor:pointer;" title="Send agentic notification">🔔</button>'
+             + ' <button data-rid="' + r.id + '" onclick="uthOpenDetail(this.dataset.rid)"'
+             + ' style="padding:4px 8px;background:#F3F4F6;color:#374151;border:1px solid #D1D5DB;border-radius:5px;font-size:11px;cursor:pointer;">Details</button>';
+
+    h += '<tr style="background:' + rowBg + ';border-bottom:1px solid #E5E7EB;">';
+    h += '<td style="padding:8px 12px;font-weight:700;color:#1E3A5F;white-space:nowrap;">' + r.reqId + '</td>';
+    h += '<td style="padding:8px 12px;max-width:220px;"><div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + r.title + '">' + r.title + '</div></td>';
+    h += '<td style="padding:8px 12px;"><span style="background:' + typeBg + ';color:' + typeColor + ';border-radius:20px;padding:2px 9px;font-size:10px;font-weight:700;">' + r.type + '</span></td>';
+    h += '<td style="padding:8px 12px;color:#374151;">' + r.ws + '</td>';
+    h += '<td style="padding:8px 12px;color:#374151;">' + r.responsible + '</td>';
+    h += '<td style="padding:8px 12px;">' + uthStagePipeline(r.stages) + '</td>';
+    h += '<td style="padding:8px 12px;color:' + dueFg + ';font-weight:' + (diff < 0 ? '700' : '400') + ';">' + r.dueDate + (diff < 0 ? ' <span style="font-size:9px;">OVERDUE</span>' : '') + '</td>';
+    h += '<td style="padding:8px 12px;white-space:nowrap;">' + actions + '</td>';
+    h += '</tr>';
+  });
+
+  h += '</tbody></table>';
+  wrap.innerHTML = h;
+}
+
+// ── Detail Panel ───────────────────────────────────────────────────────────
+function uthOpenDetail(reqId) {
+  var r = _uthReqs.find(function(x){ return x.id === reqId; });
+  if (!r) return;
+  var h = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">'
+        + '<h2 style="margin:0;font-size:15px;color:#1E3A5F;font-weight:700;">' + r.reqId + ' — Detail</h2>'
+        + '<button onclick="uthCloseDetail()" style="background:none;border:none;font-size:18px;cursor:pointer;color:#6B7280;">✕</button>'
+        + '</div>';
+
+  var typeColor = _uthTypeColor[r.type] || '#374151';
+  h += '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;">'
+     + '<span style="background:#EFF6FF;color:#1E3A5F;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;">' + r.type + '</span>'
+     + '<span style="background:#F3F4F6;color:#374151;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;">' + r.ws + '</span>'
+     + '<span style="background:#F3F4F6;color:#374151;border-radius:20px;padding:3px 10px;font-size:11px;">' + r.almStatus + '</span>'
+     + '</div>';
+
+  h += '<div style="font-size:13px;font-weight:700;color:#1E3A5F;margin-bottom:6px;">' + r.title + '</div>';
+  h += '<div style="font-size:12px;color:#6B7280;line-height:1.6;margin-bottom:16px;">' + r.narrative + '</div>';
+
+  h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;margin-bottom:20px;">'
+     + '<div><span style="color:#9CA3AF;font-weight:600;">Responsible</span><br><span style="color:#374151;font-weight:700;">' + r.responsible + '</span></div>'
+     + '<div><span style="color:#9CA3AF;font-weight:600;">Due Date</span><br><span style="color:#374151;">' + r.dueDate + '</span></div>'
+     + '<div><span style="color:#9CA3AF;font-weight:600;">Feature ID</span><br><span style="color:#374151;">' + r.featureId + '</span></div>'
+     + '<div><span style="color:#9CA3AF;font-weight:600;">Feature</span><br><span style="color:#374151;">' + r.featureDesc + '</span></div>'
+     + '</div>';
+
+  // Stage history
+  h += '<div style="font-size:11px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Stage History</div>';
+  r.stages.forEach(function(s, i) {
+    var color = _uthStageColor[s.status] || '#6B7280';
+    var bg    = _uthStageBg[s.status]   || '#F3F4F6';
+    var icon  = _uthStageIcon[s.status] || '○';
+    h += '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;padding:10px;background:' + bg + ';border-radius:8px;border-left:3px solid ' + color + ';">'
+       + '<div style="font-size:18px;color:' + color + ';line-height:1;">' + icon + '</div>'
+       + '<div style="flex:1;">'
+       + '<div style="font-size:12px;font-weight:700;color:' + color + ';">' + _uthStageName[i] + '</div>'
+       + '<div style="font-size:11px;color:#6B7280;">'
+       + (s.status === 'pending' ? 'Not started' : (s.by ? 'By ' + s.by : '') + (s.date ? ' · ' + s.date : ''))
+       + '</div>'
+       + (s.notes ? '<div style="font-size:11px;color:#374151;margin-top:3px;font-style:italic;">' + s.notes + '</div>' : '')
+       + '</div>';
+    if (s.status !== 'passed' && s.status !== 'done') {
+      h += '<button data-rid="' + r.id + '" data-stage="' + i + '" onclick="uthCloseDetail();uthOpenAdvance(this.dataset.rid, parseInt(this.dataset.stage))"'
+         + ' style="padding:3px 9px;background:' + color + ';color:#fff;border:none;border-radius:5px;font-size:10px;cursor:pointer;white-space:nowrap;">Update</button>';
+    }
+    h += '</div>';
+  });
+
+  h += '<div style="margin-top:20px;padding-top:16px;border-top:1px solid #E5E7EB;">'
+     + '<button data-rid="' + r.id + '" onclick="uthCloseDetail();uthOpenNotify(this.dataset.rid)"'
+     + ' style="width:100%;padding:9px;background:#065F46;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;">🔔 Send Agentic Notification</button>'
+     + '</div>';
+
+  var content = document.getElementById('uth-detail-content');
+  if (content) content.innerHTML = h;
+  var backdrop = document.getElementById('uth-detail-backdrop');
+  if (backdrop) backdrop.style.display = 'flex';
+}
+function uthCloseDetail() {
+  var el = document.getElementById('uth-detail-backdrop');
+  if (el) el.style.display = 'none';
+}
+
+// ── Advance Stage Modal ────────────────────────────────────────────────────
+function uthOpenAdvance(reqId, stageIdx) {
+  _uthAdvReqId = reqId; _uthAdvStage = stageIdx;
+  var r = _uthReqs.find(function(x){ return x.id === reqId; });
+  if (!r) return;
+  var stageName = _uthStageName[stageIdx];
+  document.getElementById('uth-adv-title').textContent = stageName + ' — ' + r.reqId;
+  document.getElementById('uth-adv-desc').textContent = r.title + ' · ' + r.responsible;
+  document.getElementById('uth-adv-outcome').value = 'passed';
+  document.getElementById('uth-adv-notes').value = '';
+
+  // Label the confirm button based on stage
+  var btnLabels = ['Complete Technical UT','Complete Functional UT','BPO Sign-Off'];
+  var btnColors = ['#1565C0','#5B21B6','#065F46'];
+  var btn = document.getElementById('uth-adv-confirm-btn');
+  if (btn) { btn.textContent = btnLabels[stageIdx]; btn.style.background = btnColors[stageIdx]; }
+
+  var backdrop = document.getElementById('uth-advance-backdrop');
+  if (backdrop) backdrop.style.display = 'flex';
+}
+function uthCloseAdvance() {
+  var el = document.getElementById('uth-advance-backdrop');
+  if (el) el.style.display = 'none';
+  _uthAdvReqId = null; _uthAdvStage = null;
+}
+function uthConfirmAdvance() {
+  if (_uthAdvReqId === null || _uthAdvStage === null) return;
+  var r = _uthReqs.find(function(x){ return x.id === _uthAdvReqId; });
+  if (!r) return;
+  var outcome = document.getElementById('uth-adv-outcome').value;
+  var notes   = (document.getElementById('uth-adv-notes').value || '').trim();
+  var today   = new Date().toISOString().slice(0,10);
+  r.stages[_uthAdvStage].status = outcome;
+  r.stages[_uthAdvStage].date   = today;
+  r.stages[_uthAdvStage].by     = 'Chris York';
+  r.stages[_uthAdvStage].notes  = notes;
+
+  // If passed and next stage exists, auto-offer notification
+  if (outcome === 'passed' && _uthAdvStage < 2) {
+    var nextStage = _uthAdvStage + 1;
+    r.stages[nextStage].status = 'pending';
+    uthCloseAdvance();
+    // Auto-trigger notification for the next responsible party
+    uthOpenNotify(_uthAdvReqId, nextStage);
+  } else {
+    uthCloseAdvance();
+  }
+  uthRenderKpi();
+  uthRender();
+}
+
+// ── Notification Modal ─────────────────────────────────────────────────────
+function uthOpenNotify(reqId, stageOverride) {
+  _uthNotifyId = reqId;
+  var r = _uthReqs.find(function(x){ return x.id === reqId; });
+  if (!r) return;
+  var activeStage = (stageOverride !== undefined) ? stageOverride : uthActiveStage(r);
+  if (activeStage < 0) activeStage = 2;
+  var stageName = _uthStageName[activeStage];
+  var stageColors = ['#1565C0','#5B21B6','#065F46'];
+  var stageBgs    = ['#DBEAFE','#EDE9FE','#DCFCE7'];
+
+  var badge = document.getElementById('uth-notify-stage-badge');
+  if (badge) {
+    badge.textContent = stageName;
+    badge.style.background = stageBgs[activeStage];
+    badge.style.color = stageColors[activeStage];
+  }
+
+  // Determine recipient based on stage
+  var recipient = r.responsible;
+  var recipientIntro = activeStage === 0
+    ? 'Hi ' + r.responsible.split(' ')[0] + ',\n\nA requirement assigned to you is now ready for Technical Unit Testing in the TSP AI Hub Unit Test Hub.'
+    : activeStage === 1
+    ? 'Hi ' + r.responsible.split(' ')[0] + ',\n\nThe Technical Unit Test for the following requirement has been completed and is now ready for your Functional Unit Test review.'
+    : 'Hi ' + r.responsible.split(' ')[0] + ',\n\nThe Functional Unit Test has been completed for the requirement below. As the Business Process Owner, your approval is required to mark this requirement as Integration Ready.';
+
+  var msg = recipientIntro + '\n\n'
+    + 'Requirement:  ' + r.reqId + ' — ' + r.title + '\n'
+    + 'Type:         ' + r.type + '\n'
+    + 'Workstream:   ' + r.ws + '\n'
+    + 'Due Date:     ' + r.dueDate + '\n'
+    + 'Current Stage: ' + stageName + '\n\n'
+    + 'Please log in to the TSP AI Hub → Unit Test Hub to complete this stage.\n\n'
+    + 'This is an automated notification from TSP AI Hub Unit Test Hub.\n'
+    + 'The Silicon Partners | TSP AI Hub Platform';
+
+  document.getElementById('uth-notify-to').textContent = recipient + ' <' + r.respEmail + '>';
+  document.getElementById('uth-notify-msg').value = msg;
+
+  var backdrop = document.getElementById('uth-notify-backdrop');
+  if (backdrop) backdrop.style.display = 'flex';
+}
+function uthCloseNotify() {
+  var el = document.getElementById('uth-notify-backdrop');
+  if (el) el.style.display = 'none';
+  _uthNotifyId = null;
+}
+function uthSendNotify() {
+  uthCloseNotify();
+  var toast = document.getElementById('uth-toast');
+  if (toast) {
+    toast.style.display = 'block';
+    setTimeout(function(){ toast.style.display = 'none'; }, 2800);
+  }
+}
+
+
+(function() {
+  var _prevNavTo = window.navTo;
+  window.navTo = function(pageKey, parentKey) {
+    _prevNavTo.apply(this, arguments);
+    if (pageKey === 'phase-gate-dashboard') {
+      var pg = document.getElementById('page-phase-gate-dashboard');
+      if (pg) pg.dataset.parent = parentKey || 'project-exec';
+      setTimeout(function(){ if(typeof pgInit==='function') pgInit(); }, 30);
+    }
+  };
+})();
+
 </script>
 </body>
 </html>
