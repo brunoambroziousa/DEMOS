@@ -91,7 +91,87 @@ window.navTo = navTo;
     height: 100vh;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
   }
+
+  /* ══ GLOBAL TOP BAR ══ */
+  .topbar {
+    flex-shrink: 0;
+    height: 56px;
+    background: var(--tsp-blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  .topbar-lead {
+    width: 215px;              /* = sidebar width, so the title zone lines up with .main */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 14px;
+    box-sizing: border-box;
+  }
+  .topbar-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 28px 0 32px;    /* left 32px matches the page body's content margin */
+  }
+  .topbar-icon-btn {
+    background: none; border: none; color: #fff; font-size: 18px;
+    cursor: pointer; padding: 4px 9px; border-radius: 6px; line-height: 1;
+  }
+  .topbar-icon-btn:hover { background: rgba(255,255,255,.14); }
+  .topbar-back {
+    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.25);
+    color: #fff; font-size: 12.5px; font-weight: 600; padding: 6px 12px;
+    border-radius: 7px; cursor: pointer; white-space: nowrap;
+  }
+  .topbar-back:hover { background: rgba(255,255,255,.2); }
+  .topbar-titlewrap { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .topbar-folder { font-size: 16px; opacity: .9; flex-shrink: 0; }
+  .topbar-title { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .topbar-sub { font-size: 11.5px; color: rgba(255,255,255,.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 560px; }
+  .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .topbar-project-label { font-size: 10.5px; font-weight: 700; letter-spacing: .08em; color: rgba(255,255,255,.65); }
+  .topbar-project-avatar {
+    width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.18);
+    color: #fff; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .topbar-project-select {
+    background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.28);
+    border-radius: 7px; padding: 6px 10px; font-size: 12.5px; font-weight: 600; cursor: pointer; max-width: 240px;
+  }
+  .topbar-project-select option { color: #111; }
+  .topbar-user {
+    width: 34px; height: 34px; border-radius: 50%; background: #fff; color: var(--tsp-blue);
+    font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center;
+    border: 2px solid rgba(255,255,255,.55); flex-shrink: 0;
+  }
+  .app-row { flex: 1; min-height: 0; display: flex; overflow: hidden; }
+  .sidebar.tb-collapsed { display: none; }
+  @media (max-width: 900px) { .topbar-sub { display: none; } }
+
+  /* ══ SLA + AMS ══ */
+  .sla-pill { display:inline-block; background:var(--tsp-blue); color:#fff; font-size:10px; font-weight:700; letter-spacing:.06em; padding:3px 10px; border-radius:12px; }
+  .ams-chip { display:inline-flex; align-items:center; gap:5px; background:var(--tsp-blue-light,#EFF4FB); color:var(--tsp-blue); border:1px solid var(--border); border-radius:14px; padding:4px 12px; font-size:11.5px; font-weight:600; }
+  .sla-grid-title { font-size:13px; font-weight:700; color:var(--tsp-blue); margin:14px 0 8px; }
+  .sla-table { width:100%; border-collapse:separate; border-spacing:0; font-size:12px; }
+  .sla-table th { text-align:left; font-size:10.5px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; padding:8px 10px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  .sla-table td { padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .sla-cell { background:var(--bg-page); border:1px solid var(--border); border-radius:8px; padding:8px; display:flex; flex-direction:column; gap:6px; min-width:190px; }
+  .sla-cell-row { display:flex; gap:6px; }
+  .sla-cell input.sla-num { width:60px; }
+  .sla-cell .sla-unit { flex:1; min-width:90px; }
+  .sla-cell .sla-desc { width:100%; font-size:11px; }
+  .sla-reset { align-self:flex-start; background:none; border:none; color:var(--tsp-blue); font-size:10.5px; cursor:pointer; padding:0; }
+  .sla-reset:hover { text-decoration:underline; }
+  .sla-sev-badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 
   /* ══ SIDEBAR ══ */
   .sidebar {
@@ -165,7 +245,7 @@ window.navTo = navTo;
     flex: 1;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 0;
     overflow: hidden;
     background: var(--bg-page);
   }
@@ -1558,6 +1638,28 @@ window.navTo = navTo;
 </head>
 <body>
 
+<!-- ══ GLOBAL TOP BAR ══ -->
+<div class="topbar">
+  <div class="topbar-lead">
+    <button class="topbar-icon-btn" id="tb-sidebar-toggle" onclick="tbToggleSidebar()" title="Toggle menu">&#9776;</button>
+    <button class="topbar-back" onclick="tbBack()">&#8592; Back</button>
+  </div>
+  <div class="topbar-main">
+    <div class="topbar-titlewrap">
+      <span class="topbar-folder">&#128193;</span>
+      <div class="topbar-title" id="tb-title">Home</div>
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-project-label">PROJECT</span>
+      <span class="topbar-project-avatar" id="tb-proj-avatar">--</span>
+      <select class="topbar-project-select" id="tb-project-select" onchange="tbProjectChange(this.value)"></select>
+      <span class="topbar-user" id="tb-user" title="Chris York">CY</span>
+    </div>
+  </div>
+</div>
+
+<div class="app-row">
+
 <!-- ══ SIDEBAR ══ -->
 <aside class="sidebar">
   <div class="sidebar-brand">
@@ -1880,7 +1982,7 @@ window.navTo = navTo;
       <div class="tile-list">
         <div class="tile t-blue"><div class="tile-icon ic-blue">🔄</div><div class="tile-text"><div class="tile-name">CRM Auto-Update</div><div class="tile-desc">Sync and update CRM records automatically</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-purple"><div class="tile-icon ic-purple">📊</div><div class="tile-text"><div class="tile-name">Presentation Generation</div><div class="tile-desc">AI-generated client presentations</div></div><div class="tile-arrow">↗</div></div>
-        <div class="tile t-teal"><div class="tile-icon ic-teal">📝</div><div class="tile-text"><div class="tile-name">SOW Generation</div><div class="tile-desc">Draft statements of work</div></div><div class="tile-arrow">↗</div></div>
+        <div class="tile t-teal" onclick="navTo('sow-generation','pre-sales')"><div class="tile-icon ic-teal">📝</div><div class="tile-text"><div class="tile-name">SOW Generation</div><div class="tile-desc">Draft statements of work</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-orange"><div class="tile-icon ic-orange">🔎</div><div class="tile-text"><div class="tile-name">Contract Review</div><div class="tile-desc">AI-assisted contract analysis</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-pink"><div class="tile-icon ic-pink">📋</div><div class="tile-text"><div class="tile-name">MSA Review</div><div class="tile-desc">Master service agreement review</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-amber"><div class="tile-icon ic-amber">✅</div><div class="tile-text"><div class="tile-name">SOW Review &amp; Approval</div><div class="tile-desc">Internal review and sign-off workflow</div></div><div class="tile-arrow">↗</div></div>
@@ -1953,6 +2055,15 @@ window.navTo = navTo;
           <span class="tile-badge tile-badge-inprog" id="badge-ent-structure" style="display:none;">In Progress</span>
           <div class="tile-arrow">↗</div>
         </div>
+        <div class="tile t-green" id="tile-sla" onclick="openPsPage('ps-sla')">
+          <div class="tile-icon ic-green">📐</div>
+          <div class="tile-text">
+            <div class="tile-name">SLA Management</div>
+            <div class="tile-desc">Defect SLA timers &amp; breach actions per delivery context and severity</div>
+          </div>
+          <span class="tile-badge tile-badge-inprog" id="badge-sla" style="display:none;">In Progress</span>
+          <div class="tile-arrow">↗</div>
+        </div>
       </div>
     </div>
   </div>
@@ -2007,6 +2118,10 @@ window.navTo = navTo;
           <div class="ps-step-num"><span>7</span></div>
           <div class="ps-step-label">Enterprise Structure</div>
         </div>
+        <div class="ps-step" data-step="8" onclick="psGoStep('proj-config',8)">
+          <div class="ps-step-num"><span>8</span></div>
+          <div class="ps-step-label">Capability Area Owners</div>
+        </div>
       </div>
     </div>
 
@@ -2031,11 +2146,12 @@ window.navTo = navTo;
             </div>
             <div class="ps-field">
               <label class="ps-label">Engagement Type <span class="req">*</span></label>
-              <select class="ps-select">
+              <select class="ps-select" id="ps-engagement-type" onchange="psEngagementChange(this.value)">
                 <option selected>Greenfield</option>
                 <option>Brownfield</option>
                 <option>Bluefield</option>
                 <option>Assessment</option>
+                <option>AMS</option>
               </select>
             </div>
             <div class="ps-field">
@@ -2351,6 +2467,7 @@ window.navTo = navTo;
       <!-- STEP 5: Staffing Plan -->
       <div id="pc-step-5" style="display:none;">
 
+        <div id="sp-standard">
         <!-- KPI summary row — ALWAYS at top of staffing plan -->
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;">
           <div class="ps-team-kpi">
@@ -2439,6 +2556,46 @@ window.navTo = navTo;
             </table>
           </div>
           <p style="font-size:10.5px;color:var(--text-muted);margin-top:8px;">Days per week (0–5). Totals recalculate automatically on each change.</p>
+        </div>
+        </div><!-- /sp-standard -->
+
+        <!-- AMS monthly staffing (shown when Engagement Type = AMS) -->
+        <div id="ams-sp" style="display:none;">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;">
+            <div class="ps-team-kpi"><div class="ps-team-kpi-label">Named Monthly Hours</div><div class="ps-team-kpi-value" id="ams-sp-named-hrs">—</div><div class="ps-team-kpi-sub">Sum of named budgets</div></div>
+            <div class="ps-team-kpi"><div class="ps-team-kpi-label">Pool Monthly Hours</div><div class="ps-team-kpi-value" id="ams-sp-pool-hrs">—</div><div class="ps-team-kpi-sub">Shared pool budget</div></div>
+            <div class="ps-team-kpi"><div class="ps-team-kpi-label">Total Monthly Hours</div><div class="ps-team-kpi-value" id="ams-sp-total-hrs">—</div><div class="ps-team-kpi-sub">Named + Pool</div></div>
+            <div class="ps-team-kpi"><div class="ps-team-kpi-label">Est. Monthly Cost</div><div class="ps-team-kpi-value" id="ams-sp-cost">—</div><div class="ps-team-kpi-sub">Blended rate</div></div>
+          </div>
+
+          <div class="ps-card">
+            <div class="ps-card-title">🙋 Named Resources — Monthly Plan</div>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">Each named resource has an individual <b>monthly</b> hours budget. Edit hours/rate on the Team Set-up page or here.</p>
+            <div style="overflow-x:auto;">
+              <table class="ps-team-table">
+                <thead><tr>
+                  <th style="min-width:200px;">Resource</th>
+                  <th style="width:160px;">Role</th>
+                  <th style="width:130px;">Monthly Hours</th>
+                  <th style="width:140px;">Cost Rate ($/hr)</th>
+                  <th style="width:140px;">Monthly Cost</th>
+                </tr></thead>
+                <tbody id="ams-sp-named-body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="ps-card">
+            <div class="ps-card-title">👥 Pool Resources — Monthly Plan</div>
+            <p style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">One shared <b>monthly</b> pool of hours. Assigned pool members draw down from this budget; actuals are reported from defect-closure hours.</p>
+            <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+              <label style="font-size:12px;font-weight:700;color:var(--text-muted);">Monthly Pool Budget (hrs)</label>
+              <input id="ams-sp-pool-budget" class="ps-input" type="number" min="0" style="width:120px;" value="320" oninput="amsPoolBudgetChange(this.value)"/>
+              <label style="font-size:12px;font-weight:700;color:var(--text-muted);">Blended Rate ($/hr)</label>
+              <input id="ams-sp-pool-rate" class="ps-input" type="number" min="0" style="width:120px;" value="95" oninput="amsPoolRateChange(this.value)"/>
+              <span class="ams-chip">Monthly Cost: <b id="ams-sp-pool-cost">—</b></span>
+            </div>
+          </div>
         </div>
 
       </div><!-- /pc-step-5 -->
@@ -2678,6 +2835,38 @@ window.navTo = navTo;
 
       </div><!-- /pc-step-7 -->
 
+      <!-- STEP 8: Capability Area Owners -->
+      <div id="pc-step-8" style="display:none;">
+        <div class="ps-card">
+          <div class="ps-card-title">🧭 Capability Area Owners</div>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:14px;">
+            Capability areas are derived automatically from the in-scope processes selected in
+            <strong>Step 3 — Process Scope</strong>. Each capability area (with its workstream) is listed once below.
+            Assign a TSP Lead and Backup from the TSP team, plus a Primary and Secondary client user from the
+            Project Key User List.
+          </p>
+          <div class="ps-scope-toolbar">
+            <button class="ps-foot-btn" onclick="capInit()">🔄 Refresh from Process Scope</button>
+            <span class="ps-scope-count" id="capCount">0 of 0 assigned</span>
+          </div>
+          <div class="ps-scope-wrap">
+            <table class="ps-scope-table" id="capTable">
+              <thead>
+                <tr>
+                  <th style="min-width:220px;">Capability Area</th>
+                  <th style="width:120px;">Workstream</th>
+                  <th style="min-width:160px;">TSP Lead</th>
+                  <th style="min-width:160px;">TSP Backup</th>
+                  <th style="min-width:160px;">Primary Client User</th>
+                  <th style="min-width:160px;">Secondary Client User</th>
+                </tr>
+              </thead>
+              <tbody id="capBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /pc-step-8 -->
+
     </div><!-- /ps-body -->
 
     <div class="ps-footer">
@@ -2871,7 +3060,7 @@ window.navTo = navTo;
     <div class="ps-body">
 
       <!-- KPI summary -->
-      <div class="ps-team-summary">
+      <div class="ps-team-summary" id="team-standard-summary">
         <div class="ps-team-kpi">
           <div class="ps-team-kpi-label">Total Hours Budget</div>
           <div class="ps-team-kpi-value">12,471</div>
@@ -2889,7 +3078,7 @@ window.navTo = navTo;
         </div>
       </div>
 
-      <div class="ps-card">
+      <div class="ps-card" id="team-standard-card">
         <div class="ps-card-title">👥 Role Assignments</div>
         <div style="overflow-x:auto;">
           <table class="ps-team-table">
@@ -3040,6 +3229,58 @@ window.navTo = navTo;
           </table>
         </div>
       </div>
+
+      <!-- AMS Named / Pool sections (shown when Engagement Type = AMS) -->
+      <div id="ams-team" style="display:none;">
+        <div class="ps-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <div class="ps-card-title" style="margin:0;">🙋 Named Resources</div>
+            <button class="ps-foot-btn" type="button" onclick="amsAddNamed()">＋ Add Named Resource</button>
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);margin:6px 0 10px;">Dedicated resources, each with an individual <b>monthly</b> hours budget. Actual hours are drawn from defect-closure time.</p>
+          <div style="overflow-x:auto;">
+            <table class="ps-team-table">
+              <thead><tr>
+                <th style="min-width:200px;">Resource</th>
+                <th style="width:160px;">Role</th>
+                <th style="width:110px;">Location</th>
+                <th style="width:130px;">Monthly Hours</th>
+                <th style="width:130px;">Actual (Defects)</th>
+                <th style="width:110px;">Remaining</th>
+                <th style="width:60px;text-align:center;">Actions</th>
+              </tr></thead>
+              <tbody id="ams-named-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="ps-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <div class="ps-card-title" style="margin:0;">👥 Pool Resources</div>
+            <button class="ps-foot-btn" type="button" onclick="amsAddPool()">＋ Add Pool Member</button>
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);margin:6px 0 10px;">A single shared <b>monthly</b> hours pool for all pool resources. Assigned members consume from the same pool; actual hours come from defect-closure time.</p>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+            <label style="font-size:12px;font-weight:700;color:var(--text-muted);">Monthly Pool Budget (hrs)</label>
+            <input id="ams-pool-budget" class="ps-input" type="number" min="0" style="width:120px;" value="320" oninput="amsPoolBudgetChange(this.value)"/>
+            <span class="ams-chip">Consumed: <b id="ams-pool-consumed">0</b> h</span>
+            <span class="ams-chip">Remaining: <b id="ams-pool-remaining">0</b> h</span>
+            <span class="ams-chip">Utilisation: <b id="ams-pool-util">0%</b></span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="ps-team-table">
+              <thead><tr>
+                <th style="min-width:200px;">Pool Member</th>
+                <th style="width:160px;">Role</th>
+                <th style="width:110px;">Location</th>
+                <th style="width:150px;">Actual (Defects, hrs)</th>
+                <th style="width:60px;text-align:center;">Actions</th>
+              </tr></thead>
+              <tbody id="ams-pool-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="ps-footer">
@@ -3106,6 +3347,60 @@ window.navTo = navTo;
     </div>
 
   </div><!-- /ps-team-setup -->
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SLA MANAGEMENT                                  -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="page ps-page" id="ps-sla">
+    <div class="ps-header">
+      <div class="ps-header-top">
+        <div>
+          <div class="ps-breadcrumb">
+            <a onclick="closePsPage('ps-sla')">Project Set-up</a>
+            <span style="opacity:.4">/</span> SLA Management
+          </div>
+          <div class="ps-title">SLA Management</div>
+          <div class="ps-subtitle">Configure defect SLA timers and breach actions per delivery context and severity.</div>
+        </div>
+        <div class="ps-header-btns">
+          <button class="ps-btn" onclick="closePsPage('ps-sla')">← Back</button>
+          <button class="ps-btn ps-btn-primary" onclick="psSave('ps-sla')">💾 Save SLAs</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-body">
+      <div style="margin-bottom:14px;">
+        <div style="font-size:16px;font-weight:700;color:var(--text-primary);" id="sla-project-name">BAC Global Template Greenfield Project</div>
+        <div style="font-size:12px;color:var(--text-muted);">Default SLA rules are prefilled. Changes are saved only for this project.</div>
+      </div>
+
+      <div class="ps-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+          <div class="ps-card-title" style="margin:0;">🏢 Project SLA Settings</div>
+          <button class="ps-foot-btn" type="button" onclick="slaResetAll()">↺ Reset all to defaults</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin:10px 0 4px;flex-wrap:wrap;">
+          <span class="sla-pill">PROJECT SETTINGS</span>
+          <span style="font-size:12px;color:var(--text-muted);">Default values are prefilled. Changes are saved only for this project.</span>
+        </div>
+        <div style="display:flex;gap:8px;margin:12px 0 4px;flex-wrap:wrap;">
+          <button class="ps-tl-tab active" id="sla-tab-Implementation" onclick="slaSetContext('Implementation')">Implementation</button>
+          <button class="ps-tl-tab" id="sla-tab-AMS" onclick="slaSetContext('AMS')">AMS</button>
+          <button class="ps-tl-tab" id="sla-tab-HyperCare" onclick="slaSetContext('HyperCare')">HyperCare</button>
+        </div>
+        <div id="sla-grids"></div>
+      </div>
+    </div>
+
+    <div class="ps-footer">
+      <div class="ps-footer-info" id="sla-footer-info">Defect SLA rules · 3 delivery contexts · 4 severities</div>
+      <div class="ps-footer-btns">
+        <button class="ps-foot-btn" onclick="closePsPage('ps-sla')">Cancel</button>
+        <button class="ps-foot-btn ps-foot-btn-primary" onclick="psSave('ps-sla')">💾 Save SLAs</button>
+      </div>
+    </div>
+  </div><!-- /ps-sla -->
 
 
   <!-- ═══════════════════════════════════════════════ -->
@@ -5192,39 +5487,31 @@ window.navTo = navTo;
           </div>
         </div>
 
-        <!-- Plan vs Actual by Day -->
+        <!-- Daily Execution Plan (plan only) -->
         <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-          <div style="padding:14px 18px;border-bottom:1px solid var(--border);">
-            <div style="font-size:13px;font-weight:700;color:var(--text-primary);">📈 Plan vs Actual — by Day</div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">SIT 1 · 10-day window · Jun 29 – Jul 10</div>
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--text-primary);">📅 Daily Execution Plan</div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">SIT 1 · 10-day window · Jun 29 – Jul 10 · scripts sequenced by day</div>
+            </div>
+            <button onclick="tpDailyOpen()" style="background:var(--tsp-blue);color:#fff;border:none;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;">🗓 Daily Plan</button>
           </div>
           <div style="overflow-x:auto;">
-            <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
               <thead>
                 <tr style="background:var(--tsp-blue-light);">
-                  <th style="padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--tsp-blue);letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Day</th>
-                  <th style="padding:8px 10px;text-align:left;font-size:10px;font-weight:700;color:var(--tsp-blue);letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Date</th>
-                  <th style="padding:8px 10px;text-align:right;font-size:10px;font-weight:700;color:var(--tsp-blue);letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Planned</th>
-                  <th style="padding:8px 10px;text-align:right;font-size:10px;font-weight:700;color:var(--tsp-blue);letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Executed</th>
-                  <th style="padding:8px 10px;text-align:right;font-size:10px;font-weight:700;color:#2e7d32;letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Passed</th>
-                  <th style="padding:8px 10px;text-align:right;font-size:10px;font-weight:700;color:#c62828;letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Failed</th>
-                  <th style="padding:8px 10px;text-align:right;font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Remaining</th>
+                  <th style="padding:9px 14px;text-align:left;font-size:10px;font-weight:700;color:var(--tsp-blue);letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Day</th>
+                  <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--tsp-blue);letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Date</th>
+                  <th style="padding:9px 14px;text-align:right;font-size:10px;font-weight:700;color:var(--tsp-blue);letter-spacing:.4px;text-transform:uppercase;border-bottom:2px solid var(--tsp-blue);">Scripts Planned</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr style="background:#fff;"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 1</td><td style="padding:8px 10px;color:var(--text-muted);">Mon Jun 29</td><td style="padding:8px 10px;text-align:right;font-weight:600;">27</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">27</td></tr>
-                <tr style="background:var(--bg-page);"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 2</td><td style="padding:8px 10px;color:var(--text-muted);">Tue Jun 30</td><td style="padding:8px 10px;text-align:right;font-weight:600;">27</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">27</td></tr>
-                <tr style="background:#fff;"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 3</td><td style="padding:8px 10px;color:var(--text-muted);">Wed Jul 1</td><td style="padding:8px 10px;text-align:right;font-weight:600;">25</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">25</td></tr>
-                <tr style="background:var(--bg-page);"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 4</td><td style="padding:8px 10px;color:var(--text-muted);">Thu Jul 2</td><td style="padding:8px 10px;text-align:right;font-weight:600;">25</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">25</td></tr>
-                <tr style="background:#fff;"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 5</td><td style="padding:8px 10px;color:var(--text-muted);">Fri Jul 3</td><td style="padding:8px 10px;text-align:right;font-weight:600;">24</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">24</td></tr>
-                <tr style="background:var(--bg-page);"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 6</td><td style="padding:8px 10px;color:var(--text-muted);">Mon Jul 6</td><td style="padding:8px 10px;text-align:right;font-weight:600;">8</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">8</td></tr>
-                <tr style="background:#fff;"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 7</td><td style="padding:8px 10px;color:var(--text-muted);">Tue Jul 7</td><td style="padding:8px 10px;text-align:right;font-weight:600;">7</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">7</td></tr>
-                <tr style="background:var(--bg-page);"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 8</td><td style="padding:8px 10px;color:var(--text-muted);">Wed Jul 8</td><td style="padding:8px 10px;text-align:right;font-weight:600;">5</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">5</td></tr>
-                <tr style="background:#fff;"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 9</td><td style="padding:8px 10px;color:var(--text-muted);">Thu Jul 9</td><td style="padding:8px 10px;text-align:right;font-weight:600;">5</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">5</td></tr>
-                <tr style="background:var(--bg-page);"><td style="padding:8px 12px;font-weight:600;color:var(--tsp-blue);">Day 10</td><td style="padding:8px 10px;color:var(--text-muted);">Fri Jul 10</td><td style="padding:8px 10px;text-align:right;font-weight:600;">5</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">—</td><td style="padding:8px 10px;text-align:right;color:var(--text-muted);">5</td></tr>
-                <tr style="background:var(--tsp-blue-light);font-weight:700;"><td style="padding:9px 12px;color:var(--tsp-blue);">TOTAL</td><td style="padding:9px 10px;color:var(--text-muted);"></td><td style="padding:9px 10px;text-align:right;color:var(--tsp-blue);">158</td><td style="padding:9px 10px;text-align:right;color:var(--tsp-blue);">0</td><td style="padding:9px 10px;text-align:right;color:#2e7d32;">0</td><td style="padding:9px 10px;text-align:right;color:#c62828;">0</td><td style="padding:9px 10px;text-align:right;color:var(--text-muted);">158</td></tr>
+              <tbody id="tp-dayplan-body">
+                <tr><td colspan="3" style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px;">Loading daily plan…</td></tr>
               </tbody>
             </table>
+          </div>
+          <div style="padding:9px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text-muted);background:var(--bg-page);">
+            Click <strong>🗓 Daily Plan</strong> to map approved scripts to specific days. Actual execution is tracked in the <strong onclick="navTo('tg-execution')" style="cursor:pointer;color:var(--tsp-blue);text-decoration:underline;">Test Execution Hub ↗</strong>.
           </div>
         </div>
       </div>
@@ -5526,6 +5813,47 @@ window.navTo = navTo;
       <div class="modal-actions" style="margin:0;padding:14px 24px;border-top:1px solid var(--border);">
         <button class="modal-cancel" onclick="tpManageClose()">Cancel</button>
         <button class="modal-save" onclick="tpManageSave()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── DAILY EXECUTION PLAN MODAL (day ↔ script mapping) ─── -->
+  <div class="modal-overlay" id="tp-daily-modal" onclick="if(event.target===this)tpDailyClose()">
+    <div class="modal-box" style="width:860px;max-height:88vh;display:flex;flex-direction:column;padding:0;" onclick="event.stopPropagation()">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid var(--border);">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;">🗓️</span>
+          <div>
+            <div class="modal-title" style="margin-bottom:0;">Daily Execution Plan — SIT Round 1</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Sequence execution by mapping each approved script to a specific day.</div>
+          </div>
+        </div>
+        <button onclick="tpDailyClose()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-muted);padding:4px;">✕</button>
+      </div>
+      <!-- Two-pane body: unassigned pool (drag source) + days (drop targets) -->
+      <div style="flex:1;overflow:hidden;display:grid;grid-template-columns:320px 1fr;min-height:0;">
+        <!-- LEFT: unassigned scripts pool -->
+        <div style="border-right:1px solid var(--border);display:flex;flex-direction:column;min-height:0;background:var(--bg-page);">
+          <div style="padding:12px 14px 8px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:#e65100;letter-spacing:.4px;">Unassigned Scripts</div>
+              <span id="tp-daily-unassigned" style="font-size:11.5px;font-weight:700;color:#e65100;background:#fff3e0;padding:2px 9px;border-radius:10px;min-width:22px;text-align:center;">0</span>
+            </div>
+            <input type="text" id="tp-daily-search" placeholder="🔍 Search by ID or title…" oninput="tpDailyFilter(this.value)" style="width:100%;padding:7px 12px;border:1px solid var(--border);border-radius:7px;font-size:12.5px;box-sizing:border-box;" />
+          </div>
+          <div id="tp-daily-pool" ondragover="tpDailyDragOver(event,this)" ondragleave="tpDailyDragLeave(event,this)" ondrop="tpDailyDrop(event,0,this)" style="flex:1;overflow-y:auto;padding:2px 14px 14px;min-height:0;"></div>
+        </div>
+        <!-- RIGHT: days (drop targets) -->
+        <div style="overflow-y:auto;padding:14px 16px;min-height:0;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">🖐 Drag scripts from the left onto a day to sequence them. Drag between days to reschedule, or back to the pool to unassign.</div>
+          <div id="tp-daily-days"></div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div class="modal-actions" style="margin:0;padding:14px 24px;border-top:1px solid var(--border);">
+        <button class="modal-cancel" onclick="tpDailyClose()">Cancel</button>
+        <button class="modal-save" onclick="tpDailySave()">Save Daily Plan</button>
       </div>
     </div>
   </div>
@@ -9361,7 +9689,7 @@ window.navTo = navTo;
             <!-- ── SCRIPT EXECUTION LOG TAB ── -->
       <div id="tge-log" style="display:none;">
         <div style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:7px;font-size:12px;color:#2e7d32;margin-bottom:12px;">
-          ✓ <strong>158 scripts auto-populated</strong> from Test Script Hub (Module 4) — no manual re-entry required. Testers update Status, Pass/Fail, Defect ID, and Comments only.
+          ✓ <strong>158 scripts auto-populated</strong> from Test Script Hub (Module 4) — no manual re-entry required. Click <strong>▶ Execute</strong> on any row (or the row itself) to run the script and record Status, Pass/Fail, Defect ID, and Comments.
         </div>
         <!-- Area tabs -->
         <div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:12px;">
@@ -13973,8 +14301,6 @@ Sign-off is captured as a recorded digital signature to advance from Stabilize t
         <div class="ov-scope">In-scope SAP Solution Processes &middot; Cloud ALM synced</div>
       </div>
       <div style="margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <select id="psl-project-select" onchange="pslOnProjectChange()"
-          style="padding:6px 10px;border:1.5px solid rgba(255,255,255,0.5);border-radius:7px;background:rgba(255,255,255,0.12);color:#fff;font-size:12px;font-weight:600;outline:none;max-width:260px;"></select>
         <div style="display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,0.15);font-size:12px;color:#fff;white-space:nowrap;">
           <span style="width:8px;height:8px;border-radius:50%;background:#4ADE80;display:inline-block;"></span>
           Cloud ALM Connected
@@ -14097,10 +14423,10 @@ Sign-off is captured as a recorded digital signature to advance from Stabilize t
             <tr>
               <th>Scope ID</th>
               <th>SAP Solution Process</th>
-              <th>Business Process Variant</th>
-              <th>Process Group</th>
+              <th style="white-space:normal;">Business Process Variant</th>
+              <th style="white-space:normal;">Process Group</th>
               <th style="text-align:center;">Status</th>
-              <th>Process Owner</th>
+              <th style="white-space:normal;">Process Owner</th>
               <th>Tags</th>
               <th style="text-align:center;">Synced</th>
               <th></th>
@@ -15398,7 +15724,441 @@ SELECTION-SCREEN END OF BLOCK b1.
   </div>
   <!-- ════════════════════ /SPRINT BOARD (KANBAN) ════════════════════ -->
 
+  <!-- ═══════════════ PRE-SALES / SOW GENERATION ═══════════════ -->
+  <div class="page" id="page-sow-generation">
+    <style>
+    /* Pre-Sales Generator — all selectors namespaced psg- to avoid collisions */
+    #page-sow-generation .psg-root{flex:1;display:flex;flex-direction:column;min-height:0;height:100%;}
+    #page-sow-generation .psg-view{display:none;flex:1;flex-direction:column;min-height:0;}
+    #page-sow-generation .psg-view.on{display:flex;}
+    #page-sow-generation .psg-land-body{flex:1;min-height:0;overflow-y:auto;padding:28px 32px;}
+    #page-sow-generation .psg-h{font-size:20px;font-weight:800;color:var(--tsp-blue);}
+    #page-sow-generation .psg-sub{font-size:12.5px;color:var(--text-muted);margin-top:3px;margin-bottom:20px;}
+    #page-sow-generation .psg-crumbs{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);margin-bottom:16px;}
+    #page-sow-generation .psg-crumbs b{color:var(--tsp-blue);}
+    #page-sow-generation .psg-crumbs a{color:var(--text-muted);cursor:pointer;text-decoration:none;}
+    #page-sow-generation .psg-crumbs a:hover{color:var(--tsp-blue);}
+    #page-sow-generation .psg-tile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:15px;max-width:1080px;}
+    #page-sow-generation .psg-tile{background:var(--bg-white);border:1px solid var(--border);border-radius:12px;padding:19px;cursor:pointer;transition:box-shadow .15s,transform .15s,border-color .15s;position:relative;}
+    #page-sow-generation .psg-tile:hover{box-shadow:0 6px 20px rgba(26,79,138,.13);transform:translateY(-2px);border-color:var(--tsp-blue);}
+    #page-sow-generation .psg-tile.dis{opacity:.5;cursor:not-allowed;}
+    #page-sow-generation .psg-tile.dis:hover{box-shadow:none;transform:none;border-color:var(--border);}
+    #page-sow-generation .psg-tile-ico{font-size:25px;margin-bottom:9px;}
+    #page-sow-generation .psg-tile-name{font-size:14.5px;font-weight:700;color:var(--text-primary);}
+    #page-sow-generation .psg-tile-desc{font-size:11.5px;color:var(--text-muted);margin-top:5px;line-height:1.4;}
+    #page-sow-generation .psg-tag{position:absolute;top:13px;right:13px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:10px;}
+    #page-sow-generation .psg-tag-live{background:var(--tsp-blue-light);color:var(--tsp-blue);}
+    #page-sow-generation .psg-tag-soon{background:#f0f0f4;color:#9aa;}
+    #page-sow-generation .psg-wiz-header{flex-shrink:0;background:var(--tsp-blue);color:#fff;}
+    #page-sow-generation .psg-wiz-top{display:flex;align-items:center;padding:13px 24px;gap:14px;}
+    #page-sow-generation .psg-wiz-title{font-size:15px;font-weight:700;}
+    #page-sow-generation .psg-wiz-sub{font-size:11px;opacity:.72;margin-top:1px;}
+    #page-sow-generation .psg-wiz-actions{margin-left:auto;display:flex;gap:9px;}
+    #page-sow-generation .psg-btn{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .13s;}
+    #page-sow-generation .psg-btn:hover{background:rgba(255,255,255,.24);}
+    #page-sow-generation .psg-btn-primary{background:#fff;color:var(--tsp-blue);border-color:#fff;}
+    #page-sow-generation .psg-btn-primary:hover{background:#e8f0f9;}
+    #page-sow-generation .psg-stepper{display:flex;align-items:stretch;background:rgba(0,0,0,.18);border-top:1px solid rgba(255,255,255,.1);overflow-x:auto;}
+    #page-sow-generation .psg-step{flex:1;min-width:112px;display:flex;align-items:center;gap:8px;padding:10px 13px;cursor:pointer;transition:background .14s;white-space:nowrap;border-right:1px solid rgba(255,255,255,.08);}
+    #page-sow-generation .psg-step:last-child{border-right:none;}
+    #page-sow-generation .psg-step:hover{background:rgba(255,255,255,.08);}
+    #page-sow-generation .psg-step.on{background:rgba(255,255,255,.15);}
+    #page-sow-generation .psg-step-num{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:rgba(255,255,255,.6);flex-shrink:0;transition:all .14s;}
+    #page-sow-generation .psg-step.on .psg-step-num{background:#fff;color:var(--tsp-blue);border-color:#fff;}
+    #page-sow-generation .psg-step.done .psg-step-num{background:rgba(255,255,255,.25);color:#fff;border-color:rgba(255,255,255,.5);}
+    #page-sow-generation .psg-step.done .psg-step-num span{display:none;}
+    #page-sow-generation .psg-step.done .psg-step-num::after{content:'✓';}
+    #page-sow-generation .psg-step-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.55);}
+    #page-sow-generation .psg-step.on .psg-step-label{color:#fff;}
+    #page-sow-generation .psg-step.done .psg-step-label{color:rgba(255,255,255,.75);}
+    #page-sow-generation .psg-body{flex:1;overflow-y:auto;padding:24px 30px;min-height:0;}
+    #page-sow-generation .psg-panel{display:none;max-width:1120px;}
+    #page-sow-generation .psg-panel.on{display:block;}
+    #page-sow-generation .psg-panel-h{font-size:17px;font-weight:800;color:var(--tsp-blue);margin-bottom:3px;}
+    #page-sow-generation .psg-panel-sub{font-size:12px;color:var(--text-muted);margin-bottom:18px;line-height:1.5;}
+    #page-sow-generation .psg-card{background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:16px;}
+    #page-sow-generation .psg-card-title{font-size:12.5px;font-weight:700;color:var(--tsp-blue);margin-bottom:15px;padding-bottom:9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;}
+    #page-sow-generation .psg-card-title .psg-hd-hint{margin-left:auto;font-size:11px;font-weight:500;color:var(--text-muted);}
+    #page-sow-generation .psg-fg{display:grid;grid-template-columns:1fr 1fr;gap:15px 22px;}
+    #page-sow-generation .psg-fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px 22px;}
+    #page-sow-generation .psg-field{display:flex;flex-direction:column;gap:5px;}
+    #page-sow-generation .psg-field.psg-full{grid-column:1/-1;}
+    #page-sow-generation .psg-label{font-size:10.5px;font-weight:700;color:var(--text-muted);letter-spacing:.3px;text-transform:uppercase;}
+    #page-sow-generation .psg-label .psg-req{color:var(--red,#c62828);}
+    #page-sow-generation .psg-input,#page-sow-generation .psg-select,#page-sow-generation .psg-textarea{padding:8px 10px;border-radius:6px;border:1px solid var(--border);font-family:inherit;font-size:12.5px;color:var(--text-primary);background:var(--bg-page);transition:border-color .12s,box-shadow .12s;width:100%;}
+    #page-sow-generation .psg-input:focus,#page-sow-generation .psg-select:focus,#page-sow-generation .psg-textarea:focus{outline:none;border-color:var(--tsp-blue);background:var(--bg-white);box-shadow:0 0 0 3px rgba(26,79,138,.08);}
+    #page-sow-generation .psg-textarea{resize:vertical;min-height:70px;}
+    #page-sow-generation .psg-upload{border:2px dashed var(--border);border-radius:8px;padding:24px;text-align:center;cursor:pointer;transition:border-color .13s,background .13s;}
+    #page-sow-generation .psg-upload:hover{border-color:var(--tsp-blue);background:var(--tsp-blue-light);}
+    #page-sow-generation .psg-u-ico{font-size:25px;}
+    #page-sow-generation .psg-u-main{font-size:12.5px;font-weight:600;margin-top:6px;}
+    #page-sow-generation .psg-u-sub{font-size:11px;color:var(--text-muted);margin-top:3px;}
+    #page-sow-generation .psg-toggle{display:inline-flex;background:var(--bg-page);border:1px solid var(--border);border-radius:8px;padding:3px;gap:3px;}
+    #page-sow-generation .psg-toggle button{padding:6px 13px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--text-muted);font-family:inherit;}
+    #page-sow-generation .psg-toggle button.on{background:var(--tsp-blue);color:#fff;}
+    #page-sow-generation .psg-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:16px;border:1.5px solid var(--border);background:var(--bg-white);color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;transition:all .12s;user-select:none;}
+    #page-sow-generation .psg-pill.on{background:var(--tsp-blue);color:#fff;border-color:var(--tsp-blue);}
+    #page-sow-generation .psg-pill-row{display:flex;flex-wrap:wrap;gap:8px;}
+    #page-sow-generation .psg-kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px;}
+    #page-sow-generation .psg-kpi{background:var(--bg-white);border:1px solid var(--border);border-radius:9px;padding:13px 15px;position:relative;overflow:hidden;}
+    #page-sow-generation .psg-kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--tsp-blue);}
+    #page-sow-generation .psg-kpi.gr::after{background:var(--green,#2e7d32);}
+    #page-sow-generation .psg-kpi.am::after{background:var(--amber,#f57c00);}
+    #page-sow-generation .psg-kpi-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-muted);margin-bottom:6px;}
+    #page-sow-generation .psg-kpi-value{font-size:23px;font-weight:700;color:var(--tsp-blue);line-height:1;margin-bottom:3px;font-variant-numeric:tabular-nums;}
+    #page-sow-generation .psg-kpi-sub{font-size:10px;color:var(--text-muted);}
+    #page-sow-generation .psg-tbl{width:100%;border-collapse:collapse;font-size:12px;}
+    #page-sow-generation .psg-tbl th{text-align:left;font-size:9.5px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;padding:8px 9px;border-bottom:1px solid var(--border);white-space:nowrap;}
+    #page-sow-generation .psg-tbl td{padding:6px 9px;border-bottom:1px solid var(--border);vertical-align:middle;}
+    #page-sow-generation .psg-tbl tr:hover td{background:var(--bg-page);}
+    #page-sow-generation .psg-tbl input{width:100%;border:1px solid var(--border);border-radius:5px;padding:5px 6px;font-size:12px;font-family:inherit;background:var(--bg-page);text-align:center;}
+    #page-sow-generation .psg-tbl input:focus{outline:none;border-color:var(--tsp-blue);background:#fff;}
+    #page-sow-generation .psg-tbl select{border:1px solid var(--border);border-radius:5px;padding:5px;font-size:12px;font-family:inherit;background:var(--bg-page);}
+    #page-sow-generation .psg-num{text-align:right;font-variant-numeric:tabular-nums;}
+    #page-sow-generation .psg-mini{font-size:11px;padding:4px 9px;border-radius:6px;border:1px solid var(--border);background:var(--bg-white);color:var(--tsp-blue);font-weight:600;cursor:pointer;font-family:inherit;}
+    #page-sow-generation .psg-mini:hover{background:var(--tsp-blue-light);}
+    #page-sow-generation .psg-badge{display:inline-block;padding:2px 9px;border-radius:10px;font-size:10px;font-weight:700;}
+    #page-sow-generation .psg-b-blue{background:var(--tsp-blue-light);color:var(--tsp-blue);}
+    #page-sow-generation .psg-b-orange{background:#fff2e5;color:var(--amber,#f57c00);}
+    #page-sow-generation .psg-b-teal{background:#e0f3f4;color:var(--teal,#00838f);}
+    #page-sow-generation .psg-grid-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:8px;}
+    #page-sow-generation .psg-acc{border:1px solid var(--border);border-radius:8px;margin-bottom:9px;overflow:hidden;}
+    #page-sow-generation .psg-acc-head{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;background:var(--bg-white);}
+    #page-sow-generation .psg-acc-head:hover{background:var(--bg-page);}
+    #page-sow-generation .psg-acc-nm{font-size:13px;font-weight:700;color:var(--text-primary);}
+    #page-sow-generation .psg-acc-ct{margin-left:auto;font-size:11px;color:var(--text-muted);}
+    #page-sow-generation .psg-chev{transition:transform .15s;color:var(--text-muted);}
+    #page-sow-generation .psg-acc.open .psg-chev{transform:rotate(90deg);}
+    #page-sow-generation .psg-acc-body{display:none;padding:5px 14px 12px;border-top:1px solid var(--border);background:var(--bg-page);}
+    #page-sow-generation .psg-acc.open .psg-acc-body{display:block;}
+    #page-sow-generation .psg-scope-item{display:flex;align-items:center;gap:9px;padding:6px 4px;font-size:12px;border-bottom:1px solid var(--border);}
+    #page-sow-generation .psg-scope-item:last-child{border-bottom:none;}
+    #page-sow-generation .psg-sid{font-weight:700;color:var(--tsp-blue);width:44px;font-size:11px;}
+    #page-sow-generation .psg-chk{width:16px;height:16px;cursor:pointer;accent-color:var(--tsp-blue);}
+    #page-sow-generation .psg-gantt-row{display:flex;align-items:center;height:33px;font-size:12px;}
+    #page-sow-generation .psg-gantt-lbl{width:120px;flex-shrink:0;font-weight:600;display:flex;align-items:center;gap:6px;}
+    #page-sow-generation .psg-gantt-track{flex:1;position:relative;height:20px;background:var(--bg-page);border-radius:4px;}
+    #page-sow-generation .psg-gantt-bar{position:absolute;height:20px;border-radius:4px;top:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;}
+    #page-sow-generation .psg-gantt-axis{display:flex;margin-left:120px;border-top:1px solid var(--border);padding-top:4px;}
+    #page-sow-generation .psg-gantt-axis span{flex:1;font-size:9.5px;color:var(--text-muted);text-align:center;}
+    #page-sow-generation .psg-narr-sec{border:1px solid var(--border);border-radius:9px;margin-bottom:13px;overflow:hidden;}
+    #page-sow-generation .psg-narr-head{display:flex;align-items:center;gap:9px;padding:10px 14px;background:var(--tsp-blue-light);}
+    #page-sow-generation .psg-narr-nt{font-size:12.5px;font-weight:700;color:var(--tsp-blue);}
+    #page-sow-generation .psg-narr-ai{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--tsp-blue);background:#fff;border:1px solid var(--tsp-blue);border-radius:12px;padding:3px 10px;cursor:pointer;}
+    #page-sow-generation .psg-narr-ai:hover{background:var(--tsp-blue);color:#fff;}
+    #page-sow-generation .psg-narr-edit{padding:13px 15px;font-size:12.5px;line-height:1.6;color:var(--text-primary);min-height:56px;outline:none;}
+    #page-sow-generation .psg-narr-edit:focus{background:#fffdf6;}
+    #page-sow-generation .psg-chip{display:inline-flex;align-items:center;gap:5px;background:var(--tsp-blue-light);color:var(--tsp-blue);border:1px solid var(--border);border-radius:14px;padding:4px 12px;font-size:11px;font-weight:600;}
+    #page-sow-generation .psg-foot{flex-shrink:0;border-top:1px solid var(--border);background:var(--bg-white);padding:11px 30px;display:flex;align-items:center;justify-content:space-between;}
+    #page-sow-generation .psg-foot-status{font-size:12px;color:var(--text-muted);}
+    #page-sow-generation .psg-foot-btns{display:flex;gap:10px;}
+    #page-sow-generation .psg-fbtn{padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--bg-white);color:var(--text-primary);font-family:inherit;}
+    #page-sow-generation .psg-fbtn:hover{background:var(--bg-page);}
+    #page-sow-generation .psg-fbtn-primary{background:var(--tsp-blue);color:#fff;border-color:var(--tsp-blue);}
+    #page-sow-generation .psg-fbtn-primary:hover{background:var(--tsp-blue-mid);}
+    #page-sow-generation .psg-callout{background:var(--tsp-blue-light);border:1px solid var(--tsp-blue-hover);border-radius:8px;padding:11px 14px;font-size:12px;color:var(--tsp-blue);line-height:1.5;display:flex;gap:9px;}
+    #page-sow-generation .psg-callout .psg-co-ico{font-size:15px;flex-shrink:0;}
+    #page-sow-generation .psg-two{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    #page-sow-generation .psg-org{display:flex;flex-direction:column;align-items:center;}
+    #page-sow-generation .psg-org-node{background:var(--bg-white);border:1.5px solid var(--tsp-blue);border-radius:8px;padding:8px 14px;font-size:11.5px;font-weight:700;color:var(--tsp-blue);text-align:center;}
+    #page-sow-generation .psg-org-node.sub{border-color:var(--border);color:var(--text-primary);font-weight:600;background:var(--bg-page);}
+    #page-sow-generation .psg-org-line{width:2px;height:16px;background:var(--border);}
+    #page-sow-generation .psg-org-tier{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+    /* Timeline Gantt */
+    #page-sow-generation .psg-tl-wrap{border:1px solid var(--border);border-radius:8px;overflow-x:auto;background:#fff;padding:0 0 8px;}
+    #page-sow-generation .psg-tl{min-width:560px;}
+    #page-sow-generation .psg-tl-hrow{display:flex;width:100%;}
+    #page-sow-generation .psg-tl-cell{flex-shrink:0;box-sizing:border-box;text-align:center;border-right:1px solid var(--border);overflow:hidden;white-space:nowrap;}
+    #page-sow-generation .psg-tl-yr{background:var(--tsp-blue);color:#fff;font-size:11px;font-weight:700;padding:3px 0;}
+    #page-sow-generation .psg-tl-qt{background:#2b6cad;color:#fff;font-size:10px;font-weight:700;padding:2px 0;}
+    #page-sow-generation .psg-tl-mo{background:var(--bg-page);color:var(--text-primary);font-size:10px;font-weight:600;padding:3px 0;border-bottom:1px solid var(--border);}
+    #page-sow-generation .psg-tl-wk{background:#fff;height:7px;}
+    #page-sow-generation .psg-tl-body{position:relative;padding-top:6px;}
+    #page-sow-generation .psg-tl-grid{position:absolute;inset:6px 0 0 0;display:flex;z-index:0;pointer-events:none;}
+    #page-sow-generation .psg-tl-gcell{flex-shrink:0;border-right:1px solid #eef2f7;box-sizing:border-box;}
+    #page-sow-generation .psg-tl-band{position:relative;z-index:1;background:#cfe0f2;border:1px solid #a9c7e6;border-radius:5px;color:var(--tsp-blue);font-size:12px;font-weight:700;text-align:center;padding:6px 8px;margin:12px 0 6px;}
+    #page-sow-generation .psg-tl-lane{position:relative;z-index:1;height:26px;margin:3px 0;}
+    #page-sow-generation .psg-tl-bar{position:absolute;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;padding:0 4px;overflow:hidden;white-space:nowrap;box-shadow:0 1px 2px rgba(0,0,0,.12);}
+    #page-sow-generation .psg-tl-star{position:absolute;z-index:2;color:#c0392b;font-size:20px;transform:translate(-50%,-3px);text-shadow:0 1px 2px rgba(0,0,0,.25);}
+    /* Timeline editor */
+    #page-sow-generation .psg-tl-ed{border:1px solid var(--border);border-radius:8px;margin-bottom:12px;}
+    #page-sow-generation .psg-tl-ed-head{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--tsp-blue-light);border-bottom:1px solid var(--border);}
+    #page-sow-generation .psg-tl-ed-head input{flex:1;border:1px solid var(--border);border-radius:5px;padding:5px 8px;font-size:12.5px;font-weight:600;font-family:inherit;background:#fff;color:var(--tsp-blue);}
+    #page-sow-generation .psg-tl-ed-body{padding:8px 12px 12px;}
+    </style>
+
+    <div class="psg-root">
+
+      <!-- VIEW: Practice -->
+      <div class="psg-view on" id="psgViewStart">
+        <div class="psg-land-body">
+          <div class="psg-crumbs"><a onclick="navTo('pre-sales')">← Pre-Sales</a></div>
+          <div class="psg-h">Proposal Generator — Start a New Proposal</div>
+          <div class="psg-sub">Select a practice, choose the proposal type, then start building.</div>
+          <div class="psg-card" style="max-width:700px;">
+            <div class="psg-card-title">1 · Practice</div>
+            <div class="psg-pill-row" id="psgPracticePills"></div>
+
+            <div id="psgTypeChoiceWrap" style="display:none;margin-top:22px;">
+              <div class="psg-card-title">2 · Proposal Type</div>
+              <select class="psg-select" id="psgTypeSelect" onchange="psgOnTypePick()"><option value="">— Select proposal type —</option></select>
+              <div id="psgTypeDesc" style="margin-top:8px;font-size:11.5px;color:var(--text-muted);min-height:16px;"></div>
+            </div>
+
+            <div style="margin-top:24px;">
+              <button class="psg-fbtn psg-fbtn-primary" id="psgStartBtn" onclick="psgStart()" disabled style="opacity:.5;cursor:not-allowed;">Start Building →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW: Wizard -->
+      <div class="psg-view" id="psgViewWizard">
+        <div class="psg-wiz-header">
+          <div class="psg-wiz-top">
+            <div>
+              <div class="psg-wiz-title">New Proposal — <span id="psgWizType">Public Cloud (Grow)</span></div>
+              <div class="psg-wiz-sub">SAP S/4HANA · Greenfield · Template: <i>TSP Public Cloud Proposal Template.dotx</i></div>
+            </div>
+            <div class="psg-wiz-actions">
+              <button class="psg-btn" onclick="psgShowView('psgViewStart')">Close</button>
+              <button class="psg-btn psg-btn-primary" onclick="psgGoStep(8)">Review &amp; Generate</button>
+            </div>
+          </div>
+          <div class="psg-stepper" id="psgStepper"></div>
+        </div>
+
+        <div class="psg-body" id="psgBody">
+
+          <!-- STEP 0 Intake -->
+          <div class="psg-panel on" data-step="0">
+            <div class="psg-panel-h">Pre-Sales Intake</div>
+            <div class="psg-panel-sub">Drop in the client RFP/SOW and any Motion AI meeting transcripts. Aria reads them, recommends the proposal type, and pre-detects capability areas and scope so you start with a draft — not a blank page.</div>
+            <div class="psg-two">
+              <div class="psg-card">
+                <div class="psg-card-title">📎 RFP / SOW Documents</div>
+                <div class="psg-upload" onclick="psgFakeUpload('rfp')"><div class="psg-u-ico">📄</div><div class="psg-u-main">Drag &amp; drop or click to browse</div><div class="psg-u-sub">PDF, DOC, DOCX, TXT · max 10MB each</div></div>
+                <div id="psgRfpList" style="margin-top:10px;"></div>
+              </div>
+              <div class="psg-card">
+                <div class="psg-card-title">💬 Motion AI Transcripts</div>
+                <textarea class="psg-textarea" style="min-height:92px;" placeholder="Paste discovery-call transcript, or connect Motion AI to pull automatically…"></textarea>
+                <button class="psg-mini" style="margin-top:10px;" onclick="psgFakeUpload('mtn')">+ Add Transcript</button>
+                <div id="psgMtnList" style="margin-top:8px;"></div>
+              </div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">🤖 Aria Detection</div>
+              <div id="psgDetectIdle">
+                <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:12px;">Run detection to classify the proposal type and pre-populate scope from the uploaded material.</p>
+                <button class="psg-fbtn psg-fbtn-primary" onclick="psgRunDetect()">Run Aria Detection</button>
+              </div>
+              <div id="psgDetectResult" style="display:none;">
+                <div class="psg-callout" style="margin-bottom:14px;"><span class="psg-co-ico">✅</span><div><b>Recommended type: Public Cloud (Grow) — Greenfield.</b> Signals: single legal entity, no legacy SAP, "keep it standard" language, ~250 users, target go-live in 2 quarters.</div></div>
+                <div class="psg-pill-row"><span class="psg-chip">Finance · detected</span><span class="psg-chip">Sourcing &amp; Procurement · detected</span><span class="psg-chip">Sales · detected</span><span class="psg-chip">2 integrations mentioned</span></div>
+                <p style="font-size:11.5px;color:var(--text-muted);margin-top:12px;">These carry into the Scope and Integrations steps — you confirm and edit there.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 1 Details -->
+          <div class="psg-panel" data-step="1">
+            <div class="psg-panel-h">Proposal Details</div>
+            <div class="psg-panel-sub">Client, engagement metadata and deployment. These fields map 1:1 to Project Setup › Step 1 (Project Details) &amp; Step 2 (Deployments) on win.</div>
+            <div class="psg-card">
+              <div class="psg-card-title">📋 Project Information</div>
+              <div class="psg-fg">
+                <div class="psg-field"><label class="psg-label">Project Title <span class="psg-req">*</span></label><input class="psg-input" value="Northwind Foods — S/4HANA Public Cloud"></div>
+                <div class="psg-field"><label class="psg-label">Client <span class="psg-req">*</span></label><input class="psg-input" value="Northwind Foods Inc."></div>
+                <div class="psg-field"><label class="psg-label">Proposal Date <span class="psg-req">*</span></label><input class="psg-input" type="date" value="2026-07-26"></div>
+                <div class="psg-field"><label class="psg-label">Valid Until</label><input class="psg-input" type="date" value="2026-09-30"></div>
+                <div class="psg-field"><label class="psg-label">Expected Start <span class="psg-req">*</span></label><input class="psg-input" type="date" value="2026-10-06"></div>
+                <div class="psg-field"><label class="psg-label">TSP Contact</label><input class="psg-input" value="Chris York"></div>
+              </div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">🌐 System &amp; Geographic Scope</div>
+              <div class="psg-fg3">
+                <div class="psg-field"><label class="psg-label">System Type</label><input class="psg-input" value="S/4HANA Public Cloud" readonly></div>
+                <div class="psg-field"><label class="psg-label">Deployment Approach</label><input class="psg-input" value="Greenfield" readonly></div>
+                <div class="psg-field"><label class="psg-label"># Named Users</label><input class="psg-input" value="250"></div>
+                <div class="psg-field"><label class="psg-label">Countries in Scope</label><input class="psg-input" value="United States"></div>
+                <div class="psg-field"><label class="psg-label">Languages</label><input class="psg-input" value="English (US)"></div>
+                <div class="psg-field"><label class="psg-label">Project Location</label><input class="psg-input" value="Remote / Hybrid"></div>
+              </div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">📦 Deployments <span class="psg-hd-hint">One go-live for Grow; add waves if phased</span></div>
+              <div class="psg-grid-scroll"><table class="psg-tbl"><thead><tr><th>Deployment</th><th>Narrative</th><th>Start</th><th>End</th></tr></thead>
+              <tbody><tr><td><input value="Phase 1 — Go Live"></td><td><input value="Full Public Cloud scope, single wave"></td><td><input type="date" value="2026-10-06"></td><td><input type="date" value="2027-03-26"></td></tr></tbody></table></div>
+            </div>
+          </div>
+
+          <!-- STEP 2 Scope -->
+          <div class="psg-panel" data-step="2">
+            <div class="psg-panel-h">Scope — Digital Discovery Assessment</div>
+            <div class="psg-panel-sub">For Greenfield, import the DDA export (JSON) to auto-select capability areas, workstreams and SAP Best Practice scope IDs. No DDA? Switch to manual and pick from the AI Hub master data. Feeds Project Setup Steps 2, 3 &amp; 8.</div>
+            <div class="psg-card">
+              <div class="psg-card-title">Input Method</div>
+              <div class="psg-toggle" style="margin-bottom:8px;">
+                <button class="on" id="psgTgDda" onclick="psgScopeMode('dda')">📥 Import DDA (JSON)</button>
+                <button id="psgTgMan" onclick="psgScopeMode('man')">✏️ Select Manually</button>
+              </div>
+              <div id="psgDdaZone">
+                <div class="psg-upload" onclick="psgImportDda()"><div class="psg-u-ico">🧭</div><div class="psg-u-main">Drop DDA export (.json)</div><div class="psg-u-sub">From SAP Digital Discovery Assessment</div></div>
+                <div id="psgDdaMsg" style="margin-top:10px;"></div>
+              </div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">🧩 Capability Areas &amp; Scope IDs <span class="psg-hd-hint" id="psgScopeCount">0 scope items selected</span></div>
+              <div id="psgScopeAcc"></div>
+            </div>
+          </div>
+
+          <!-- STEP 3 RICEFW -->
+          <div class="psg-panel" data-step="3">
+            <div class="psg-panel-h">RICEFW &amp; Budget Hours</div>
+            <div class="psg-panel-sub">Baseline development objects by type &amp; complexity. Mirrors Project Setup › Step 4 exactly, so the delivery baseline is already set when the deal is won. Aria pre-fills from the SOW; override any cell.</div>
+            <div class="psg-card">
+              <div class="psg-card-title">🧾 RICEFW Scope Matrix</div>
+              <div class="psg-grid-scroll"><table class="psg-tbl" id="psgRicefw">
+                <thead><tr><th>Object Type</th><th>Low</th><th>Medium</th><th>High</th><th>Very High</th><th class="psg-num">Row Total</th></tr></thead>
+                <tbody></tbody>
+                <tfoot><tr style="font-weight:700;"><td>Total</td><td colspan="4"></td><td class="psg-num" id="psgRicefwTotal">0</td></tr></tfoot>
+              </table></div>
+              <div class="psg-callout" style="margin-top:14px;"><span class="psg-co-ico">ℹ️</span><div>Estimated development effort from this matrix: <b id="psgRicefwHours">0</b> hrs (TSP standard hours-per-object by complexity). Seeds the technical roles in the Staffing step.</div></div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">⏱️ Budget Hours by Skill</div>
+              <div class="psg-fg">
+                <div class="psg-field"><label class="psg-label">ABAP</label><input class="psg-input psg-num" value="1200"></div>
+                <div class="psg-field"><label class="psg-label">BTP SIS</label><input class="psg-input psg-num" value="640"></div>
+                <div class="psg-field"><label class="psg-label">SAC</label><input class="psg-input psg-num" value="320"></div>
+                <div class="psg-field"><label class="psg-label">AI</label><input class="psg-input psg-num" value="120"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4 Integrations -->
+          <div class="psg-panel" data-step="4">
+            <div class="psg-panel-h">Integrations</div>
+            <div class="psg-panel-sub">Pick standard integrations and add client-specific ones. Complexity drives development effort that flows into RICEFW and pricing.</div>
+            <div class="psg-card">
+              <div class="psg-card-title">Standard Integrations</div>
+              <div class="psg-pill-row" id="psgStdInt"></div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">Client-Specific / Ad-hoc <span class="psg-hd-hint">Defined in discovery — free-form</span></div>
+              <div class="psg-grid-scroll"><table class="psg-tbl" id="psgIntTbl"><thead><tr><th>Integration</th><th>Direction</th><th>Complexity</th><th>Est. Effort (hrs)</th><th></th></tr></thead><tbody></tbody></table></div>
+              <button class="psg-mini" style="margin-top:10px;" onclick="psgAddInt()">+ Add Integration</button>
+            </div>
+          </div>
+
+          <!-- STEP 5 Timeline -->
+          <div class="psg-panel" data-step="5">
+            <div class="psg-panel-h">Timeline</div>
+            <div class="psg-panel-sub">Build one or more deployments, each with its own phases. Phases can stack into sub-rows (e.g. UAT / Training under Deploy). Bars carry the phase name; the axis scales Year → Quarter → Month (and Week for shorter projects) to fit the page. Carries into Project Setup › Timeline.</div>
+            <div class="psg-card">
+              <div class="psg-card-title">🗓️ Timeline <span class="psg-hd-hint" id="psgTotWeeks">0 weeks</span></div>
+              <div class="psg-tl-wrap"><div class="psg-tl" id="psgTlGantt"></div></div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">✏️ Deployments &amp; Phases <span class="psg-hd-hint">Row = vertical stacking. Set two phases to the same row to place sub-phases under an Activate phase.</span></div>
+              <div id="psgTlEditor"></div>
+              <button class="psg-mini" style="margin-top:8px;" onclick="psgTlAddDep()">+ Add Deployment</button>
+            </div>
+          </div>
+
+          <!-- STEP 6 Staffing -->
+          <div class="psg-panel" data-step="6">
+            <div class="psg-panel-h">Staffing &amp; Pricing</div>
+            <div class="psg-panel-sub">The proforma staffing plan. Same weekly per-role loading grid as Project Setup › Step 5 — margin recalculates as you type. On win, this <b>is</b> the delivery staffing baseline.</div>
+            <div class="psg-card" style="padding-bottom:14px;">
+              <div class="psg-card-title">Billing Model</div>
+              <div class="psg-toggle">
+                <button class="on" onclick="psgBillModel(this,'T&M')">Time &amp; Materials</button>
+                <button onclick="psgBillModel(this,'Milestone')">Milestone</button>
+                <button onclick="psgBillModel(this,'Value')">Value-Added</button>
+                <button onclick="psgBillModel(this,'RateCard')">Rate Card</button>
+              </div>
+            </div>
+            <div class="psg-kpi-strip" style="grid-template-columns:repeat(5,1fr);">
+              <div class="psg-kpi"><div class="psg-kpi-label">Total Hours Budget</div><div class="psg-kpi-value" id="psgKHours">—</div><div class="psg-kpi-sub">8 hrs / day</div></div>
+              <div class="psg-kpi am"><div class="psg-kpi-label">Total Cost Budget</div><div class="psg-kpi-value" id="psgKCost">—</div><div class="psg-kpi-sub">True cost of all roles</div></div>
+              <div class="psg-kpi gr"><div class="psg-kpi-label">Total Revenue (TCV)</div><div class="psg-kpi-value" id="psgKRev">—</div><div class="psg-kpi-sub">Total billing to client</div></div>
+              <div class="psg-kpi gr"><div class="psg-kpi-label">Project Margin</div><div class="psg-kpi-value" id="psgKMarginPct">—</div><div class="psg-kpi-sub">(Billing − Cost) / Billing</div></div>
+              <div class="psg-kpi"><div class="psg-kpi-label">Total Days</div><div class="psg-kpi-value" id="psgKDays">—</div><div class="psg-kpi-sub">Across all roles</div></div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">👥 Weekly Staffing Grid <span class="psg-hd-hint">Day allocations per week · 0.5 increments</span></div>
+              <div class="psg-grid-scroll"><table class="psg-tbl" id="psgStaffTbl"><thead id="psgStaffHead"></thead><tbody id="psgStaffBody"></tbody><tfoot id="psgStaffFoot"></tfoot></table></div>
+              <div style="display:flex;gap:10px;margin-top:12px;">
+                <button class="psg-mini" onclick="psgAddRole()">+ Add Role</button>
+                <button class="psg-mini" onclick="psgRecalc()">🔄 Recalculate</button>
+              </div>
+            </div>
+
+            <!-- Milestone billing (shown when Milestone model selected) -->
+            <div class="psg-card" id="psgMsCard" style="display:none;">
+              <div class="psg-card-title">📅 Milestone Billing <span class="psg-hd-hint">Pick milestones from the Timeline; completion dates pull in automatically. Enter the billing amount for each.</span></div>
+              <div class="psg-grid-scroll"><table class="psg-tbl" id="psgMsTbl">
+                <thead><tr><th>Milestone (from Timeline)</th><th>Completion Date</th><th>Billing Amount ($)</th><th></th></tr></thead>
+                <tbody></tbody>
+              </table></div>
+              <button class="psg-mini" style="margin-top:10px;" onclick="psgMsAddRow()">+ Add Milestone</button>
+              <div id="psgMsRecon" style="margin-top:14px;"></div>
+            </div>
+
+            <!-- Value-added (placeholder) -->
+            <div class="psg-card" id="psgValueCard" style="display:none;">
+              <div class="psg-card-title">💠 Value-Added Contract</div>
+              <div class="psg-callout"><span class="psg-co-ico">🚧</span><div>Value-added contract pricing will be built out shortly. The role staffing grid above still establishes the cost and margin baseline.</div></div>
+            </div>
+          </div>
+
+          <!-- STEP 7 Narrative -->
+          <div class="psg-panel" data-step="7">
+            <div class="psg-panel-h">Proposal Narrative</div>
+            <div class="psg-panel-sub">Aria drafts each section from the scope, timeline and staffing you captured. Every section is inline-editable — click to rewrite, or hit ✨ to regenerate a section.</div>
+            <div id="psgNarrWrap"></div>
+          </div>
+
+          <!-- STEP 8 Review -->
+          <div class="psg-panel" data-step="8">
+            <div class="psg-panel-h">Review &amp; Generate</div>
+            <div class="psg-panel-sub">Live, in-app proposal. Save to the pipeline (data persists to the DB and flows to Project Setup on win) or export the Word document for client review.</div>
+            <div class="psg-callout" style="margin-bottom:16px;"><span class="psg-co-ico">🔗</span><div><b>Win-to-delivery continuity:</b> every field here is stored in the shared project record — Proposal Details → Project Setup Steps 1–2, Scope → Steps 2/3/8, RICEFW → Step 4, Staffing → Step 5, Timeline → Project Timeline. Nothing is re-keyed after the deal is won.</div></div>
+            <div class="psg-two">
+              <div class="psg-card"><div class="psg-card-title">📊 Proposal Summary</div><div id="psgReviewSummary" style="font-size:12.5px;line-height:1.9;"></div></div>
+              <div class="psg-card"><div class="psg-card-title">🧑‍💼 Generated Org Chart <span class="psg-hd-hint">from staffing roles</span></div><div class="psg-org" id="psgOrgChart"></div></div>
+            </div>
+            <div class="psg-card">
+              <div class="psg-card-title">Deliverables</div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <button class="psg-fbtn psg-fbtn-primary" onclick="alert('Mockup: saves proposal record to pipeline DB.')">💾 Save to Pipeline</button>
+                <button class="psg-fbtn" onclick="alert('Mockup: merges data into TSP Public Cloud Proposal Template.dotx → Word.')">📄 Export to Word</button>
+                <button class="psg-fbtn" onclick="alert('Mockup: exports the proforma staffing plan (xlsx).')">📊 Export Staffing Plan</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="psg-foot">
+          <div class="psg-foot-status" id="psgFootStatus">Step 1 of 9 · Pre-Sales Intake</div>
+          <div class="psg-foot-btns">
+            <button class="psg-fbtn" id="psgBtnPrev" onclick="psgGoStep(PSG_currentStep-1)">← Back</button>
+            <button class="psg-fbtn psg-fbtn-primary" id="psgBtnNext" onclick="psgGoStep(PSG_currentStep+1)">Continue →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 </div><!-- /main -->
+
+</div><!-- /app-row -->
 
 <script>
 
@@ -15413,8 +16173,10 @@ function openPsPage(id) {
   document.querySelectorAll('.ps-page').forEach(p => p.classList.remove('ps-visible'));
   const el = document.getElementById(id);
   if (el) el.classList.add('ps-visible');
-  if (id === 'ps-proj-config') { _pcStep = 1; renderPcStep(); initScopeTable(); }
+  if (id === 'ps-proj-config') { _pcStep = 1; renderPcStep(); initScopeTable(); setTimeout(function(){ if (typeof amsApplyMode === 'function') amsApplyMode(); }, 40); }
   if (id === 'ps-timeline') { setTimeout(function(){ if (typeof psSyncDeploymentColumns === 'function') psSyncDeploymentColumns(); }, 30); }
+  if (id === 'ps-team-setup') { setTimeout(function(){ if (typeof amsApplyMode === 'function') amsApplyMode(); }, 40); }
+  if (id === 'ps-sla') { setTimeout(function(){ if (typeof slaInit === 'function') slaInit(); }, 30); }
 }
 function closePsPage(id) {
   // Clear ALL open sub-pages (prevents stale pages staying visible)
@@ -15432,12 +16194,11 @@ function togglePill(el) { el.classList.toggle('ps-pill-on'); }
 function removeRow(btn) { btn.closest('tr').remove(); }
 
 let _pcStep = 1;
-const _pcSteps = 7;
-const _pcLabels = ['Project Details','Scope & Deployments','Process Scope','RICEFW & Budget','Staffing Plan','Business Benefits','Enterprise Structure'];
+const _pcSteps = 8;
+const _pcLabels = ['Project Details','Scope & Deployments','Process Scope','RICEFW & Budget','Staffing Plan','Business Benefits','Enterprise Structure','Capability Area Owners'];
 
 function psGoStep(key, step) {
-  if (step > _pcStep) return;
-  _pcStep = step; renderPcStep();
+  _pcStep = Math.min(_pcSteps, Math.max(1, step)); renderPcStep();
 }
 function psStepNav(key, dir) {
   _pcStep = Math.min(_pcSteps, Math.max(1, _pcStep + dir));
@@ -15470,6 +16231,7 @@ function renderPcStep() {
   if (_pcStep === 5) initSpStep5();
   if (_pcStep === 6) initBbStep6();
   if (_pcStep === 7) initEsStep7();
+  if (_pcStep === 8) capInit();
 }
 
 const scopeData = [
@@ -15515,6 +16277,119 @@ function updateScopeCount() {
 function toggleAllScope(master) {
   document.querySelectorAll('.scope-chk').forEach(c => c.checked = master.checked);
   updateScopeCount();
+}
+
+/* ─────────────────────────────────────────────────────────────
+   STEP 8 — Capability Area Owners
+   Capability areas are derived from the in-scope processes chosen
+   in Step 3. Each process → workstream (scopeData) → capability area
+   (capAreaMap, from the AI Hub master data). We list each capability
+   area once, with its in-scope workstream(s), and let the user assign
+   a TSP Lead / Backup (TSP team) and Primary / Secondary client user
+   (Project Key User List). All people come from _kuUsers.
+   ───────────────────────────────────────────────────────────── */
+const capAreaMap = {
+  'PMO':   'Project Management Office',
+  'OCM':   'Organizational Change Management',
+  'BASIS': 'IT Management',
+  'TECH':  'Application Development and Integration',
+  'R2R':   'Finance',
+  'P2P':   'Sourcing and Procurement',
+  'EWM':   'Sourcing and Procurement',
+  'OTC':   'Sales',
+  'P2M':   'Manufacturing',
+  'HCM':   'Human Resources'
+};
+let _capOwners = {}; // capability area -> {lead, backup, primary, secondary}
+
+// Read the in-scope workstreams from the Step 3 checkboxes; fall back
+// to the full catalogue if the scope table has not been rendered yet.
+function capInScopeWorkstreams() {
+  var wsSet = {};
+  var rows = document.querySelectorAll('#scopeBody tr');
+  if (rows.length) {
+    rows.forEach(function(tr) {
+      var cb = tr.querySelector('.scope-chk');
+      var ws = tr.querySelector('.ws');
+      if (cb && cb.checked && ws) wsSet[ws.textContent.trim()] = true;
+    });
+  }
+  if (!Object.keys(wsSet).length) {
+    scopeData.forEach(function(r) { wsSet[r[2]] = true; });
+  }
+  return Object.keys(wsSet);
+}
+
+function capUserOptions(isTsp) {
+  return _kuUsers.filter(function(u) {
+    var tsp = u.company === 'The Silicon Partners';
+    return isTsp ? tsp : !tsp;
+  });
+}
+
+function capSelect(field, area, opts, val) {
+  var s = '<select class="ps-input cap-sel" data-area="' + area.replace(/"/g,'&quot;') +
+          '" data-field="' + field + '" onchange="capSet(this)" style="width:100%;">';
+  s += '<option value="">— Select —</option>';
+  opts.forEach(function(u) {
+    s += '<option' + (u.name === val ? ' selected' : '') + '>' + u.name + '</option>';
+  });
+  s += '</select>';
+  return s;
+}
+
+function capInit() {
+  var tbody = document.getElementById('capBody');
+  if (!tbody) return;
+  var wsList = capInScopeWorkstreams();
+  // Group in-scope workstreams under their capability area
+  var caps = {};
+  wsList.forEach(function(ws) {
+    var area = capAreaMap[ws] || 'Unmapped (' + ws + ')';
+    (caps[area] = caps[area] || []).push(ws);
+  });
+  var areas = Object.keys(caps).sort();
+  var tspOpts = capUserOptions(true);
+  var cliOpts = capUserOptions(false);
+  if (!areas.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">' +
+      'No capability areas in scope. Select processes in Step 3 — Process Scope.</td></tr>';
+    capUpdateCount();
+    return;
+  }
+  tbody.innerHTML = areas.map(function(area) {
+    var saved = _capOwners[area] || {};
+    return '<tr>' +
+      '<td style="font-weight:700;color:var(--text-primary);">' + area + '</td>' +
+      '<td>' + caps[area].map(function(w){ return '<span class="ws">' + w + '</span>'; }).join(' ') + '</td>' +
+      '<td>' + capSelect('lead',      area, tspOpts, saved.lead)      + '</td>' +
+      '<td>' + capSelect('backup',    area, tspOpts, saved.backup)    + '</td>' +
+      '<td>' + capSelect('primary',   area, cliOpts, saved.primary)   + '</td>' +
+      '<td>' + capSelect('secondary', area, cliOpts, saved.secondary) + '</td>' +
+      '</tr>';
+  }).join('');
+  capUpdateCount();
+}
+
+function capSet(sel) {
+  var area  = sel.getAttribute('data-area');
+  var field = sel.getAttribute('data-field');
+  (_capOwners[area] = _capOwners[area] || {})[field] = sel.value;
+  capUpdateCount();
+}
+
+function capUpdateCount() {
+  var rows = document.querySelectorAll('#capBody tr');
+  var total = 0, assigned = 0;
+  rows.forEach(function(tr) {
+    if (!tr.querySelector('.cap-sel')) return; // skip empty-state row
+    total++;
+    var lead    = tr.querySelector('.cap-sel[data-field="lead"]');
+    var primary = tr.querySelector('.cap-sel[data-field="primary"]');
+    if (lead && lead.value && primary && primary.value) assigned++;
+  });
+  var el = document.getElementById('capCount');
+  if (el) el.textContent = assigned + ' of ' + total + ' assigned';
 }
 
 function addDeploymentRow() {
@@ -16704,6 +17579,11 @@ function navTo(pageKey, parentKey) {
     var pgPsl = document.getElementById('page-process-scope-list');
     if (pgPsl) pgPsl.dataset.parent = parentKey || 'project-exec';
     setTimeout(function(){ if(typeof pslInit==='function') pslInit(); }, 30);
+  }
+  if (pageKey === 'sow-generation') {
+    var pgSow = document.getElementById('page-sow-generation');
+    if (pgSow) pgSow.dataset.parent = parentKey || 'pre-sales';
+    setTimeout(function(){ if(typeof psgInit==='function') psgInit(); }, 30);
   }
 }
 function navBack() { navTo(_ovParent); }
@@ -18908,6 +19788,42 @@ function tgeTab(tabId) {
   var btnId='tge-tab-'+tabId.replace('tge-','');
   btns.forEach(function(b){var el=document.getElementById(b);if(!el)return;if(b===btnId)el.classList.add('active');else el.classList.remove('active');});
   if(tabId==='tge-dashboard' && !window._tgeChartsInit) { window._tgeChartsInit=true; setTimeout(initTgeCharts,80); }
+  if(tabId==='tge-log') { setTimeout(tgeExecInject,20); }
+}
+
+// Inject an explicit "Execute" action column into the Script Execution Log so
+// testers can clearly see where to launch execution / record a result.
+function tgeExecInject() {
+  var tbl = document.querySelector('#tge-log table.data-table');
+  if (!tbl || tbl.dataset.execCol) return;
+  tbl.dataset.execCol = '1';
+  var headRow = tbl.querySelector('thead tr');
+  if (headRow) {
+    var th = document.createElement('th');
+    th.textContent = 'Execute';
+    headRow.appendChild(th);
+  }
+  tbl.querySelectorAll('tbody tr').forEach(function(row){
+    var spanCell = row.querySelector('td[colspan]');
+    if (spanCell) { spanCell.setAttribute('colspan', '12'); return; }
+    var td = document.createElement('td');
+    td.style.textAlign = 'center';
+    td.innerHTML = '<button onclick="event.stopPropagation();tgeExecRow(this)" title="Execute this script and record the result" style="background:var(--tsp-blue);color:#fff;border:none;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">▶ Execute</button>';
+    row.appendChild(td);
+  });
+}
+
+// Launch execution for a single row (reads script identity from the row cells)
+function tgeExecRow(btn) {
+  var row = btn.closest('tr');
+  if (!row) return;
+  var idCell = row.querySelector('td:first-child');
+  var nameCell = row.querySelector('td:nth-child(2)');
+  var id = idCell ? idCell.textContent.trim() : '';
+  var name = nameCell ? nameCell.textContent.trim() : '';
+  var area = row.getAttribute('data-area') || '';
+  var moduleName = area ? area.toUpperCase() : '';
+  tgeSelectRow(row, id, name, moduleName);
 }
 
 function tgeLogTab(area) {
@@ -20250,6 +21166,7 @@ function tpRender() {
   var empty = document.getElementById('tp-empty-state');
   if (!body) return;
   body.innerHTML = '';
+  if (typeof tpRenderDailyPlan === 'function') tpRenderDailyPlan();
   if (_tpPhases.length === 0) { if (empty) empty.style.display = 'block'; return; }
   if (empty) empty.style.display = 'none';
   _tpPhases.forEach(function(ph) {
@@ -20559,6 +21476,164 @@ function tpMgrAddTester(name) {
   if (ph.testers.indexOf(name) === -1) ph.testers.push(name);
   tpMgrRenderTesters();
   tpMgrFilterTesters();
+}
+
+// ── DAILY EXECUTION PLAN (day ↔ script mapping) ──────────────────
+var _tpPlanDays = [
+  {n:1,date:'Mon Jun 29'},{n:2,date:'Tue Jun 30'},{n:3,date:'Wed Jul 1'},{n:4,date:'Thu Jul 2'},{n:5,date:'Fri Jul 3'},
+  {n:6,date:'Mon Jul 6'},{n:7,date:'Tue Jul 7'},{n:8,date:'Wed Jul 8'},{n:9,date:'Thu Jul 9'},{n:10,date:'Fri Jul 10'}
+];
+var _tpDayAssign  = {};      // scriptId -> day number (0/undefined = unassigned)
+var _tpDailySeeded = false;
+var _tpDailyQ = '';
+var _tpDragId = null;        // script id currently being dragged
+
+// Scripts approved for this phase (SIT Round 1) = phase execution targets in scope
+function tpDailyScripts() {
+  var ph = _tpPhases[0];
+  if (!ph) return [];
+  return _tpAllScripts.filter(function(s){ return ph.scripts.indexOf(s.id) >= 0; });
+}
+
+function tpDailySeed() {
+  if (_tpDailySeeded) return;
+  _tpDailySeeded = true;
+  // Illustrative starting sequence — user can re-map any script to any day
+  var seed = {1:1,2:1,3:2,4:2,5:3,6:3,7:4,8:4,9:5,10:5,11:6,12:6};
+  Object.keys(seed).forEach(function(k){ if (_tpDayAssign[k] === undefined) _tpDayAssign[k] = seed[k]; });
+}
+
+function tpDailyDayCount(n) {
+  var c = 0;
+  tpDailyScripts().forEach(function(s){ if ((_tpDayAssign[s.id]||0) === n) c++; });
+  return c;
+}
+
+function tpDailyUnassignedCount() {
+  var c = 0;
+  tpDailyScripts().forEach(function(s){ if (!_tpDayAssign[s.id]) c++; });
+  return c;
+}
+
+function tpDailyOpen() {
+  tpDailySeed();
+  _tpDailyQ = '';
+  var srch = document.getElementById('tp-daily-search'); if (srch) srch.value = '';
+  tpDailyRenderPool();
+  tpDailyRenderDays();
+  document.getElementById('tp-daily-modal').classList.add('open');
+}
+
+function tpDailyClose() {
+  document.getElementById('tp-daily-modal').classList.remove('open');
+}
+
+function tpDailyFilter(v) {
+  _tpDailyQ = (v || '').toLowerCase();
+  tpDailyRenderPool();
+}
+
+// Build a draggable script chip
+function tpDailyChip(s) {
+  var areaColors = { Finance:'#1565c0', OTC:'#6a1b9a', PTP:'#2e7d32', MDM:'#e65100' };
+  var ac = areaColors[s.area] || '#1565c0';
+  return '<div draggable="true" data-sid="' + s.id + '" ondragstart="tpDailyDragStart(event,' + s.id + ')" ondragend="tpDailyDragEnd(event)" ' +
+    'style="display:flex;align-items:center;gap:8px;padding:7px 9px;margin-bottom:6px;border:1px solid var(--border);border-left:3px solid ' + ac + ';border-radius:7px;background:#fff;cursor:grab;">' +
+    '<span style="color:var(--text-muted);font-size:13px;line-height:1;">⠿</span>' +
+    '<div style="min-width:0;flex:1;"><div style="font-size:11.5px;font-weight:700;color:var(--tsp-blue);">' + s.code + '</div>' +
+    '<div style="color:var(--text-primary);font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + s.title + '</div></div>' +
+    '<span style="flex-shrink:0;font-size:9px;font-weight:700;color:' + ac + ';background:' + ac + '1a;padding:1px 6px;border-radius:7px;">' + s.area + '</span>' +
+    '</div>';
+}
+
+// Left pane — unassigned pool
+function tpDailyRenderPool() {
+  var host = document.getElementById('tp-daily-pool');
+  if (!host) return;
+  var q = _tpDailyQ;
+  var rows = tpDailyScripts().filter(function(s){
+    if ((_tpDayAssign[s.id] || 0) !== 0) return false;
+    if (q) { var hay = (s.code + ' ' + s.title + ' ' + s.area).toLowerCase(); if (hay.indexOf(q) < 0) return false; }
+    return true;
+  });
+  if (rows.length === 0) {
+    host.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:11.5px;border:2px dashed var(--border);border-radius:8px;margin-top:6px;">' + (q ? 'No unassigned scripts match.' : '✓ All scripts assigned to a day.') + '</div>';
+  } else {
+    host.innerHTML = rows.map(function(s){ return tpDailyChip(s); }).join('');
+  }
+  var ub = document.getElementById('tp-daily-unassigned');
+  if (ub) ub.textContent = tpDailyUnassignedCount();
+}
+
+// Right pane — day drop zones
+function tpDailyRenderDays() {
+  var host = document.getElementById('tp-daily-days');
+  if (!host) return;
+  host.innerHTML = _tpPlanDays.map(function(d){
+    var assigned = tpDailyScripts().filter(function(s){ return (_tpDayAssign[s.id] || 0) === d.n; });
+    var chips = assigned.length ? assigned.map(function(s){ return tpDailyChip(s); }).join('')
+      : '<div style="padding:12px;text-align:center;color:var(--text-muted);font-size:10.5px;border:2px dashed var(--border);border-radius:7px;">Drop scripts here</div>';
+    return '<div ondragover="tpDailyDragOver(event,this)" ondragleave="tpDailyDragLeave(event,this)" ondrop="tpDailyDrop(event,' + d.n + ',this)" ' +
+      'style="margin-bottom:10px;border:1px solid var(--border);border-radius:9px;overflow:hidden;transition:box-shadow .1s;">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--tsp-blue-light);border-bottom:1px solid var(--border);">' +
+      '<div style="font-size:12.5px;font-weight:700;color:var(--tsp-blue);">Day ' + d.n + ' <span style="font-weight:500;color:var(--text-muted);font-size:11px;">· ' + d.date + '</span></div>' +
+      '<span style="font-size:11px;font-weight:700;color:var(--tsp-blue);background:#fff;padding:2px 8px;border-radius:9px;min-width:22px;text-align:center;">' + assigned.length + '</span></div>' +
+      '<div style="padding:9px 10px;">' + chips + '</div></div>';
+  }).join('');
+}
+
+// ── Drag & drop handlers ──
+function tpDailyDragStart(ev, id) {
+  _tpDragId = id;
+  try { ev.dataTransfer.setData('text/plain', String(id)); ev.dataTransfer.effectAllowed = 'move'; } catch (e) {}
+}
+function tpDailyDragEnd(ev) {
+  _tpDragId = null;
+}
+function tpDailyDragOver(ev, el) {
+  ev.preventDefault();
+  try { ev.dataTransfer.dropEffect = 'move'; } catch (e) {}
+  if (el) el.style.boxShadow = 'inset 0 0 0 2px var(--tsp-blue)';
+}
+function tpDailyDragLeave(ev, el) {
+  if (el) el.style.boxShadow = '';
+}
+function tpDailyDrop(ev, day, el) {
+  ev.preventDefault();
+  if (el) el.style.boxShadow = '';
+  var id = _tpDragId;
+  if (!id) { try { id = parseInt(ev.dataTransfer.getData('text/plain'), 10); } catch (e) {} }
+  if (!id) return;
+  _tpDayAssign[id] = day;
+  _tpDragId = null;
+  tpDailyRenderPool();
+  tpDailyRenderDays();
+}
+
+function tpDailySave() {
+  tpDailyClose();
+  tpRenderDailyPlan();
+  var toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#2e7d32;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.2);';
+  toast.textContent = '✓ Daily plan saved — ' + (tpDailyScripts().length - tpDailyUnassignedCount()) + ' scripts sequenced';
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.remove(); }, 3000);
+}
+
+function tpRenderDailyPlan() {
+  var body = document.getElementById('tp-dayplan-body');
+  if (!body) return;
+  tpDailySeed();
+  var total = 0;
+  var html = _tpPlanDays.map(function(d, i){
+    var c = tpDailyDayCount(d.n); total += c;
+    return '<tr style="background:' + (i % 2 ? 'var(--bg-page)' : '#fff') + ';">' +
+      '<td style="padding:8px 14px;font-weight:600;color:var(--tsp-blue);">Day ' + d.n + '</td>' +
+      '<td style="padding:8px 12px;color:var(--text-muted);">' + d.date + '</td>' +
+      '<td style="padding:8px 14px;text-align:right;font-weight:600;">' + (c || '—') + '</td></tr>';
+  }).join('');
+  html += '<tr style="background:var(--tsp-blue-light);font-weight:700;"><td style="padding:9px 14px;color:var(--tsp-blue);">TOTAL</td><td></td><td style="padding:9px 14px;text-align:right;color:var(--tsp-blue);">' + total + '</td></tr>';
+  body.innerHTML = html;
 }
 
 
@@ -31371,6 +32446,778 @@ window.kbValidateTimelineSprints = kbValidateTimelineSprints;
 })();
 </script>
 <!-- ════════════════ /SPRINT BOARD (KANBAN) — logic ════════════════ -->
+
+<!-- ══════════════════ GLOBAL TOP BAR — logic ══════════════════ -->
+<script>
+/* Persistent top bar: mirrors the active page's title/subtitle, holds the
+   active-project selector + user avatar, sidebar toggle and a Back button.
+   Self-contained; wraps nav()/navTo() to stay in sync. */
+
+var _tbHistory = [];
+var _tbSuppress = false;
+
+function tbCurrentPageEl(){
+  return document.querySelector('.main .page.visible') || document.querySelector('.page.visible');
+}
+function tbPageKeyFromEl(el){ return el ? el.id.replace(/^page-/,'') : ''; }
+function tbTitleCase(key){ return String(key||'').replace(/-/g,' ').replace(/\b\w/g,function(c){ return c.toUpperCase(); }); }
+
+function tbUpdate(){
+  var el = tbCurrentPageEl();
+  var titleEl = document.getElementById('tb-title');
+  var subEl   = document.getElementById('tb-sub');
+  if (!el || !titleEl) return;
+  var t = el.querySelector('.ov-project-title') || el.querySelector('.page-title');
+  var s = el.querySelector('.ov-scope') || el.querySelector('.page-subtitle');
+  titleEl.textContent = (t && t.textContent.trim()) || tbTitleCase(tbPageKeyFromEl(el)) || 'TSP Aria';
+  if (subEl) subEl.textContent = (s && s.textContent.trim()) || '';
+}
+window.tbUpdate = tbUpdate;
+
+function tbRecordAndUpdate(prevKey){
+  if (!_tbSuppress && prevKey){ _tbHistory.push(prevKey); if (_tbHistory.length > 60) _tbHistory.shift(); }
+  setTimeout(tbUpdate, 50);
+}
+
+function tbBack(){
+  var cur = tbPageKeyFromEl(tbCurrentPageEl());
+  var target = null;
+  while (_tbHistory.length){ var p = _tbHistory.pop(); if (p && p !== cur){ target = p; break; } }
+  _tbSuppress = true;
+  try { if (typeof window.navTo === 'function') window.navTo(target || 'home'); }
+  finally { _tbSuppress = false; }
+}
+window.tbBack = tbBack;
+
+function tbToggleSidebar(){ var sb = document.querySelector('.sidebar'); if (sb) sb.classList.toggle('tb-collapsed'); }
+window.tbToggleSidebar = tbToggleSidebar;
+
+function tbInitials(name){
+  if (!name) return '--';
+  var base = String(name).replace(/[—–-].*$/,'').trim();     // drop anything after a dash (e.g. project subtitle)
+  var p = base.split(/\s+/);
+  var ini = ((p[0]||'')[0]||'') + ((p[1]||'')[0]||'');
+  return (ini || base[0] || '-').toUpperCase();
+}
+function tbSyncProjAvatar(){
+  var sel = document.getElementById('tb-project-select'), av = document.getElementById('tb-proj-avatar');
+  if (sel && av) av.textContent = tbInitials(sel.value);
+}
+function tbPopulateProjects(){
+  var sel = document.getElementById('tb-project-select'); if (!sel) return;
+  var names = (typeof _tskProjects !== 'undefined' && _tskProjects.length)
+    ? _tskProjects.map(function(p){ return p.name; })
+    : ['BAC Global Template Greenfield Project'];
+  sel.innerHTML = names.map(function(n){ return '<option>'+String(n).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</option>'; }).join('');
+  if (typeof _tskCurrentProject !== 'undefined' && typeof _tskProjects !== 'undefined'){
+    var cur = _tskProjects.filter(function(p){ return p.id === _tskCurrentProject; })[0];
+    if (cur) sel.value = cur.name;
+  }
+  tbSyncProjAvatar();
+}
+function tbProjectChange(name){
+  tbSyncProjAvatar();
+  if (typeof _tskProjects !== 'undefined'){
+    var m = _tskProjects.filter(function(p){ return p.name === name; })[0];
+    if (m && typeof _tskCurrentProject !== 'undefined') { _tskCurrentProject = m.id; }
+  }
+}
+window.tbProjectChange = tbProjectChange;
+
+/* Wrap nav()/navTo() (outermost — this block runs last) to keep the top bar
+   title, subtitle and back-history in sync with the active page. */
+(function(){
+  var _navPrev = window.nav;
+  window.nav = function(el){
+    var from = tbPageKeyFromEl(tbCurrentPageEl());
+    if (typeof _navPrev === 'function') _navPrev(el);
+    tbRecordAndUpdate(from);
+  };
+  var _navToPrev = window.navTo;
+  window.navTo = function(pageKey, parentKey){
+    var from = tbPageKeyFromEl(tbCurrentPageEl());
+    if (typeof _navToPrev === 'function') _navToPrev(pageKey, parentKey);
+    tbRecordAndUpdate(from);
+  };
+})();
+
+(function tbBoot(){
+  function go(){ tbPopulateProjects(); tbUpdate(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(go, 350); });
+  else setTimeout(go, 350);
+})();
+</script>
+<!-- ════════════════ /GLOBAL TOP BAR — logic ════════════════ -->
+
+<!-- ══════════════════ SLA MANAGEMENT + AMS — logic ══════════════════ -->
+<script>
+/* Self-contained. SLA Management page + AMS (Named/Pool) restructuring of
+   Team Setup & Staffing Plan. In-memory, kb/sla/ams-prefixed. */
+
+/* ---------- SLA Management ---------- */
+var _SLA_SEV = ['Critical','High','Medium','Low'];
+var _SLA_SEV_STYLE = { Critical:{bg:'#FEE2E2',fg:'#991B1B'}, High:{bg:'#FFEDD5',fg:'#9A3412'}, Medium:{bg:'#FEF3C7',fg:'#92400E'}, Low:{bg:'#DCFCE7',fg:'#166534'} };
+var _SLA_UNITS = ['Minutes','Hours','Business hours','Business days','Days'];
+var _SLA_COV = ['24×7','Business hours','On-call'];
+var _slaCtx = 'Implementation';
+var _slaData = null;
+
+function slaEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function slaSevDefault(sev){
+  var d = {
+    Critical:{ initial:{v:15,u:'Minutes',d:'Production-down response'}, update:{v:1,u:'Hours',d:'Update every hour until service is restored'}, target:{v:4,u:'Hours',d:'Restore service within four hours'}, escalation:{v:2,u:'Hours',d:'Escalate if no progress after two hours'}, coverage:{v:'24×7',d:'24×7 support'} },
+    High:{ initial:{v:1,u:'Hours',d:'Major function impaired response'}, update:{v:4,u:'Hours',d:'Update every four hours'}, target:{v:8,u:'Business hours',d:'Resolution path within eight business hours'}, escalation:{v:4,u:'Business hours',d:'Escalate after four business hours'}, coverage:{v:'Business hours',d:'Business hours cover'} },
+    Medium:{ initial:{v:4,u:'Business hours',d:'Moderate impact response'}, update:{v:1,u:'Business days',d:'Daily status update'}, target:{v:3,u:'Business days',d:'Resolution within three business days'}, escalation:{v:2,u:'Business days',d:'Escalate after two business days'}, coverage:{v:'Business hours',d:'Business hours cover'} },
+    Low:{ initial:{v:1,u:'Business days',d:'Minor issue response'}, update:{v:3,u:'Business days',d:'Update every three business days'}, target:{v:5,u:'Business days',d:'Resolution within five business days'}, escalation:{v:3,u:'Business days',d:'Escalate after three business days'}, coverage:{v:'Business hours',d:'Business hours cover'} }
+  };
+  return JSON.parse(JSON.stringify(d[sev]));
+}
+function slaSevSet(){ var o={}; _SLA_SEV.forEach(function(s){ o[s]=slaSevDefault(s); }); return o; }
+function slaBuildDefaults(){ return { Implementation: slaSevSet(), AMS: { Named: slaSevSet(), Pool: slaSevSet() }, HyperCare: slaSevSet() }; }
+function slaEnsure(){ if(!_slaData) _slaData = slaBuildDefaults(); }
+function slaLocObj(loc){ var p=loc.split('.'); var o=_slaData[p[0]]; if(p[1]) o=o[p[1]]; return o; }
+
+function slaInit(){
+  slaEnsure();
+  var nm=document.getElementById('sla-project-name');
+  if(nm && typeof _tskProjects!=='undefined'){ var cur=_tskProjects.filter(function(p){return p.id===_tskCurrentProject;})[0]; if(cur) nm.textContent=cur.name; }
+  slaSetContext(_slaCtx);
+}
+window.slaInit = slaInit;
+
+function slaSetContext(ctx){
+  _slaCtx = ctx;
+  ['Implementation','AMS','HyperCare'].forEach(function(c){ var t=document.getElementById('sla-tab-'+c); if(t) t.classList.toggle('active', c===ctx); });
+  slaRender();
+}
+window.slaSetContext = slaSetContext;
+
+function slaCellHtml(loc, sev, colKey, cell){
+  var unit='<select class="ps-select sla-unit" onchange="slaSet(\''+loc+'\',\''+sev+'\',\''+colKey+'\',\'u\',this.value)">'+_SLA_UNITS.map(function(u){return '<option'+(u===cell.u?' selected':'')+'>'+u+'</option>';}).join('')+'</select>';
+  return '<div class="sla-cell">'+
+    '<button class="sla-reset" onclick="slaResetCell(\''+loc+'\',\''+sev+'\',\''+colKey+'\')">↺ Reset default</button>'+
+    '<div class="sla-cell-row"><input class="ps-input sla-num" type="number" min="0" value="'+cell.v+'" onchange="slaSet(\''+loc+'\',\''+sev+'\',\''+colKey+'\',\'v\',this.value)"/>'+unit+'</div>'+
+    '<input class="ps-input sla-desc" type="text" value="'+slaEsc(cell.d)+'" onchange="slaSet(\''+loc+'\',\''+sev+'\',\''+colKey+'\',\'d\',this.value)"/>'+
+  '</div>';
+}
+function slaCovHtml(loc, sev, cell){
+  var sel='<select class="ps-select" onchange="slaSet(\''+loc+'\',\''+sev+'\',\'coverage\',\'v\',this.value)">'+_SLA_COV.map(function(c){return '<option'+(c===cell.v?' selected':'')+'>'+c+'</option>';}).join('')+'</select>';
+  return '<div class="sla-cell">'+
+    '<button class="sla-reset" onclick="slaResetCell(\''+loc+'\',\''+sev+'\',\'coverage\')">↺ Reset default</button>'+sel+
+    '<input class="ps-input sla-desc" type="text" value="'+slaEsc(cell.d)+'" onchange="slaSet(\''+loc+'\',\''+sev+'\',\'coverage\',\'d\',this.value)"/>'+
+  '</div>';
+}
+function slaGrid(loc){
+  var o=slaLocObj(loc); if(!o) return '';
+  var h='<div style="overflow-x:auto;"><table class="sla-table"><thead><tr><th style="min-width:80px;">Severity</th><th>Initial response</th><th>Update frequency</th><th>Target resolution</th><th>Escalation threshold</th><th>Coverage</th></tr></thead><tbody>';
+  _SLA_SEV.forEach(function(sev){
+    var s=_SLA_SEV_STYLE[sev]; var e=o[sev];
+    h+='<tr><td><span class="sla-sev-badge" style="background:'+s.bg+';color:'+s.fg+';">'+sev+'</span></td>'+
+       '<td>'+slaCellHtml(loc,sev,'initial',e.initial)+'</td>'+
+       '<td>'+slaCellHtml(loc,sev,'update',e.update)+'</td>'+
+       '<td>'+slaCellHtml(loc,sev,'target',e.target)+'</td>'+
+       '<td>'+slaCellHtml(loc,sev,'escalation',e.escalation)+'</td>'+
+       '<td>'+slaCovHtml(loc,sev,e.coverage)+'</td></tr>';
+  });
+  return h+'</tbody></table></div>';
+}
+function slaRender(){
+  slaEnsure();
+  var c=document.getElementById('sla-grids'); if(!c) return;
+  if(_slaCtx==='AMS'){
+    c.innerHTML='<div class="sla-grid-title">🙋 Named Resources</div>'+slaGrid('AMS.Named')+
+      '<div class="sla-grid-title" style="margin-top:24px;">👥 Pool Resources</div>'+slaGrid('AMS.Pool');
+  } else {
+    c.innerHTML=slaGrid(_slaCtx);
+  }
+}
+function slaSet(loc,sev,col,field,val){
+  slaEnsure(); var o=slaLocObj(loc); if(!o||!o[sev]||!o[sev][col]) return;
+  if(field==='v' && col!=='coverage'){ o[sev][col].v = (val===''?'':Number(val)); } else { o[sev][col][field]=val; }
+}
+window.slaSet = slaSet;
+function slaResetCell(loc,sev,col){ slaEnsure(); var o=slaLocObj(loc); if(!o||!o[sev]) return; var def=slaSevDefault(sev); o[sev][col]=def[col]; slaRender(); }
+window.slaResetCell = slaResetCell;
+function slaResetAll(){ _slaData = slaBuildDefaults(); slaRender(); }
+window.slaResetAll = slaResetAll;
+
+/* ---------- AMS (Named / Pool) ---------- */
+var _amsNamed = [
+  {name:'Priya Nair',       role:'S/4 FI-CO Lead',    loc:'Onshore',  hours:120, rate:110, consumed:78},
+  {name:'Diego Fernandez',  role:'MM/SD Consultant',  loc:'Offshore', hours:120, rate:70,  consumed:64},
+  {name:'Aparna Guha',      role:'ABAP Developer',    loc:'Offshore', hours:100, rate:65,  consumed:41}
+];
+var _amsPool = { budgetHours:320, rate:95, members:[
+  {name:'Rahul Mehta', role:'BASIS',     loc:'Offshore',  consumed:36},
+  {name:'Chen Wei',    role:'Analytics', loc:'Offshore',  consumed:22},
+  {name:'Sara Lopez',  role:'Security',  loc:'Nearshore', consumed:18}
+]};
+
+function amsEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function amsIsOn(){ var el=document.getElementById('ps-engagement-type'); return !!el && el.value==='AMS'; }
+function amsPoolConsumed(){ return _amsPool.members.reduce(function(t,m){ return t+(Number(m.consumed)||0); },0); }
+
+function psEngagementChange(v){ amsApplyMode(); }
+window.psEngagementChange = psEngagementChange;
+
+function amsApplyMode(){
+  var on = amsIsOn();
+  var show=function(id,vis,disp){ var e=document.getElementById(id); if(e) e.style.display = vis?(disp||''):'none'; };
+  show('team-standard-card', !on); show('team-standard-summary', !on); show('ams-team', on, 'block');
+  show('sp-standard', !on, 'block'); show('ams-sp', on, 'block');
+  if(on){ amsRenderTeam(); amsRenderStaffing(); }
+}
+window.amsApplyMode = amsApplyMode;
+
+function amsRenderTeam(){
+  var nb=document.getElementById('ams-named-body');
+  if(nb){
+    nb.innerHTML=_amsNamed.map(function(r,i){
+      var rem=(Number(r.hours)||0)-(Number(r.consumed)||0);
+      return '<tr>'+
+        '<td><input class="ps-input" style="width:100%;" value="'+amsEsc(r.name)+'" onchange="amsSetNamed('+i+',\'name\',this.value)"/></td>'+
+        '<td><input class="ps-input" style="width:100%;" value="'+amsEsc(r.role)+'" onchange="amsSetNamed('+i+',\'role\',this.value)"/></td>'+
+        '<td><input class="ps-input" style="width:100%;" value="'+amsEsc(r.loc)+'" onchange="amsSetNamed('+i+',\'loc\',this.value)"/></td>'+
+        '<td><input class="ps-input" type="number" min="0" style="width:90px;" value="'+(r.hours||0)+'" onchange="amsSetNamed('+i+',\'hours\',this.value)"/></td>'+
+        '<td><input class="ps-input" type="number" min="0" style="width:90px;" value="'+(r.consumed||0)+'" onchange="amsSetNamed('+i+',\'consumed\',this.value)"/></td>'+
+        '<td style="font-weight:700;color:'+(rem<0?'#B91C1C':'#166534')+';">'+rem+' h</td>'+
+        '<td style="text-align:center;"><button onclick="amsRemoveNamed('+i+')" style="background:none;border:none;cursor:pointer;color:#c62828;font-size:15px;">✕</button></td>'+
+      '</tr>';
+    }).join('') || '<tr><td colspan="7" style="color:#94A3B8;font-size:12px;padding:10px;">No named resources yet.</td></tr>';
+  }
+  var pb=document.getElementById('ams-pool-body');
+  if(pb){
+    pb.innerHTML=_amsPool.members.map(function(m,i){
+      return '<tr>'+
+        '<td><input class="ps-input" style="width:100%;" value="'+amsEsc(m.name)+'" onchange="amsSetPool('+i+',\'name\',this.value)"/></td>'+
+        '<td><input class="ps-input" style="width:100%;" value="'+amsEsc(m.role)+'" onchange="amsSetPool('+i+',\'role\',this.value)"/></td>'+
+        '<td><input class="ps-input" style="width:100%;" value="'+amsEsc(m.loc)+'" onchange="amsSetPool('+i+',\'loc\',this.value)"/></td>'+
+        '<td><input class="ps-input" type="number" min="0" style="width:100px;" value="'+(m.consumed||0)+'" onchange="amsSetPool('+i+',\'consumed\',this.value)"/></td>'+
+        '<td style="text-align:center;"><button onclick="amsRemovePool('+i+')" style="background:none;border:none;cursor:pointer;color:#c62828;font-size:15px;">✕</button></td>'+
+      '</tr>';
+    }).join('') || '<tr><td colspan="5" style="color:#94A3B8;font-size:12px;padding:10px;">No pool members yet.</td></tr>';
+  }
+  var budget=Number(_amsPool.budgetHours)||0, consumed=amsPoolConsumed(), remaining=budget-consumed;
+  var util = budget>0 ? Math.round(consumed/budget*100) : 0;
+  var setTxt=function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
+  setTxt('ams-pool-consumed', consumed); setTxt('ams-pool-remaining', remaining); setTxt('ams-pool-util', util+'%');
+  var bIn=document.getElementById('ams-pool-budget'); if(bIn && String(bIn.value)!==String(budget)) bIn.value=budget;
+}
+window.amsRenderTeam = amsRenderTeam;
+
+function amsRenderStaffing(){
+  var nb=document.getElementById('ams-sp-named-body');
+  var namedHrs=0, namedCost=0;
+  if(nb){
+    nb.innerHTML=_amsNamed.map(function(r,i){
+      var cost=(Number(r.hours)||0)*(Number(r.rate)||0); namedHrs+=(Number(r.hours)||0); namedCost+=cost;
+      return '<tr>'+
+        '<td>'+amsEsc(r.name)+'</td>'+
+        '<td>'+amsEsc(r.role)+'</td>'+
+        '<td><input class="ps-input" type="number" min="0" style="width:90px;" value="'+(r.hours||0)+'" onchange="amsSetNamed('+i+',\'hours\',this.value)"/></td>'+
+        '<td><input class="ps-input" type="number" min="0" style="width:100px;" value="'+(r.rate||0)+'" onchange="amsSetNamed('+i+',\'rate\',this.value)"/></td>'+
+        '<td style="font-weight:700;">$'+cost.toLocaleString()+'</td>'+
+      '</tr>';
+    }).join('');
+  } else { _amsNamed.forEach(function(r){ namedHrs+=(Number(r.hours)||0); namedCost+=(Number(r.hours)||0)*(Number(r.rate)||0); }); }
+  var poolHrs=Number(_amsPool.budgetHours)||0, poolRate=Number(_amsPool.rate)||0, poolCost=poolHrs*poolRate;
+  var setTxt=function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
+  setTxt('ams-sp-named-hrs', namedHrs+' h'); setTxt('ams-sp-pool-hrs', poolHrs+' h');
+  setTxt('ams-sp-total-hrs', (namedHrs+poolHrs)+' h'); setTxt('ams-sp-cost', '$'+(namedCost+poolCost).toLocaleString());
+  setTxt('ams-sp-pool-cost', '$'+poolCost.toLocaleString());
+  var pb=document.getElementById('ams-sp-pool-budget'); if(pb && String(pb.value)!==String(poolHrs)) pb.value=poolHrs;
+  var pr=document.getElementById('ams-sp-pool-rate'); if(pr && String(pr.value)!==String(poolRate)) pr.value=poolRate;
+}
+window.amsRenderStaffing = amsRenderStaffing;
+
+function amsRenderAll(){ amsRenderTeam(); amsRenderStaffing(); }
+function amsSetNamed(i,f,v){ if(!_amsNamed[i])return; _amsNamed[i][f]=(f==='hours'||f==='rate'||f==='consumed')?(v===''?0:Number(v)):v; amsRenderAll(); }
+window.amsSetNamed = amsSetNamed;
+function amsRemoveNamed(i){ _amsNamed.splice(i,1); amsRenderAll(); }
+window.amsRemoveNamed = amsRemoveNamed;
+function amsAddNamed(){ _amsNamed.push({name:'New Resource',role:'',loc:'Offshore',hours:0,rate:0,consumed:0}); amsRenderAll(); }
+window.amsAddNamed = amsAddNamed;
+function amsSetPool(i,f,v){ if(!_amsPool.members[i])return; _amsPool.members[i][f]=(f==='consumed')?(v===''?0:Number(v)):v; amsRenderAll(); }
+window.amsSetPool = amsSetPool;
+function amsRemovePool(i){ _amsPool.members.splice(i,1); amsRenderAll(); }
+window.amsRemovePool = amsRemovePool;
+function amsAddPool(){ _amsPool.members.push({name:'New Member',role:'',loc:'Offshore',consumed:0}); amsRenderAll(); }
+window.amsAddPool = amsAddPool;
+function amsPoolBudgetChange(v){ _amsPool.budgetHours=(v===''?0:Number(v)); amsRenderAll(); }
+window.amsPoolBudgetChange = amsPoolBudgetChange;
+function amsPoolRateChange(v){ _amsPool.rate=(v===''?0:Number(v)); amsRenderAll(); }
+window.amsPoolRateChange = amsPoolRateChange;
+
+(function amsBoot(){
+  function go(){ if(document.getElementById('ps-engagement-type')) amsApplyMode(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(go,400); });
+  else setTimeout(go,400);
+})();
+</script>
+<!-- ════════════════ /SLA MANAGEMENT + AMS — logic ════════════════ -->
+
+<script>
+/* ═══════════ PRE-SALES / SOW GENERATION — isolated, psg-namespaced ═══════════ */
+var PSG_STEPS=["Intake","Details","Scope (DDA)","RICEFW","Integrations","Timeline","Staffing","Narrative","Review"];
+var PSG_currentStep=0;
+var PSG_WEEKS=27;
+var PSG_CAPS=[
+  {ico:'💰',nm:'Finance',ids:[['J58','Accounting and Financial Close'],['J59','Accounts Receivable'],['J60','Accounts Payable'],['1GB','Asset Accounting'],['2FM','Financial Planning & Analysis']]},
+  {ico:'🛒',nm:'Sourcing & Procurement',ids:[['J45','Procurement of Direct Materials'],['18J','Requisitioning'],['BMD','Central Procurement'],['BNX','Supplier Invoice Management']]},
+  {ico:'📈',nm:'Sales',ids:[['BD9','Sell from Stock'],['BKA','Sales Order Management'],['1IU','Sales Order Fulfillment Monitoring'],['BKP','Free Goods Processing']]},
+  {ico:'🏭',nm:'Manufacturing',ids:[['BJ5','Make-to-Stock — Discrete'],['BJE','Make-to-Order'],['1E1','Quality Management']]},
+  {ico:'🚚',nm:'Supply Chain',ids:[['BML','Core Inventory Management'],['BMC','Physical Inventory'],['3W8','Advanced Available-to-Promise']]},
+  {ico:'🧑‍💼',nm:'Human Resources',ids:[['J14','SF Employee Central Integration'],['1FD','Time Recording']]}
+];
+var PSG_RICE=[['Report ABAP',6,10,3,0],['Report SAC',4,5,2,0],['Interface',5,6,3,1],['Conversion',6,8,2,0],['Enhancement',3,4,1,0],['Form',4,5,2,0],['Workflow',2,3,1,0],['Fiori App',3,4,2,1]];
+var PSG_HPO={0:60,1:120,2:200,3:320};
+var PSG_STD=['SAP Ariba','SAP Concur','SuccessFactors','Field Service Mgmt','Transportation Mgmt','SAP BTP','Bank / Payment','Tax (Vertex/Avalara)'];
+var PSG_TLCOLORS={activate:['#cdd6ac','#35391f','Activate (green)'],brown:['#4b423a','#ffffff','Prepare / Hypercare (brown)'],conversion:['#4a90d9','#ffffff','Conversion (blue)'],ocm:['#7a5ba6','#ffffff','Workstream / OCM (purple)']};
+var PSG_TL={start:'2026-04-01',deps:[
+  {name:'Phase 1 — Group Reporting / Assessment / Data Readiness',phases:[
+    {n:'Prep',s:11,l:2,c:'brown',row:0},{n:'Exp',s:13,l:2,c:'activate',row:0},{n:'Realize',s:15,l:16,c:'activate',row:0},{n:'Deploy',s:31,l:5,c:'activate',row:0},
+    {n:'UAT',s:33,l:2,c:'activate',row:1},{n:'TRN',s:35,l:2,c:'activate',row:1},
+    {n:'PRD Conv',s:33,l:4,c:'conversion',row:2,star:true},
+    {n:'Hyper Care',s:37,l:8,c:'brown',row:3},
+    {n:'Assessmt',s:15,l:3,c:'ocm',row:4},
+    {n:'Data Readiness',s:17,l:10,c:'ocm',row:5}
+  ]},
+  {name:'Phase 2 — S/4HANA for North America',phases:[
+    {n:'Explore',s:26,l:5,c:'activate',row:0},{n:'Realize',s:31,l:8,c:'activate',row:0},{n:'Deploy',s:39,l:5,c:'activate',row:0},
+    {n:'SIT',s:35,l:6,c:'activate',row:1},{n:'UAT',s:44,l:2,c:'activate',row:1},{n:'TRN',s:46,l:2,c:'activate',row:1},
+    {n:'PRD Conv',s:44,l:4,c:'conversion',row:2,star:true},
+    {n:'Hyper Care',s:48,l:6,c:'brown',row:3},
+    {n:'Change Management',s:26,l:24,c:'ocm',row:4}
+  ]}
+]};
+var PSG_ROLES=[
+  ['Engagement Lead','PMO','Onshore','psg-b-blue',150,240,0.5],
+  ['Solution Architect','FI','Onshore','psg-b-blue',95,185,1],
+  ['Finance Consultant','FI','Offshore','psg-b-orange',43,110,3],
+  ['Procurement Consultant','MM','Offshore','psg-b-orange',40,105,2.5],
+  ['Sales Consultant','SD','Offshore','psg-b-orange',43,110,2.5],
+  ['ABAP / BTP Developer','TECH','Offshore','psg-b-orange',49,120,3],
+  ['Data Migration','DATA','Offshore','psg-b-orange',40,105,2]
+];
+var PSG_NARR=[
+  ['Executive Summary','Northwind Foods Inc. has selected The Silicon Partners to deliver a greenfield SAP S/4HANA Public Cloud implementation. This proposal outlines a fit-to-standard approach covering Finance, Sourcing & Procurement and Sales for approximately 250 users in the United States, delivered under the SAP Activate methodology with a targeted go-live within two quarters.'],
+  ['Overall Project Scope','The engagement adopts a Time & Materials approach across a single deployment wave. Scope is defined by the confirmed SAP Best Practice scope items and RICEFW development objects detailed in this proposal. TSP will configure standard processes, deliver the agreed development objects, migrate legacy master and transactional data, and support the business through go-live and hypercare.'],
+  ['S/4HANA Digital Core Scope','The solution enables the S/4HANA Digital Core across the in-scope capability areas: Accounting & Financial Close, Accounts Receivable/Payable, Asset Accounting and Financial Planning within Finance; Requisitioning, Direct Procurement and Supplier Invoice Management within Sourcing & Procurement; and Sell-from-Stock and Sales Order Management within Sales.'],
+  ['Assumptions','Client subject-matter experts will be available for fit-to-standard workshops. The client is responsible for data cleansing prior to migration. Standard SAP Best Practice content is adopted unless a specific gap is agreed and documented. Integrations beyond those listed are out of scope and handled via change order.'],
+  ['Out of Scope','Custom code beyond the agreed RICEFW object list; non-listed integrations; organizational change management beyond the stated allocation; and any legacy system decommissioning are out of scope for this engagement.']
+];
+
+function psgInit(){
+  psgShowView('psgViewStart');
+  psgBuildPractices();
+  document.getElementById('psgTypeChoiceWrap').style.display='none';
+  psgSetStartEnabled(false);
+  psgBuildStepper();psgBuildScope();psgBuildRicefw();psgBuildInt();psgBuildTimeline();psgBuildStaff();psgBuildNarr();
+}
+window.psgInit=psgInit;
+
+function psgShowView(id){
+  var root=document.getElementById('page-sow-generation');if(!root)return;
+  root.querySelectorAll('.psg-view').forEach(function(v){v.classList.toggle('on',v.id===id);});
+}
+var PSG_TYPES={
+  SAP:[
+    {n:'S/4HANA Public Cloud Greenfield',ico:'☁️',live:true,desc:'Fit-to-standard greenfield. Scope IDs, RICEFW, staffing & SAP Activate timeline. (End-to-end demo)'},
+    {n:'S/4HANA Public Cloud GROW FAST',ico:'⚡',desc:'Limited-scope Public Cloud, fixed packages.'},
+    {n:'S/4HANA Public Cloud Spot Project',ico:'🎯',desc:'Targeted enhancement / change on Public Cloud.'},
+    {n:'S/4HANA Public Cloud Upgrade',ico:'⬆️',desc:'Release upgrade planning for Public Cloud.'},
+    {n:'S/4HANA Public Cloud AMS',ico:'🛠️',desc:'Managed services — coverage options, SLAs, pool models.'},
+    {n:'S/4HANA Private Cloud Greenfield',ico:'🏢',desc:'RISE greenfield. Full L3 scope + DDA.'},
+    {n:'S/4HANA Private Cloud Brownfield',ico:'🔄',desc:'System conversion, CVI, custom-code remediation.'},
+    {n:'S/4HANA Private Cloud Upgrade',ico:'⬆️',desc:'Release upgrade / conversion planning.'},
+    {n:'S/4HANA Private Cloud AMS',ico:'🛠️',desc:'Managed services for Private Cloud / RISE.'},
+    {n:'S/4HANA On-Prem Greenfield',ico:'🖥️',desc:'On-premise greenfield implementation.'},
+    {n:'S/4HANA On-Prem Brownfield',ico:'🔄',desc:'On-premise system conversion.'},
+    {n:'S/4HANA On-Prem Upgrade',ico:'⬆️',desc:'On-premise release upgrade.'},
+    {n:'S/4HANA On-Prem AMS',ico:'🛠️',desc:'Managed services for on-premise landscapes.'},
+    {n:'SAP Assessment',ico:'🔍',desc:'Discovery / readiness engagement, deliverables-led.'},
+    {n:'SAP Change Order',ico:'📝',desc:'Change order against an existing engagement.'}
+  ],
+  HCM:[
+    {n:'Fast Pack',ico:'📦',desc:'Pre-configured SuccessFactors package.'},
+    {n:'Customized',ico:'✨',desc:'Tailored HXM module scope.'},
+    {n:'Best Practice',ico:'🛡️',desc:'Best-practice SuccessFactors implementation.'}
+  ],
+  RPA:[{n:'Customized',ico:'✨',desc:'Tailored RPA bot proposal.'}],
+  Analytics:[{n:'Customized',ico:'✨',desc:'Tailored SAC / Datasphere proposal.'}]
+};
+var PSG_TYPE_SUBS={
+  SAP:'S/4HANA engagement types across Public, Private and On-Prem — plus Assessment and Change Order.',
+  HCM:'SuccessFactors / HXM packages. The current HCM generator wires in under these types.',
+  RPA:'Robotic Process Automation proposals.',
+  Analytics:'SAC / Datasphere data-platform proposals.'
+};
+var PSG_PRACTICES=[['SAP','🏛️'],['HCM','👥'],['RPA','🤖'],['Analytics','📊']];
+var PSG_curPractice=null;
+function psgBuildPractices(){
+  var w=document.getElementById('psgPracticePills');if(!w)return;w.innerHTML='';PSG_curPractice=null;
+  PSG_PRACTICES.forEach(function(p){
+    var pill=document.createElement('span');pill.className='psg-pill';
+    pill.innerHTML=p[1]+' '+p[0];
+    pill.onclick=function(){psgSelectPractice(p[0],pill);};
+    w.appendChild(pill);
+  });
+}
+function psgSelectPractice(practice,el){
+  PSG_curPractice=practice;
+  document.querySelectorAll('#psgPracticePills .psg-pill').forEach(function(p){p.classList.remove('on');});
+  el.classList.add('on');
+  var sel=document.getElementById('psgTypeSelect');
+  sel.innerHTML='<option value="">— Select proposal type —</option>';
+  (PSG_TYPES[practice]||[]).forEach(function(t,i){
+    var o=document.createElement('option');o.value=i;o.textContent=(t.live?'★ ':'')+t.n;sel.appendChild(o);
+  });
+  document.getElementById('psgTypeChoiceWrap').style.display='block';
+  document.getElementById('psgTypeDesc').textContent=PSG_TYPE_SUBS[practice]||'';
+  psgSetStartEnabled(false);
+}
+function psgOnTypePick(){
+  var sel=document.getElementById('psgTypeSelect');var v=sel.value;
+  if(v===''){psgSetStartEnabled(false);document.getElementById('psgTypeDesc').textContent=PSG_TYPE_SUBS[PSG_curPractice]||'';return;}
+  var t=PSG_TYPES[PSG_curPractice][+v];
+  document.getElementById('psgTypeDesc').textContent=(t.desc||'')+(t.live?'':'  ·  (Flow not yet built — uses the reference shell.)');
+  psgSetStartEnabled(true);
+}
+function psgSetStartEnabled(on){
+  var b=document.getElementById('psgStartBtn');if(!b)return;
+  b.disabled=!on;b.style.opacity=on?'1':'.5';b.style.cursor=on?'pointer':'not-allowed';
+}
+function psgStart(){
+  var sel=document.getElementById('psgTypeSelect');if(sel.value==='')return;
+  var t=PSG_TYPES[PSG_curPractice][+sel.value];
+  if(t.live){psgStartWizard(t.n);}else{psgTypeStub(t.n);}
+}
+function psgTypeStub(t){alert('“'+t+'” follows the same shell with its own step-set and template.\n\nThis build wires “S/4HANA Public Cloud Greenfield” end-to-end as the reference flow.');}
+function psgStartWizard(t){
+  document.getElementById('psgWizType').textContent=t;
+  psgShowView('psgViewWizard');
+  psgGoStep(0);
+}
+function psgBuildStepper(){
+  var s=document.getElementById('psgStepper');if(!s)return;s.innerHTML='';
+  PSG_STEPS.forEach(function(lbl,i){
+    var d=document.createElement('div');d.className='psg-step';d.setAttribute('data-i',i);
+    d.innerHTML='<div class="psg-step-num"><span>'+(i+1)+'</span></div><div class="psg-step-label">'+lbl+'</div>';
+    d.onclick=function(){psgGoStep(i);};
+    s.appendChild(d);
+  });
+}
+function psgGoStep(n){
+  if(n<0)n=0;if(n>8)n=8;PSG_currentStep=n;
+  var root=document.getElementById('page-sow-generation');if(!root)return;
+  root.querySelectorAll('.psg-panel').forEach(function(p){p.classList.toggle('on',+p.getAttribute('data-step')===n);});
+  root.querySelectorAll('.psg-step').forEach(function(s){var i=+s.getAttribute('data-i');s.classList.toggle('on',i===n);s.classList.toggle('done',i<n);});
+  var hdr=root.querySelector('.psg-panel[data-step="'+n+'"] .psg-panel-h');
+  document.getElementById('psgFootStatus').textContent='Step '+(n+1)+' of 9 · '+(hdr?hdr.textContent:'');
+  document.getElementById('psgBtnPrev').style.visibility=n===0?'hidden':'visible';
+  document.getElementById('psgBtnNext').textContent=n===8?'Finish':'Continue →';
+  if(n===5)psgRenderTL();if(n===6)psgRecalc();if(n===8)psgBuildReview();
+  var body=document.getElementById('psgBody');if(body)body.scrollTop=0;
+}
+function psgFakeUpload(kind){
+  var list=document.getElementById(kind==='rfp'?'psgRfpList':'psgMtnList');
+  var name=kind==='rfp'?'Northwind_RFP_S4Public.pdf':'Discovery_Call_2026-07-18.txt';
+  var d=document.createElement('div');d.className='psg-chip';d.style.marginTop='6px';d.innerHTML='📄 '+name+' · uploaded';
+  list.appendChild(d);
+}
+function psgRunDetect(){document.getElementById('psgDetectIdle').style.display='none';document.getElementById('psgDetectResult').style.display='block';}
+function psgBuildScope(){
+  var wrap=document.getElementById('psgScopeAcc');if(!wrap)return;wrap.innerHTML='';
+  PSG_CAPS.forEach(function(c,ci){
+    var acc=document.createElement('div');acc.className='psg-acc';
+    var items=c.ids.map(function(x){return '<label class="psg-scope-item"><input type="checkbox" class="psg-chk" onchange="psgOnScope()"><span class="psg-sid">'+x[0]+'</span><span>'+x[1]+'</span></label>';}).join('');
+    acc.innerHTML='<div class="psg-acc-head" onclick="this.parentNode.classList.toggle(\'open\')"><span>'+c.ico+'</span><span class="psg-acc-nm">'+c.nm+'</span><span class="psg-acc-ct" data-ct="'+ci+'">0 / '+c.ids.length+'</span><span class="psg-chev">▶</span></div><div class="psg-acc-body">'+items+'</div>';
+    wrap.appendChild(acc);
+  });
+}
+function psgOnScope(){
+  var total=0;
+  document.querySelectorAll('#psgScopeAcc .psg-acc').forEach(function(acc){
+    var boxes=acc.querySelectorAll('.psg-chk');var on=0;boxes.forEach(function(b){if(b.checked)on++;});
+    acc.querySelector('[data-ct]').textContent=on+' / '+boxes.length;total+=on;
+  });
+  document.getElementById('psgScopeCount').textContent=total+' scope items selected';
+}
+function psgScopeMode(m){
+  document.getElementById('psgTgDda').classList.toggle('on',m==='dda');
+  document.getElementById('psgTgMan').classList.toggle('on',m==='man');
+  document.getElementById('psgDdaZone').style.display=m==='dda'?'block':'none';
+}
+function psgImportDda(){
+  document.getElementById('psgDdaMsg').innerHTML='<div class="psg-callout"><span class="psg-co-ico">✅</span><div>DDA export parsed — <b>12 scope IDs</b> across 3 capability areas pre-selected below. Review &amp; adjust.</div></div>';
+  document.querySelectorAll('#psgScopeAcc .psg-acc').forEach(function(acc,ci){
+    if(ci<3){acc.classList.add('open');acc.querySelectorAll('.psg-chk').forEach(function(b,bi){if(bi<3){b.checked=true;}});}
+  });
+  psgOnScope();
+}
+function psgBuildRicefw(){
+  var tb=document.querySelector('#psgRicefw tbody');if(!tb)return;tb.innerHTML='';
+  PSG_RICE.forEach(function(r,ri){
+    var tds=r.slice(1).map(function(v){return '<td><input class="psg-num" value="'+v+'" oninput="psgRicefwCalc()"></td>';}).join('');
+    tb.innerHTML+='<tr><td style="font-weight:600;">'+r[0]+'</td>'+tds+'<td class="psg-num" data-rt="'+ri+'">0</td></tr>';
+  });
+  psgRicefwCalc();
+}
+function psgRicefwCalc(){
+  var grand=0,hours=0;
+  document.querySelectorAll('#psgRicefw tbody tr').forEach(function(tr){
+    var rt=0;tr.querySelectorAll('input').forEach(function(inp,ci){var v=+inp.value||0;rt+=v;hours+=v*PSG_HPO[ci];});
+    tr.querySelector('[data-rt]').textContent=rt;grand+=rt;
+  });
+  document.getElementById('psgRicefwTotal').textContent=grand;
+  document.getElementById('psgRicefwHours').textContent=hours.toLocaleString();
+}
+function psgBuildInt(){
+  var w=document.getElementById('psgStdInt');if(!w)return;w.innerHTML='';
+  PSG_STD.forEach(function(s){var p=document.createElement('span');p.className='psg-pill';p.textContent=s;p.onclick=function(){this.classList.toggle('on');};w.appendChild(p);});
+  var pills=document.querySelectorAll('#psgStdInt .psg-pill');if(pills[0])pills[0].classList.add('on');if(pills[1])pills[1].classList.add('on');
+  var tb=document.querySelector('#psgIntTbl tbody');if(tb)tb.innerHTML='';
+  psgAddInt('EDI 850/810 — Customer Orders','Bi-directional','Medium',360);
+}
+function psgAddInt(nm,dir,cx,eff){
+  var tb=document.querySelector('#psgIntTbl tbody');if(!tb)return;
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td><input value="'+(nm||'')+'" placeholder="Integration name"></td>'+
+   '<td><select>'+psgOpt(['Inbound','Outbound','Bi-directional'],dir)+'</select></td>'+
+   '<td><select>'+psgOpt(['Low','Medium','High','Very High'],cx)+'</select></td>'+
+   '<td><input class="psg-num" value="'+(eff||200)+'"></td>'+
+   '<td><button class="psg-mini" onclick="this.closest(\'tr\').remove()">✕</button></td>';
+  tb.appendChild(tr);
+}
+function psgOpt(arr,sel){return arr.map(function(a){return '<option'+(a===sel?' selected':'')+'>'+a+'</option>';}).join('');}
+var PSG_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function psgTlColorOpts(sel){var o='';for(var k in PSG_TLCOLORS){o+='<option value="'+k+'"'+(k===sel?' selected':'')+'>'+PSG_TLCOLORS[k][2]+'</option>';}return o;}
+function psgBuildTimeline(){
+  var w=document.getElementById('psgTlEditor');if(!w)return;w.innerHTML='';
+  PSG_TL.deps.forEach(function(dep,di){
+    var rows=dep.phases.map(function(p,pi){
+      return '<tr>'+
+        '<td><input value="'+p.n.replace(/"/g,'&quot;')+'" oninput="psgTlEdit('+di+','+pi+',\'n\',this.value)"></td>'+
+        '<td><input class="psg-num" style="width:44px" type="number" value="'+p.row+'" oninput="psgTlEdit('+di+','+pi+',\'row\',this.value)"></td>'+
+        '<td><input class="psg-num" style="width:52px" type="number" value="'+p.s+'" oninput="psgTlEdit('+di+','+pi+',\'s\',this.value)"></td>'+
+        '<td><input class="psg-num" style="width:52px" type="number" value="'+p.l+'" oninput="psgTlEdit('+di+','+pi+',\'l\',this.value)"></td>'+
+        '<td><select onchange="psgTlEdit('+di+','+pi+',\'c\',this.value)">'+psgTlColorOpts(p.c)+'</select></td>'+
+        '<td style="text-align:center;"><input type="checkbox" class="psg-chk" '+(p.star?'checked':'')+' onchange="psgTlEdit('+di+','+pi+',\'star\',this.checked)"></td>'+
+        '<td><button class="psg-mini" onclick="psgTlDelPhase('+di+','+pi+')">✕</button></td>'+
+      '</tr>';
+    }).join('');
+    var html='<div class="psg-tl-ed"><div class="psg-tl-ed-head">'+
+      '<input value="'+dep.name.replace(/"/g,'&quot;')+'" oninput="psgTlEditDep('+di+',this.value)">'+
+      '<button class="psg-mini" onclick="psgTlDelDep('+di+')">Remove Deployment</button></div>'+
+      '<div class="psg-tl-ed-body"><div class="psg-grid-scroll"><table class="psg-tbl">'+
+      '<thead><tr><th>Phase</th><th>Row</th><th>Start wk</th><th>Len wk</th><th>Colour</th><th>★ Go-Live</th><th></th></tr></thead>'+
+      '<tbody>'+rows+'</tbody></table></div>'+
+      '<button class="psg-mini" style="margin-top:8px;" onclick="psgTlAddPhase('+di+')">+ Add Phase / Sub-phase</button></div></div>';
+    w.innerHTML+=html;
+  });
+  psgRenderTL();
+}
+function psgTlEdit(di,pi,f,v){
+  var p=PSG_TL.deps[di].phases[pi];
+  if(f==='n'||f==='c')p[f]=v;
+  else if(f==='star')p.star=v;
+  else p[f]=+v||0;
+  psgRenderTL();
+}
+function psgTlEditDep(di,v){PSG_TL.deps[di].name=v;psgRenderTL();}
+function psgTlAddPhase(di){
+  var deps=PSG_TL.deps[di].phases;var maxRow=0;deps.forEach(function(p){if(p.row>maxRow)maxRow=p.row;});
+  deps.push({n:'New Phase',s:0,l:4,c:'activate',row:maxRow+1});
+  psgBuildTimeline();
+}
+function psgTlDelPhase(di,pi){PSG_TL.deps[di].phases.splice(pi,1);psgBuildTimeline();}
+function psgTlAddDep(){PSG_TL.deps.push({name:'New Deployment',phases:[{n:'Explore',s:0,l:4,c:'activate',row:0}]});psgBuildTimeline();}
+function psgTlDelDep(di){PSG_TL.deps.splice(di,1);psgBuildTimeline();}
+
+function psgRenderTL(){
+  var g=document.getElementById('psgTlGantt');if(!g)return;
+  // total weeks = max(s+l) across all phases
+  var maxWk=1;
+  PSG_TL.deps.forEach(function(d){d.phases.forEach(function(p){if(p.s+p.l>maxWk)maxWk=p.s+p.l;});});
+  // anchor = first of start month
+  var sd=new Date(PSG_TL.start+'T00:00:00');
+  var anchor=new Date(sd.getFullYear(),sd.getMonth(),1);
+  var totalDays=maxWk*7;
+  var endDate=new Date(anchor.getTime()+totalDays*86400000);
+  // build month list
+  var months=[];var cur=new Date(anchor.getFullYear(),anchor.getMonth(),1);
+  while(cur<=endDate){
+    var dim=new Date(cur.getFullYear(),cur.getMonth()+1,0).getDate();
+    months.push({y:cur.getFullYear(),m:cur.getMonth(),days:dim});
+    cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);
+  }
+  var gridDays=months.reduce(function(a,b){return a+b.days;},0);
+  var monthCount=months.length;
+  var pctDay=100/gridDays;
+  function moPct(mo){return mo.days*pctDay;}
+  // header rows
+  var yrCells='',qtCells='',moCells='',gridCells='';
+  // group by year
+  var yi=0;while(yi<months.length){var y=months[yi].y;var span=0,w=0;var j=yi;while(j<months.length&&months[j].y===y){w+=moPct(months[j]);span++;j++;}yrCells+='<div class="psg-tl-cell psg-tl-yr" style="flex:0 0 '+w+'%">'+y+'</div>';yi=j;}
+  // group by quarter
+  var qi=0;while(qi<months.length){var qy=months[qi].y;var q=Math.floor(months[qi].m/3);var w2=0,j2=qi;while(j2<months.length&&months[j2].y===qy&&Math.floor(months[j2].m/3)===q){w2+=moPct(months[j2]);j2++;}qtCells+='<div class="psg-tl-cell psg-tl-qt" style="flex:0 0 '+w2+'%">Q'+(q+1)+' '+qy+'</div>';qi=j2;}
+  // months + gridlines
+  months.forEach(function(mo){
+    var lbl=monthCount>18?PSG_MON[mo.m][0]:PSG_MON[mo.m].toUpperCase();
+    moCells+='<div class="psg-tl-cell psg-tl-mo" style="flex:0 0 '+moPct(mo)+'%">'+lbl+'</div>';
+    gridCells+='<div class="psg-tl-gcell" style="flex:0 0 '+moPct(mo)+'%"></div>';
+  });
+  var head='<div class="psg-tl-hrow">'+yrCells+'</div><div class="psg-tl-hrow">'+qtCells+'</div><div class="psg-tl-hrow">'+moCells+'</div>';
+  // week ticks only for short projects
+  if(maxWk<=30){
+    var wk='';for(var i=0;i<maxWk;i++){wk+='<div class="psg-tl-cell psg-tl-wk" style="flex:0 0 '+(7*pctDay)+'%"></div>';}
+    head+='<div class="psg-tl-hrow">'+wk+'</div>';
+  }
+  // body
+  var body='<div class="psg-tl-grid">'+gridCells+'</div>';
+  PSG_TL.deps.forEach(function(dep){
+    body+='<div class="psg-tl-band">'+dep.name+'</div>';
+    var maxRow=0;dep.phases.forEach(function(p){if(p.row>maxRow)maxRow=p.row;});
+    for(var r=0;r<=maxRow;r++){
+      body+='<div class="psg-tl-lane">';
+      dep.phases.forEach(function(p){
+        if(p.row!==r)return;
+        var col=PSG_TLCOLORS[p.c]||PSG_TLCOLORS.activate;
+        var left=p.s*7*pctDay, width=p.l*7*pctDay;
+        body+='<div class="psg-tl-bar" style="left:'+left+'%;width:'+width+'%;background:'+col[0]+';color:'+col[1]+';" title="'+p.n+'">'+p.n+'</div>';
+        if(p.star){var starLeft=(p.s+p.l)*7*pctDay;body+='<div class="psg-tl-star" style="left:'+starLeft+'%;">★</div>';}
+      });
+      body+='</div>';
+    }
+  });
+  g.innerHTML='<div class="psg-tl-head">'+head+'</div><div class="psg-tl-body">'+body+'</div>';
+  var mo=Math.round(maxWk/4.345);
+  document.getElementById('psgTotWeeks').textContent=maxWk+' weeks · ~'+mo+' months';
+}
+function psgBuildStaff(){
+  var head=document.getElementById('psgStaffHead');if(!head)return;
+  var wk='';for(var i=1;i<=PSG_WEEKS;i++)wk+='<th class="psg-num">W'+i+'</th>';
+  head.innerHTML='<tr><th>Role</th><th>Skill</th><th>Loc</th><th>Cost $/hr</th><th>Bill $/hr</th>'+wk+'<th class="psg-num">Hrs</th><th class="psg-num">Cost</th><th class="psg-num">Rev</th><th class="psg-num">Margin</th></tr>';
+  var body=document.getElementById('psgStaffBody');body.innerHTML='';
+  PSG_ROLES.forEach(function(r){psgAddRoleRow(r);});
+  psgRecalc();
+}
+function psgAddRoleRow(r){
+  var body=document.getElementById('psgStaffBody');if(!body)return;
+  var tr=document.createElement('tr');
+  var wk='';for(var i=0;i<PSG_WEEKS;i++)wk+='<td><input class="psg-num psg-wk" value="'+r[6]+'" oninput="psgRecalc()" style="width:42px;"></td>';
+  tr.innerHTML='<td style="font-weight:600;min-width:150px;">'+r[0]+'</td><td><span class="psg-badge psg-b-blue">'+r[1]+'</span></td>'+
+    '<td><span class="psg-badge '+r[3]+'">'+r[2]+'</span></td>'+
+    '<td><input class="psg-num psg-cost" value="'+r[4]+'" oninput="psgRecalc()" style="width:56px;"></td>'+
+    '<td><input class="psg-num psg-bill" value="'+r[5]+'" oninput="psgRecalc()" style="width:56px;"></td>'+wk+
+    '<td class="psg-num psg-rHrs">0</td><td class="psg-num psg-rCost">0</td><td class="psg-num psg-rRev">0</td><td class="psg-num psg-rMargin" style="font-weight:700;">0%</td>';
+  body.appendChild(tr);
+}
+function psgAddRole(){psgAddRoleRow(['New Role','FI','Offshore','psg-b-orange',43,110,0]);psgRecalc();}
+var PSG_projRev=0, PSG_projCost=0;
+function psgMarginColor(m){return m<0?'#c62828':(m<20?'#f57c00':'#2e7d32');}
+function psgRecalc(){
+  var tHrs=0,tCost=0,tRev=0,tDays=0;
+  document.querySelectorAll('#psgStaffBody tr').forEach(function(tr){
+    var cost=+tr.querySelector('.psg-cost').value||0,bill=+tr.querySelector('.psg-bill').value||0;
+    var days=0;tr.querySelectorAll('.psg-wk').forEach(function(w){days+=+w.value||0;});
+    var hrs=days*8;var rCost=hrs*cost,rRev=hrs*bill;
+    tr.querySelector('.psg-rHrs').textContent=hrs.toLocaleString();
+    tr.querySelector('.psg-rCost').textContent='$'+Math.round(rCost).toLocaleString();
+    tr.querySelector('.psg-rRev').textContent='$'+Math.round(rRev).toLocaleString();
+    var rm=rRev?((rRev-rCost)/rRev*100):0;
+    var mc=tr.querySelector('.psg-rMargin');mc.textContent=rm.toFixed(1)+'%';mc.style.color=psgMarginColor(rm);
+    tHrs+=hrs;tCost+=rCost;tRev+=rRev;tDays+=days;
+  });
+  PSG_projRev=tRev;PSG_projCost=tCost;
+  document.getElementById('psgKHours').textContent=tHrs.toLocaleString();
+  document.getElementById('psgKCost').textContent='$'+Math.round(tCost).toLocaleString();
+  document.getElementById('psgKRev').textContent='$'+Math.round(tRev).toLocaleString();
+  document.getElementById('psgKDays').textContent=tDays.toLocaleString();
+  var m=tRev?((tRev-tCost)/tRev*100):0;
+  var mp=document.getElementById('psgKMarginPct');mp.textContent=m.toFixed(1)+'%';mp.style.color=psgMarginColor(m);
+  var foot=document.getElementById('psgStaffFoot');
+  var span=5+PSG_WEEKS;
+  foot.innerHTML='<tr style="font-weight:700;background:var(--tsp-blue-light);"><td colspan="'+span+'">Project Total</td><td class="psg-num">'+tHrs.toLocaleString()+'</td><td class="psg-num">$'+Math.round(tCost).toLocaleString()+'</td><td class="psg-num">$'+Math.round(tRev).toLocaleString()+'</td><td class="psg-num">'+m.toFixed(1)+'%</td></tr>';
+  if(document.getElementById('psgMsCard').style.display!=='none')psgMsRecalc();
+}
+function psgBillModel(btn,model){
+  btn.parentNode.querySelectorAll('button').forEach(function(b){b.classList.remove('on');});btn.classList.add('on');
+  document.getElementById('psgMsCard').style.display=(model==='Milestone')?'block':'none';
+  document.getElementById('psgValueCard').style.display=(model==='Value')?'block':'none';
+  if(model==='Milestone')psgMsBuild();
+}
+
+/* ── Milestone billing ── */
+function psgTlAnchor(){var sd=new Date(PSG_TL.start+'T00:00:00');return new Date(sd.getFullYear(),sd.getMonth(),1);}
+function psgTlDate(weekOffset){
+  var d=new Date(psgTlAnchor().getTime()+weekOffset*7*86400000);
+  var mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return ('0'+d.getDate()).slice(-2)+' '+mon[d.getMonth()]+' '+d.getFullYear();
+}
+function psgMsOptions(sel){
+  var o='';
+  PSG_TL.deps.forEach(function(dep,di){
+    var short=dep.name.split('—')[0].trim()||('Deployment '+(di+1));
+    dep.phases.forEach(function(p){
+      var endWk=p.s+p.l;var lbl=short+' · '+p.n+(p.star?' (Go-Live)':' (end)');
+      o+='<option data-wk="'+endWk+'"'+(sel===lbl?' selected':'')+'>'+lbl+'</option>';
+    });
+  });
+  return o;
+}
+function psgMsAddRow(preName,preAmt){
+  var tb=document.querySelector('#psgMsTbl tbody');if(!tb)return;
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td><select class="psg-ms-sel" onchange="psgMsSync(this)"><option value="">— Select milestone —</option>'+psgMsOptions(preName)+'</select></td>'+
+    '<td><input class="psg-ms-date" readonly placeholder="—" style="background:var(--bg-page);"></td>'+
+    '<td><input class="psg-num psg-ms-amt" value="'+(preAmt||0)+'" oninput="psgMsRecalc()"></td>'+
+    '<td><button class="psg-mini" onclick="this.closest(\'tr\').remove();psgMsRecalc();">✕</button></td>';
+  tb.appendChild(tr);
+  var sel=tr.querySelector('.psg-ms-sel');if(preName)psgMsSync(sel);
+}
+function psgMsSync(sel){
+  var opt=sel.options[sel.selectedIndex];var wk=opt?opt.getAttribute('data-wk'):null;
+  var dateInp=sel.closest('tr').querySelector('.psg-ms-date');
+  dateInp.value=(wk!==null&&wk!=='')?psgTlDate(+wk):'';
+  psgMsRecalc();
+}
+function psgMsBuild(){
+  var tb=document.querySelector('#psgMsTbl tbody');if(!tb)return;tb.innerHTML='';
+  // default rows = go-live milestones, split TCV evenly
+  var stars=[];PSG_TL.deps.forEach(function(dep){var short=dep.name.split('—')[0].trim();dep.phases.forEach(function(p){if(p.star)stars.push(short+' · '+p.n+' (Go-Live)');});});
+  if(stars.length===0){psgMsAddRow();}
+  else{var each=Math.round(PSG_projRev/stars.length);stars.forEach(function(nm){psgMsAddRow(nm,each);});}
+  psgMsRecalc();
+}
+function psgMsRecalc(){
+  var total=0;document.querySelectorAll('#psgMsTbl .psg-ms-amt').forEach(function(a){total+=+a.value||0;});
+  var diff=total-PSG_projRev;
+  var col=Math.abs(diff)<1?'#2e7d32':'#f57c00';
+  var el=document.getElementById('psgMsRecon');if(!el)return;
+  el.innerHTML='<div class="psg-callout" style="border-color:'+col+';"><span class="psg-co-ico">🧮</span><div>'+
+    'Milestone billing total: <b>$'+Math.round(total).toLocaleString()+'</b> &nbsp;·&nbsp; Roles TCV: <b>$'+Math.round(PSG_projRev).toLocaleString()+'</b><br>'+
+    '<span style="color:'+col+';font-weight:700;">Difference: '+(diff>=0?'+':'−')+'$'+Math.abs(Math.round(diff)).toLocaleString()+'</span> '+
+    (Math.abs(diff)<1?'— milestone schedule matches role billing.':'— milestone total differs from role billing (saving is not blocked).')+'</div></div>';
+}
+function psgBuildNarr(){
+  var w=document.getElementById('psgNarrWrap');if(!w)return;w.innerHTML='';
+  PSG_NARR.forEach(function(n){
+    w.innerHTML+='<div class="psg-narr-sec"><div class="psg-narr-head"><span class="psg-narr-nt">'+n[0]+'</span><span class="psg-narr-ai" onclick="alert(\'Mockup: Aria regenerates this section from current scope, timeline & staffing.\')">✨ Regenerate</span></div><div class="psg-narr-edit" contenteditable="true">'+n[1]+'</div></div>';
+  });
+}
+function psgBuildReview(){
+  var scope=document.getElementById('psgScopeCount').textContent;
+  var wks=document.getElementById('psgTotWeeks').textContent;
+  var hrs=document.getElementById('psgKHours').textContent,cost=document.getElementById('psgKCost').textContent,rev=document.getElementById('psgKRev').textContent,mg=document.getElementById('psgKMarginPct').textContent;
+  document.getElementById('psgReviewSummary').innerHTML=
+    '<b>Client:</b> Northwind Foods Inc.<br><b>Type:</b> S/4HANA Public Cloud (Grow) · Greenfield<br><b>Scope:</b> '+scope+'<br><b>RICEFW objects:</b> '+document.getElementById('psgRicefwTotal').textContent+' ('+document.getElementById('psgRicefwHours').textContent+' dev hrs)<br><b>Timeline:</b> '+wks+'<br><b>Effort:</b> '+hrs+' hrs<br><b>Cost / TCV:</b> '+cost+' / '+rev+'<br><b>Margin:</b> '+mg;
+  var roles=[];document.querySelectorAll('#psgStaffBody tr').forEach(function(tr){roles.push(tr.querySelector('td').textContent);});
+  var lead=roles[0]||'Engagement Lead';
+  var org=document.getElementById('psgOrgChart');
+  org.innerHTML='<div class="psg-org-node">'+lead+'</div><div class="psg-org-line"></div><div class="psg-org-tier">'+roles.slice(1).map(function(r){return '<div class="psg-org-node sub">'+r+'</div>';}).join('')+'</div>';
+}
+</script>
 
 </body>
 </html>
