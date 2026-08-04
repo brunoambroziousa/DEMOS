@@ -34,8 +34,9 @@
   /* ---------- lifecycle ---------- */
   .lifecycle{display:flex;align-items:center;justify-content:center;gap:0;margin:34px auto 8px;max-width:1050px;position:relative;}
   .lc-step{flex:1;text-align:center;position:relative;z-index:2;}
-  .lc-dot{width:56px;height:56px;border-radius:50%;background:#fff;border:4px solid var(--tsp-blue);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:22px;}
-  .lc-step.green .lc-dot{border-color:var(--green);}
+  .lc-dot{width:56px;height:56px;border-radius:50%;background:#fff;border:4px solid var(--tsp-blue);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;color:var(--tsp-blue);}
+  .lc-dot svg{width:28px;height:28px;}
+  .lc-step.green .lc-dot{border-color:var(--green);color:var(--green);}
   .lc-name{font-weight:800;font-size:18px;color:var(--tsp-navy);}
   .lc-step.green .lc-name{color:var(--green);}
   .lc-sub{font-size:13px;color:#5E7B90;margin-top:2px;}
@@ -96,8 +97,6 @@
 
   /* modules overflow line */
   .mod-more{margin-top:11px;text-align:center;font-size:11.5px;color:#5E7B90;}
-  .chip.nb{border-color:#8A5D0B;background:#FFF9EC;color:#8A5D0B;}
-  .chip.nb b{color:#8A5D0B;} .chip.nb span{color:#A5813A;}
 
   /* ---------- connectors: dot = source, arrowhead = target ---------- */
   .link{position:relative;}
@@ -155,6 +154,7 @@
   .agents-head p{font-size:13px;color:#3c6b49;}
   .agent-chips{display:flex;flex-wrap:wrap;gap:8px;}
   .chip{background:#fff;border:1.5px solid #bcdcc5;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:#1e5c2e;}
+  .chip.build{border-style:dashed;background:#F5FBF7;}
   .chip b{font-weight:800;}
   .chip span{color:#6b917a;font-weight:500;font-size:11.5px;}
   .agents-foot{margin-top:9px;font-size:11.5px;color:#5d8069;font-style:italic;}
@@ -205,11 +205,11 @@
   <!-- lifecycle -->
   <div class="lifecycle">
     <div class="lc-line"></div>
-    <div class="lc-step"><div class="lc-dot">🚀</div><div class="lc-name">Implement</div><div class="lc-sub">Explore · Realize · Deploy</div></div>
+    <div class="lc-step"><div class="lc-dot"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8v6M24 8l-4 4M24 8l4 4"/><path d="M24 14l-9 24h4l5-13.5L29 38h4z"/><circle cx="24" cy="9.6" r="2.3" fill="currentColor" stroke="none"/></svg></div><div class="lc-name">Implement</div><div class="lc-sub">Explore · Realize · Deploy</div></div>
     <div class="lc-ms"><span class="pill">GO-LIVE</span><div class="dia"></div></div>
-    <div class="lc-step green"><div class="lc-dot">🛟</div><div class="lc-name">Stabilize</div><div class="lc-sub">Hypercare</div></div>
-    <div class="lc-step green"><div class="lc-dot">⚙️</div><div class="lc-name">Manage</div><div class="lc-sub">Agentic AMS</div></div>
-    <div class="lc-step green"><div class="lc-dot">📈</div><div class="lc-name">Evolve</div><div class="lc-sub">Every SAP release, every new agent</div></div>
+    <div class="lc-step green"><div class="lc-dot"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="21" width="34" height="8" rx="4"/><path d="M13 17v-2M13 33v2M35 17v-2M35 33v2"/><circle cx="24" cy="25" r="3.6" fill="currentColor" stroke="none"/></svg></div><div class="lc-name">Stabilize</div><div class="lc-sub">Hypercare</div></div>
+    <div class="lc-step green"><div class="lc-dot"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10v28M24 10v28M36 10v28"/><circle cx="12" cy="30" r="3.2" fill="#fff"/><circle cx="24" cy="18" r="3.2" fill="#fff"/><circle cx="36" cy="24" r="3.2" fill="#fff"/></svg></div><div class="lc-name">Manage</div><div class="lc-sub">Agentic AMS</div></div>
+    <div class="lc-step green"><div class="lc-dot"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="26" r="6"/><circle cx="24" cy="26" r="12"/><circle cx="24" cy="26" r="18"/><path d="M24 8v3M39.5 15.5l-2 2"/></svg></div><div class="lc-name">Evolve</div><div class="lc-sub">Every SAP release, every new agent</div></div>
   </div>
   <div class="lc-bracket">
     <div class="bar impl"></div><div class="lbl impl">TSP ARIA</div>
@@ -272,15 +272,16 @@
         <p>This is the layer in charge now. The employee meets the agent first — the module second.</p>
       </div>
       <div class="agent-chips">
-        <div class="chip nb"><b>SmartRecruiters Winston</b> <span>· candidate-facing, tied into Joule</span></div>
+        <div class="chip"><b>SmartRecruiters Winston</b> <span>· candidate-facing, tied into Joule</span></div>
         <div class="chip"><b>Performance &amp; Goals Agent</b></div>
         <div class="chip"><b>HR Service Agent</b></div>
         <div class="chip"><b>Payroll Agent</b></div>
         <div class="chip"><b>Career &amp; Talent Dev. Agent</b></div>
         <div class="chip"><b>People Intelligence Agent</b></div>
         <div class="chip"><b>Employee Data Integration Agent</b></div>
+        <div class="chip build"><b>Custom Agents on Joule Studio 2.0</b> <span>· build your own, EA</span></div>
       </div>
-      <p class="agents-foot">Agent availability varies by module and by the edition the client has licensed.</p>
+      <p class="agents-foot">Agent availability varies by module and by the edition the client has licensed. Joule Studio 2.0's managed builder is in Early Adopter Care — GA targeted for Q3 2026.</p>
     </div>
 
     <div class="acts-on"><span>▼ the agents act on the configuration, the data and the processes underneath ▼</span></div>
