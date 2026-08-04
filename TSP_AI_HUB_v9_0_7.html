@@ -45,6 +45,7 @@ function navTo(pageKey, parentKey) {
   _earlyShowPage(pageKey, parentKey);
   // Call page init functions if main script provided them
   var initFns = {
+    'aria-defects':          'defInit',
     'security-role-hub':     'srInit',
     'project-key-users':     'kuSessionChange',
     'data-objects':          'dolInit',
@@ -3639,7 +3640,7 @@ window.navTo = navTo;
         <div class="tile t-cyan"><div class="tile-icon ic-cyan">🎓</div><div class="tile-text"><div class="tile-name">Training Execution Hub</div><div class="tile-desc">Training delivery tracking</div></div><div class="tile-arrow">↗</div></div>
       </div>
 
-      <div class="phase-label" style="margin-top:28px;">Operate Phase</div>
+      <div class="phase-label" style="margin-top:28px;">Run Phase</div>
       <div class="tile-list">
         <div class="tile t-blue" onclick="navTo('aria-run','project-exec')"><div class="tile-icon ic-blue">🚀</div><div class="tile-text"><div class="tile-name">TSP Aria Operate</div><div class="tile-desc">Two stages: Stabilize (hypercare) → Manage (agentic AMS)</div></div><div class="tile-arrow">↗</div></div>
         <div class="tile t-purple" onclick="navTo('aria-ticket-intelligence','project-exec')"><div class="tile-icon ic-purple">🎯</div><div class="tile-text"><div class="tile-name">Ticket Intelligence</div><div class="tile-desc">AI clustering by root cause · Business impact scoring</div></div><div class="tile-arrow">↗</div></div>
@@ -8014,6 +8015,40 @@ window.navTo = navTo;
 .status-draft      { background:#f3f4f6; color:#6b7280; }
 .status-review     { background:#fff3e0; color:#e65100; }
 .status-approved   { background:#e8f5e9; color:#2e7d32; }
+
+/* Agentic Solutions — autonomy level (L0–L5) and platform badges */
+.rfw-aut { display:inline-block; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:700; white-space:nowrap; }
+.rfw-aut-l1 { background:#eceff1; color:#455a64; }
+.rfw-aut-l2 { background:#e3f2fd; color:#1565c0; }
+.rfw-aut-l3 { background:#e0f7fa; color:#00838f; }
+.rfw-aut-l4 { background:#f3e5f5; color:#7b1fa2; }
+.rfw-aut-l5 { background:#fde8e8; color:#c62828; }
+.rfw-plat { display:inline-block; font-size:10.5px; color:var(--text-muted); white-space:nowrap; }
+.rfw-tokens { font-size:11px; font-weight:600; color:#00838f; white-space:nowrap; }
+
+/* Inline lifecycle status editor in the All Objects list — reads as the status
+   badge it replaces, but is a live <select>. */
+.rfw-status-sel {
+  border:1px solid transparent; cursor:pointer; font-family:inherit;
+  padding:3px 6px 3px 9px; max-width:190px; appearance:none; -webkit-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 11px) 51%, calc(100% - 7px) 51%;
+  background-size:4px 4px, 4px 4px; background-repeat:no-repeat; padding-right:22px;
+}
+.rfw-status-sel:hover  { border-color:var(--tsp-blue); }
+.rfw-status-sel:focus  { outline:none; border-color:var(--tsp-blue); box-shadow:0 0 0 2px var(--tsp-blue-light); }
+.rfw-status-sel option { background:var(--bg-white); color:var(--text-primary); font-weight:600; }
+.rfw-status-sel option:disabled { color:#b0b7c3; }
+
+/* Inline Developer editor — blank until a developer is assigned. */
+.rfw-dev-sel {
+  font-family:inherit; font-size:12px; font-weight:600; color:var(--text-primary);
+  background:var(--bg-white); border:1px solid var(--border); border-radius:6px;
+  padding:4px 8px; max-width:160px; cursor:pointer;
+}
+.rfw-dev-sel:hover { border-color:var(--tsp-blue); }
+.rfw-dev-sel:focus { outline:none; border-color:var(--tsp-blue); box-shadow:0 0 0 2px var(--tsp-blue-light); }
+.rfw-dev-sel.rfw-dev-none { color:#c62828; border-color:#f3b4b4; background:#fff8f8; font-style:italic; }
 .status-deferred   { background:var(--tsp-blue-light); color:var(--tsp-blue); }
 .status-rejected   { background:#fde8e8; color:#c62828; }
 
@@ -8068,16 +8103,31 @@ window.navTo = navTo;
 .def-ctx-tab { padding:7px 18px; border:1.5px solid var(--border); border-radius:20px; font-size:12.5px; font-weight:600; color:var(--text-muted); cursor:pointer; transition:.12s; }
 .def-ctx-tab.active { background:var(--tsp-blue); color:#fff; border-color:var(--tsp-blue); }
 
-.def-kpi-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:14px; }
+.def-kpi-strip { display:grid; grid-template-columns:repeat(8,1fr); gap:10px; margin-bottom:14px; }
 .def-kpi-card { background:var(--bg-white); border:1px solid var(--border); border-top:3px solid var(--tsp-blue); border-radius:10px; padding:14px; }
 .def-kpi-card.def-red { border-top-color:#c62828; }
 .def-kpi-card.def-amber { border-top-color:#f59e0b; }
 .def-kpi-card.def-green { border-top-color:#2e7d32; }
+.def-kpi-card.def-purple { border-top-color:#7b1fa2; }
+.def-kpi-card.def-teal { border-top-color:#00695c; }
+.def-kpi-card.def-indigo { border-top-color:#3949ab; }
+.def-kpi-card.def-orange { border-top-color:#e65100; }
 .def-kpi-val { font-size:24px; font-weight:800; color:var(--tsp-blue); }
 .def-kpi-card.def-red .def-kpi-val { color:#c62828; }
 .def-kpi-card.def-amber .def-kpi-val { color:#f59e0b; }
 .def-kpi-card.def-green .def-kpi-val { color:#2e7d32; }
+.def-kpi-card.def-purple .def-kpi-val { color:#7b1fa2; }
+.def-kpi-card.def-teal .def-kpi-val { color:#00695c; }
+.def-kpi-card.def-indigo .def-kpi-val { color:#3949ab; }
+.def-kpi-card.def-orange .def-kpi-val { color:#e65100; }
 .def-kpi-label { font-size:11px; color:var(--text-muted); margin-top:2px; }
+.def-kpi-sub { font-size:9.5px; color:var(--text-muted); margin-top:3px; }
+
+/* Defect Type badge — Defect / Service Request / Enhancement (FSD 8.2) */
+.def-type { display:inline-block; padding:2px 8px; border-radius:4px; font-size:9.5px; font-weight:700; white-space:nowrap; }
+.def-type-defect  { background:#fde8e8; color:#c62828; }
+.def-type-service { background:#e3f2fd; color:#1565c0; }
+.def-type-enh     { background:#f3e5f5; color:#7b1fa2; }
 
 .def-calm-bar { display:flex; align-items:center; gap:10px; padding:7px 14px; background:var(--tsp-blue-light); border:1px solid var(--border); border-radius:7px; font-size:12px; color:var(--tsp-blue); margin-bottom:14px; }
 .def-calm-synced { color:#2e7d32; font-weight:700; }
@@ -8112,7 +8162,7 @@ window.navTo = navTo;
 .def-apply-btn { width:100%; padding:8px; background:#2e7d32; color:#fff; border:none; border-radius:7px; font-size:12.5px; font-weight:700; cursor:pointer; margin-bottom:8px; }
 .def-ext-link { display:block; text-align:center; font-size:11.5px; color:var(--tsp-blue); cursor:pointer; }
 
-.def-modal { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:540px; background:var(--bg-white); border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.2); z-index:1001; display:none; }
+.def-modal { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:600px; max-width:94vw; background:var(--bg-white); border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.2); z-index:1001; display:none; }
 .def-modal.open { display:block; }
 .def-modal-header { padding:18px 22px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
 .def-modal-body { padding:20px 22px; }
@@ -8121,6 +8171,19 @@ window.navTo = navTo;
 .def-form-row label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); margin-bottom:5px; }
 .def-form-row input, .def-form-row select, .def-form-row textarea { width:100%; padding:8px 11px; border:1px solid var(--border); border-radius:7px; font-size:12.5px; font-family:inherit; }
 .def-form-row textarea { resize:vertical; min-height:70px; }
+
+/* Slide-out field groups + sortable headers — FSD 10.2 / 8.2 */
+.def-sl-group-title { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--tsp-blue); margin:16px 0 8px; padding-bottom:4px; border-bottom:1px solid var(--border); }
+.def-sl-group-title:first-of-type { margin-top:0; }
+.def-sl-field { display:flex; justify-content:space-between; gap:10px; font-size:11.5px; padding:4px 0; }
+.def-sl-field label { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--text-muted); flex-shrink:0; padding-top:1px; }
+.def-sl-field span { color:var(--text-primary); font-weight:600; text-align:right; }
+.def-sla-ok { background:#e8f5e9; color:#2e7d32; }
+.def-sla-risk { background:#fff8e1; color:#8d6e00; }
+.def-sla-breach { background:#fde8e8; color:#c62828; }
+th.def-sort { cursor:pointer; user-select:none; }
+th.def-sort:hover { background:var(--tsp-blue); color:#fff; }
+.def-sort-ind { font-size:9px; opacity:.75; }
 
 /* Shared table styles for new pages */
 .data-table { width:100%; border-collapse:collapse; font-size:12.5px; }
@@ -8152,6 +8215,26 @@ window.navTo = navTo;
 .status-infix { background:#f3e5f5; color:#7b1fa2; }
 .status-inretest { background:#e0f2f1; color:#00695c; }
 .status-closed { background:#e8f5e9; color:#2e7d32; }
+/* Defect status workflow — FSD 2.2 / 9.1:
+   New → Assigned → In Analysis → In Fix → Ready for Retest → Retesting
+   → Closed / Deferred / Rejected / Duplicate / Cancelled */
+.status-assigned    { background:#e1f5fe; color:#0277bd; }
+.status-readyretest { background:#e0f7fa; color:#006064; }
+.status-retesting   { background:#e0f2f1; color:#00695c; }
+.status-deferred    { background:#f3f4f6; color:#6b7280; }
+.status-rejected    { background:#fde8e8; color:#c62828; }
+.status-duplicate   { background:#fff8e1; color:#8d6e00; }
+.status-cancelled   { background:#eceff1; color:#546e7a; }
+
+/* Management reporting panel — FSD 3.1 */
+.def-rep-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.def-rep-card { background:var(--bg-white); border:1px solid var(--border); border-radius:9px; padding:13px 15px; }
+.def-rep-val { font-size:20px; font-weight:800; color:var(--tsp-blue); }
+.def-rep-label { font-size:11.5px; font-weight:700; color:var(--text-primary); margin-top:2px; }
+.def-rep-note { font-size:10px; color:var(--text-muted); margin-top:3px; line-height:1.45; }
+.def-rep-bar { height:6px; background:var(--bg-page); border-radius:3px; overflow:hidden; margin-top:8px; }
+.def-rep-bar span { display:block; height:100%; background:var(--tsp-blue); border-radius:3px; }
+.def-section-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-muted); margin:20px 0 10px; }
 
   </style>
 
@@ -8303,11 +8386,11 @@ window.navTo = navTo;
             <tbody>
               <tr><td><span class="type-badge type-risk">Risk</span></td><td>Finance month-end close dependency on legacy GL migration</td><td><span class="sev-badge sev-critical">Critical</span></td><td>James Okonkwo</td><td style="color:#c62828;font-weight:600;">Jun 3</td><td><span style="color:var(--tsp-blue);cursor:pointer;">RAID Log</span></td></tr>
               <tr><td><span class="type-badge type-decision">Decision</span></td><td>Cash application: AI auto-match vs manual review</td><td><span class="sev-badge sev-high">High</span></td><td>Sarah Mitchell</td><td style="color:#e65100;font-weight:600;">May 28</td><td><span style="color:var(--tsp-blue);cursor:pointer;" onclick="navTo('aria-decisions')">Key Decisions</span></td></tr>
-              <tr><td><span class="type-badge type-defect">Defect</span></td><td>AP payment run producing duplicate payment proposals</td><td><span class="sev-badge sev-critical">Critical</span></td><td>Ana Pereira</td><td style="color:#c62828;font-weight:600;">May 26</td><td><span style="color:var(--tsp-blue);cursor:pointer;" onclick="navTo('aria-defects')">Defect Management</span></td></tr>
+              <tr><td><span class="type-badge type-defect">Defect</span></td><td>AP payment run producing duplicate payment proposals</td><td><span class="sev-badge sev-critical">P1</span></td><td>Ana Pereira</td><td style="color:#c62828;font-weight:600;">May 26</td><td><span style="color:var(--tsp-blue);cursor:pointer;" onclick="navTo('aria-defects')">Defect Management</span></td></tr>
               <tr><td><span class="type-badge type-decision">Decision</span></td><td>Intercompany reconciliation — automated vs period-end manual</td><td><span class="sev-badge sev-high">High</span></td><td>Chris York</td><td style="color:#e65100;font-weight:600;">Jun 1</td><td><span style="color:var(--tsp-blue);cursor:pointer;" onclick="navTo('aria-decisions')">Key Decisions</span></td></tr>
               <tr><td><span class="type-badge type-cutover">Cutover</span></td><td>Vendor master data load — no owner assigned</td><td><span class="sev-badge sev-high">High</span></td><td><span style="color:#c62828;font-weight:700;">UNASSIGNED</span></td><td>Jun 10</td><td><span style="color:var(--tsp-blue);cursor:pointer;">Cutover Hub</span></td></tr>
               <tr><td><span class="type-badge type-risk">Risk</span></td><td>UAT participation rate below target — client resource constraint</td><td><span class="sev-badge sev-medium">Medium</span></td><td>Jennifer Walsh</td><td>Jun 15</td><td><span style="color:var(--tsp-blue);cursor:pointer;">RAID Log</span></td></tr>
-              <tr><td><span class="type-badge type-defect">Defect</span></td><td>Cost center hierarchy mapping error in planning integration</td><td><span class="sev-badge sev-high">High</span></td><td>Michael Torres</td><td style="color:#e65100;font-weight:600;">May 29</td><td><span style="color:var(--tsp-blue);cursor:pointer;" onclick="navTo('aria-defects')">Defect Management</span></td></tr>
+              <tr><td><span class="type-badge type-defect">Defect</span></td><td>Cost center hierarchy mapping error in planning integration</td><td><span class="sev-badge sev-high">P2</span></td><td>Michael Torres</td><td style="color:#e65100;font-weight:600;">May 29</td><td><span style="color:var(--tsp-blue);cursor:pointer;" onclick="navTo('aria-defects')">Defect Management</span></td></tr>
               <tr><td><span class="type-badge type-cutover">Cutover</span></td><td>System landscape copy window conflicts with mock cutover 2</td><td><span class="sev-badge sev-medium">Medium</span></td><td>Chris York</td><td>Jun 8</td><td><span style="color:var(--tsp-blue);cursor:pointer;">Cutover Hub</span></td></tr>
             </tbody>
           </table>
@@ -8605,8 +8688,8 @@ window.navTo = navTo;
             <span style="opacity:.4;margin:0 4px;">/</span>
             Defect Management
           </div>
-          <div class="ov-project-title">BAC Global Template Greenfield Project</div>
-          <div class="ov-scope">Finance · Procurement · Manufacturing · Logistics — S/4HANA 2023 Public Cloud · Implementation</div>
+          <div class="ov-project-title">Defect Management</div>
+          <div class="ov-scope">AI Resolution Engine · Cross-project knowledge base · Cloud ALM sync</div>
         </div>
         <div class="ov-header-btns">
           <button class="ov-btn" onclick="navTo('project-exec')">← Back</button>
@@ -8624,7 +8707,7 @@ window.navTo = navTo;
           <span class="ov-badge ov-badge-phase">Realize</span>
         </div>
         <div class="ov-meta-item">
-          <div class="ov-meta-label">Active Wave</div>
+          <div class="ov-meta-label">Active Deployment</div>
           <span class="ov-badge ov-badge-sprint">Wave 1 — Core Finance &amp; Procurement</span>
         </div>
         <div class="ov-meta-item">
@@ -8633,22 +8716,33 @@ window.navTo = navTo;
         </div>
         <div class="ov-meta-item" style="margin-left:auto;">
           <div class="ov-meta-label">Open Defects</div>
-          <div class="ov-meta-value" style="font-size:13px;font-weight:700;color:#fff;">47 open · 3 critical</div>
+          <div class="ov-meta-value" style="font-size:13px;font-weight:700;color:#fff;">47 open · 3 P1</div>
         </div>
       </div>
     </div>
 
     <div class="page-body">
 
-      <!-- KPI strip -->
+      <!-- KPI strip — FSD 6 (8 tiles: adds TSP Open, Client Open, MTTR and Defect Leakage) -->
       <div class="def-kpi-strip">
-        <div class="def-kpi-card"><div class="def-kpi-val">47</div><div class="def-kpi-label">Total Open</div></div>
-        <div class="def-kpi-card def-red"><div class="def-kpi-val">3</div><div class="def-kpi-label">Critical</div></div>
-        <div class="def-kpi-card def-amber"><div class="def-kpi-val">11</div><div class="def-kpi-label">High</div></div>
-        <div class="def-kpi-card def-green"><div class="def-kpi-val">87%</div><div class="def-kpi-label">SLA Compliance</div></div>
+        <div class="def-kpi-card"><div class="def-kpi-val">47</div><div class="def-kpi-label">Total Open</div><div class="def-kpi-sub">All severities, not Closed</div></div>
+        <div class="def-kpi-card def-indigo" title="TSP Open = count of open defect records with status New, Assigned, In Analysis or In Fix"><div class="def-kpi-val" id="def-kpi-tsp-open">0</div><div class="def-kpi-label">TSP Open</div><div class="def-kpi-sub">New · Assigned · In Analysis · In Fix</div></div>
+        <div class="def-kpi-card def-orange" title="Client Open = count of open defect records with status Ready for Retest or Retesting"><div class="def-kpi-val" id="def-kpi-client-open">0</div><div class="def-kpi-label">Client Open</div><div class="def-kpi-sub">Ready for Retest · Retesting</div></div>
+        <div class="def-kpi-card def-red"><div class="def-kpi-val">3</div><div class="def-kpi-label">P1</div><div class="def-kpi-sub">Feeds Defect Severity Index</div></div>
+        <div class="def-kpi-card def-amber"><div class="def-kpi-val">11</div><div class="def-kpi-label">P2</div><div class="def-kpi-sub">Open P2 defects</div></div>
+        <div class="def-kpi-card def-green"><div class="def-kpi-val">87%</div><div class="def-kpi-label">SLA Compliance</div><div class="def-kpi-sub">Amber 75–89% · Red &lt; 75%</div></div>
+        <div class="def-kpi-card def-purple" title="Mean Time To Recovery = AVERAGE(date/time of defect closure − date/time of defect creation)"><div class="def-kpi-val">6.2d</div><div class="def-kpi-label">MTTR</div><div class="def-kpi-sub">Feeds Command Center</div></div>
+        <div class="def-kpi-card def-teal" title="Defect Leakage % = defects discovered in a later phase ÷ total relevant defects × 100"><div class="def-kpi-val">12%</div><div class="def-kpi-label">Defect Leakage</div><div class="def-kpi-sub">By test phase — see reporting</div></div>
       </div>
 
-      <!-- Wave summary strip -->
+      <!-- SLA source — FSD 2.2: SLA is held in Project Setup and is set per customer -->
+      <div style="font-size:11.5px;color:var(--text-muted);margin-bottom:12px;">
+        ⏱ SLA timers and breach actions for this project are set per customer in
+        <span style="color:var(--tsp-blue);font-weight:700;cursor:pointer;" onclick="navTo('project-setup')">Project Set-up → SLA Management ↗</span>
+        — P1–P4 response and resolution times, by delivery context.
+      </div>
+
+      <!-- Deployment summary strip -->
       <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:8px;padding:7px 14px;background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:7px;font-size:12px;color:var(--tsp-blue);font-weight:600;">
           <span style="width:10px;height:10px;border-radius:50%;background:#c62828;display:inline-block;"></span>
@@ -8664,115 +8758,311 @@ window.navTo = navTo;
         </div>
       </div>
 
-      <!-- Filter bar -->
-      <div class="def-filter-bar">
-        <input type="text" placeholder="🔍 Search defects...">
-        <select><option>All Modules</option><option>Finance</option><option>Controlling</option><option>OTC</option><option>Procurement</option><option>SCM</option></select>
-        <select><option>All Waves</option><option>Wave 1 — Core Finance &amp; Procurement</option><option>Wave 2 — SCM &amp; Manufacturing</option></select>
-        <select><option>All Severities</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select>
-        <select><option>All Statuses</option><option>New</option><option>In Analysis</option><option>In Fix</option><option>In Retest</option><option>Closed</option></select>
+      <!-- Filter bar — FSD 8.1 -->
+      <div class="def-filter-bar" style="flex-wrap:wrap;">
+        <input type="text" id="def-f-search" placeholder="🔍 Search title and narrative..." oninput="defRenderTable()">
+        <select id="def-f-type" onchange="defRenderTable()"><option>All Types</option><option>Defect</option><option>Service Request</option><option>Enhancement</option></select>
+        <select id="def-f-area" onchange="defRenderTable()"></select>
+        <select id="def-f-deploy" onchange="defRenderTable()"><option>All Deployments</option><option>Wave 1 — Core Finance &amp; Procurement</option><option>Wave 2 — SCM &amp; Manufacturing</option></select>
+        <select id="def-f-phase" onchange="defRenderTable()"><option>All Phases</option><option>Explore</option><option>Realize — Unit Test</option><option>Realize — SIT</option><option>Realize — UAT</option><option>Deploy</option><option>Run</option></select>
+        <select id="def-f-sev" onchange="defRenderTable()"><option>All Severities</option><option>P1</option><option>P2</option><option>P3</option><option>P4</option></select>
+        <select id="def-f-status" onchange="defRenderTable()"><option>All Statuses</option><option>New</option><option>Assigned</option><option>In Analysis</option><option>In Fix</option><option>Ready for Retest</option><option>Retesting</option><option>Closed</option><option>Deferred</option><option>Rejected</option><option>Duplicate</option><option>Cancelled</option></select>
       </div>
 
+      <!-- Defect table — FSD 8.2. Core columns render here; Narrative, Category,
+           Root Cause, Logged By and Resolved Date/Time live in the slide-out detail panel. -->
       <div class="table-wrap">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Module</th>
-              <th>Wave</th>
-              <th>Severity</th>
-              <th>Status</th>
-              <th>Assigned To</th>
-              <th>Raised</th>
-              <th>Days Open</th>
-              <th>🤖 Resolution Engine</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr onclick="openDefDetail('DEF-041')" style="cursor:pointer;" onmouseover="this.style.background='var(--tsp-blue-light)'" onmouseout="this.style.background=''">
-              <td style="font-weight:700;color:var(--tsp-blue);">DEF-041</td>
-              <td>AP payment run producing duplicate payment proposals</td>
-              <td><span class="mod-badge">Finance</span></td>
-              <td><span style="font-size:10.5px;font-weight:600;color:var(--tsp-blue);">Wave 1</span></td>
-              <td><span class="sev-badge sev-critical">Critical</span></td>
-              <td><span class="status-badge status-inanalysis">In Analysis</span></td>
-              <td>Ana Pereira</td><td>May 22</td><td>4</td>
-              <td><span class="re-badge re-internal">🤖 94%</span></td>
-            </tr>
-            <tr onclick="openDefDetail('DEF-038')" style="cursor:pointer;" onmouseover="this.style.background='var(--tsp-blue-light)'" onmouseout="this.style.background=''">
-              <td style="font-weight:700;color:var(--tsp-blue);">DEF-038</td>
-              <td>Cost center hierarchy mapping error in planning integration</td>
-              <td><span class="mod-badge">Controlling</span></td>
-              <td><span style="font-size:10.5px;font-weight:600;color:var(--tsp-blue);">Wave 1</span></td>
-              <td><span class="sev-badge sev-high">High</span></td>
-              <td><span class="status-badge status-infix">In Fix</span></td>
-              <td>Michael Torres</td><td>May 19</td><td>7</td>
-              <td><span class="re-badge re-internal">🤖 81%</span></td>
-            </tr>
-            <tr onclick="openDefDetail('DEF-035')" style="cursor:pointer;" onmouseover="this.style.background='var(--tsp-blue-light)'" onmouseout="this.style.background=''">
-              <td style="font-weight:700;color:var(--tsp-blue);">DEF-035</td>
-              <td>Tax code not defaulting on foreign vendor invoices</td>
-              <td><span class="mod-badge">Finance</span></td>
-              <td><span style="font-size:10.5px;font-weight:600;color:var(--tsp-blue);">Wave 1</span></td>
-              <td><span class="sev-badge sev-high">High</span></td>
-              <td><span class="status-badge status-inretest">In Retest</span></td>
-              <td>James Okonkwo</td><td>May 15</td><td>11</td>
-              <td><span class="re-badge re-external">🌐 External</span></td>
-            </tr>
-            <tr onclick="openDefDetail('DEF-033')" style="cursor:pointer;" onmouseover="this.style.background='var(--tsp-blue-light)'" onmouseout="this.style.background=''">
-              <td style="font-weight:700;color:var(--tsp-blue);">DEF-033</td>
-              <td>GR/IR clearing account not balancing after period close</td>
-              <td><span class="mod-badge">Finance</span></td>
-              <td><span style="font-size:10.5px;font-weight:600;color:var(--tsp-blue);">Wave 1</span></td>
-              <td><span class="sev-badge sev-critical">Critical</span></td>
-              <td><span class="status-badge status-inanalysis">In Analysis</span></td>
-              <td>Sarah Mitchell</td><td>May 14</td><td>12</td>
-              <td><span class="re-badge re-searching">⏳ Searching</span></td>
-            </tr>
-            <tr onclick="openDefDetail('DEF-029')" style="cursor:pointer;" onmouseover="this.style.background='var(--tsp-blue-light)'" onmouseout="this.style.background=''">
-              <td style="font-weight:700;color:var(--tsp-blue);">DEF-029</td>
-              <td>Material ledger activation blocking standard cost release</td>
-              <td><span class="mod-badge">Controlling</span></td>
-              <td><span style="font-size:10.5px;font-weight:600;color:#e65100;">Wave 2</span></td>
-              <td><span class="sev-badge sev-high">High</span></td>
-              <td><span class="status-badge status-infix">In Fix</span></td>
-              <td>Priya Nair</td><td>May 10</td><td>16</td>
-              <td><span class="re-badge re-internal">🤖 88%</span></td>
-            </tr>
-            <tr onclick="openDefDetail('DEF-027')" style="cursor:pointer;" onmouseover="this.style.background='var(--tsp-blue-light)'" onmouseout="this.style.background=''">
-              <td style="font-weight:700;color:var(--tsp-blue);">DEF-027</td>
-              <td>Customer credit exposure calculation incorrect</td>
-              <td><span class="mod-badge">OTC</span></td>
-              <td><span style="font-size:10.5px;font-weight:600;color:#e65100;">Wave 2</span></td>
-              <td><span class="sev-badge sev-medium">Medium</span></td>
-              <td><span class="status-badge status-new">New</span></td>
-              <td>Chris York</td><td>May 8</td><td>18</td>
-              <td><span class="re-none">—</span></td>
-            </tr>
-            <tr onclick="openDefDetail('DEF-024')" style="cursor:pointer;" onmouseover="this.style.background='var(--tsp-blue-light)'" onmouseout="this.style.background=''">
-              <td style="font-weight:700;color:var(--tsp-blue);">DEF-024</td>
-              <td>Intercompany billing not generating FI document</td>
-              <td><span class="mod-badge">Finance</span></td>
-              <td><span style="font-size:10.5px;font-weight:600;color:var(--tsp-blue);">Wave 1</span></td>
-              <td><span class="sev-badge sev-critical">Critical</span></td>
-              <td><span class="status-badge status-inanalysis">In Analysis</span></td>
-              <td>Ana Pereira</td><td>May 5</td><td>21</td>
-              <td><span class="re-badge re-external">🌐 External</span></td>
-            </tr>
-            <tr onclick="openDefDetail('DEF-019')" style="cursor:pointer;" onmouseover="this.style.background='var(--tsp-blue-light)'" onmouseout="this.style.background=''">
-              <td style="font-weight:700;color:var(--tsp-blue);">DEF-019</td>
-              <td>Output type not triggering for PO confirmation</td>
-              <td><span class="mod-badge">Procurement</span></td>
-              <td><span style="font-size:10.5px;font-weight:600;color:var(--tsp-blue);">Wave 1</span></td>
-              <td><span class="sev-badge sev-medium">Medium</span></td>
-              <td><span class="status-badge status-closed">Closed</span></td>
-              <td>James Okonkwo</td><td>Apr 28</td><td>28</td>
-              <td><span class="re-badge re-internal">🤖 91%</span></td>
-            </tr>
-          </tbody>
-        </table>
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="def-table" style="min-width:1560px;">
+            <colgroup>
+              <col width="84"><col width="78"><col width="290"><col width="152"><col width="94">
+              <col width="96"><col width="72"><col width="118"><col width="120"><col width="120">
+              <col width="120"><col width="82"><col width="126">
+            </colgroup>
+            <thead>
+              <tr>
+                <th class="def-sort" onclick="defSort('id')">ID <span class="def-sort-ind" id="def-si-id"></span></th>
+                <th class="def-sort" onclick="defSort('type')">Type <span class="def-sort-ind" id="def-si-type"></span></th>
+                <th>Title</th>
+                <th class="def-sort" onclick="defSort('module')">Capability Area <span class="def-sort-ind" id="def-si-module"></span></th>
+                <th class="def-sort" onclick="defSort('wave')">Deployment <span class="def-sort-ind" id="def-si-wave"></span></th>
+                <th class="def-sort" onclick="defSort('phase')">Phase <span class="def-sort-ind" id="def-si-phase"></span></th>
+                <th class="def-sort" onclick="defSort('severity')">Severity <span class="def-sort-ind" id="def-si-severity"></span></th>
+                <th class="def-sort" onclick="defSort('status')">Status <span class="def-sort-ind" id="def-si-status"></span></th>
+                <th class="def-sort" onclick="defSort('created_by')">Created By <span class="def-sort-ind" id="def-si-created_by"></span></th>
+                <th class="def-sort" onclick="defSort('assigned')">Assigned To <span class="def-sort-ind" id="def-si-assigned"></span></th>
+                <th>Raised</th>
+                <th class="def-sort" onclick="defSort('days')">Days Open <span class="def-sort-ind" id="def-si-days"></span></th>
+                <th>🤖 Resolution Engine</th>
+              </tr>
+            </thead>
+            <tbody id="def-tbody"></tbody>
+          </table>
+        </div>
       </div>
+      <div id="def-table-info" style="font-size:11px;color:var(--text-muted);margin-top:8px;"></div>
+
+      <!-- Management reporting — FSD 3.1 -->
+      <div class="def-section-title">📊 Management Reporting</div>
+      <div class="def-rep-grid">
+        <div class="def-rep-card">
+          <div class="def-rep-val">14.6 d</div>
+          <div class="def-rep-label">Average Age — Open Defects</div>
+          <div class="def-rep-note">Mean days open across all non-closed defects. P1 average 8.2 d · P2 11.4 d.</div>
+        </div>
+        <div class="def-rep-card">
+          <div class="def-rep-val" style="color:#c62828;">9.1%</div>
+          <div class="def-rep-label">Reopen %</div>
+          <div class="def-rep-note">Defects that failed retest and returned to In Analysis ÷ defects submitted for retest.</div>
+        </div>
+        <div class="def-rep-card">
+          <div class="def-rep-val" style="color:#7b1fa2;">6.2 d</div>
+          <div class="def-rep-label">MTTR — Mean Time To Recovery</div>
+          <div class="def-rep-note">AVERAGE(date/time of closure − date/time of creation) over closed defects. Feeds Command Center.</div>
+        </div>
+        <div class="def-rep-card">
+          <div class="def-rep-label" style="margin-bottom:8px;">Defects per Capability Area</div>
+          <div style="font-size:11.5px;line-height:1.9;color:var(--text-primary);">
+            <div style="display:flex;justify-content:space-between;">Finance <strong>19</strong></div>
+            <div class="def-rep-bar"><span style="width:40%"></span></div>
+            <div style="display:flex;justify-content:space-between;">Sourcing and Procurement <strong>11</strong></div>
+            <div class="def-rep-bar"><span style="width:23%"></span></div>
+            <div style="display:flex;justify-content:space-between;">Manufacturing <strong>9</strong></div>
+            <div class="def-rep-bar"><span style="width:19%"></span></div>
+            <div style="display:flex;justify-content:space-between;">Sales <strong>5</strong></div>
+            <div class="def-rep-bar"><span style="width:11%"></span></div>
+            <div style="display:flex;justify-content:space-between;">Supply Chain <strong>3</strong></div>
+            <div class="def-rep-bar"><span style="width:7%"></span></div>
+          </div>
+        </div>
+        <div class="def-rep-card">
+          <div class="def-rep-label" style="margin-bottom:8px;">Defects by Workstream</div>
+          <div style="font-size:11.5px;line-height:1.9;color:var(--text-primary);">
+            <div style="display:flex;justify-content:space-between;">Record to Report <strong>12</strong></div>
+            <div style="display:flex;justify-content:space-between;">Source to Pay <strong>11</strong></div>
+            <div style="display:flex;justify-content:space-between;">Plan to Produce <strong>9</strong></div>
+            <div style="display:flex;justify-content:space-between;">Order to Cash <strong>8</strong></div>
+            <div style="display:flex;justify-content:space-between;">Technical / Integration <strong>7</strong></div>
+          </div>
+        </div>
+        <div class="def-rep-card">
+          <div class="def-rep-label" style="margin-bottom:8px;">Defects by Release</div>
+          <div style="font-size:11.5px;line-height:1.9;color:var(--text-primary);">
+            <div style="display:flex;justify-content:space-between;">R1.3 — Sprint 8 <strong>16</strong></div>
+            <div style="display:flex;justify-content:space-between;">R1.2 — Sprint 7 <strong>14</strong></div>
+            <div style="display:flex;justify-content:space-between;">R1.1 — Sprint 6 <strong>11</strong></div>
+            <div style="display:flex;justify-content:space-between;">R1.0 — Sprint 5 <strong>6</strong></div>
+          </div>
+        </div>
+        <div class="def-rep-card">
+          <div class="def-rep-label" style="margin-bottom:8px;">Defect Leakage by Test Phase</div>
+          <div class="def-rep-note" style="margin-bottom:8px;">Defects found in a later phase ÷ total relevant defects × 100.</div>
+          <div style="font-size:11.5px;line-height:1.9;color:var(--text-primary);">
+            <div style="display:flex;justify-content:space-between;">Unit Test <strong>4%</strong></div>
+            <div style="display:flex;justify-content:space-between;">SIT <strong>9%</strong></div>
+            <div style="display:flex;justify-content:space-between;">UAT <strong>12%</strong></div>
+            <div style="display:flex;justify-content:space-between;">Post go-live <strong>3%</strong></div>
+          </div>
+        </div>
+        <div class="def-rep-card">
+          <div class="def-rep-val" style="color:#2e7d32;">73%</div>
+          <div class="def-rep-label">AI Success Rate</div>
+          <div class="def-rep-note">Resolution Engine recommendations confirmed via “Mark as Applied” ÷ recommendations surfaced.</div>
+          <div class="def-rep-bar"><span style="width:73%;background:#2e7d32;"></span></div>
+        </div>
+        <div class="def-rep-card">
+          <div class="def-rep-val" style="color:#f59e0b;">6.4%</div>
+          <div class="def-rep-label">Duplicate Rate</div>
+          <div class="def-rep-note">Defects closed as Duplicate ÷ total raised. Semantic similarity threshold &gt; 80% (FSD 14.2).</div>
+          <div class="def-rep-bar"><span style="width:6.4%;background:#f59e0b;"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DEFECT MANAGEMENT — shared overlay, slide-out detail panel, Raise Defect modal ═══
+       FSD Sections 10 (detail panel) and 11 (Raise Defect modal) -->
+  <div class="shared-overlay" id="def-overlay" onclick="closeDefDetail();closeDefModal();"></div>
+
+  <!-- ─── Defect detail slide-out — FSD 10 ─── -->
+  <div class="def-slideout" id="def-slideout">
+    <div class="def-slideout-header">
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px;">
+        <span id="def-sl-id" style="font-weight:800;color:var(--tsp-blue);font-size:14px;">DEF-000</span>
+        <span class="sev-badge sev-critical" id="def-sl-severity">P1</span>
+        <button class="close-btn" style="margin-left:auto;" onclick="closeDefDetail()">×</button>
+      </div>
+      <div id="def-sl-title" style="font-size:13.5px;font-weight:700;color:var(--text-primary);line-height:1.45;margin-bottom:10px;">Defect title</div>
+      <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:5px;">Status Workflow</div>
+      <div id="def-sl-status-bar" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
+    </div>
+
+    <div class="def-slideout-body">
+      <!-- LEFT — defect fields (FSD 10.2) -->
+      <div class="def-slideout-left">
+        <div id="def-sl-sla" style="font-size:11px;font-weight:700;padding:7px 10px;border-radius:6px;margin-bottom:14px;">—</div>
+
+        <div class="def-sl-group-title">Type &amp; Classification</div>
+        <div class="def-sl-field"><label>Type</label><span id="def-sl-type">—</span></div>
+        <div class="def-sl-field"><label>Capability Area</label><span id="def-sl-module">—</span></div>
+        <div class="def-sl-field"><label>Process ID</label><span id="def-sl-procid">—</span></div>
+        <div class="def-sl-field"><label>Process Name</label><span id="def-sl-procname">—</span></div>
+        <div class="def-sl-field"><label>Transaction / Fiori App / Program</label><span id="def-sl-tx">—</span></div>
+        <div class="def-sl-field"><label>Environment</label><span id="def-sl-env">—</span></div>
+        <div class="def-sl-field"><label>Category</label><span id="def-sl-cat">—</span></div>
+        <div class="def-sl-field"><label>Root Cause</label><span id="def-sl-root">—</span></div>
+
+        <div class="def-sl-group-title">Delivery Context</div>
+        <div class="def-sl-field"><label>Deployment</label><span id="def-sl-wave">—</span></div>
+        <div class="def-sl-field"><label>Phase Found</label><span id="def-sl-phase">—</span></div>
+
+        <div class="def-sl-group-title">Assignment</div>
+        <div class="def-sl-field"><label>Created By <span style="font-weight:400;text-transform:none;">(found the defect)</span></label><span id="def-sl-created-by">—</span></div>
+        <div class="def-sl-field"><label>Logged By <span style="font-weight:400;text-transform:none;">(entered the record)</span></label><span id="def-sl-logged-by">—</span></div>
+        <div class="def-sl-field"><label>Assigned To</label><span id="def-sl-assigned">—</span></div>
+        <div class="def-sl-field"><label>Created Date / Time</label><span id="def-sl-raised">—</span></div>
+        <div class="def-sl-field"><label>Resolved Date / Time</label><span id="def-sl-resolved">—</span></div>
+        <div class="def-sl-field"><label>Days Open</label><span id="def-sl-days">—</span></div>
+
+        <div class="def-sl-group-title">Integration</div>
+        <div class="def-sl-field"><label>Cloud ALM Defect ID</label><span id="def-sl-calm" style="color:var(--tsp-blue);cursor:pointer;">—</span></div>
+        <div class="def-sl-field"><label>Cloud ALM Test Case ID</label><span id="def-sl-calmtc">—</span></div>
+        <div class="def-sl-field"><label>Linked Test Script</label><span id="def-sl-script" style="color:var(--tsp-blue);cursor:pointer;" onclick="navTo('test-genius-execution','test-genius')">—</span></div>
+
+        <div class="def-sl-group-title">Narrative</div>
+        <div id="def-sl-desc" style="font-size:11.5px;line-height:1.6;color:var(--text-primary);background:var(--bg-page);border:1px solid var(--border);border-radius:7px;padding:10px 11px;">—</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:5px;">📎 Attachments — <span style="color:var(--tsp-blue);cursor:pointer;" onclick="alert('Screenshot / file upload — attach evidence and reproduction steps.')">Add screenshot or file</span></div>
+
+        <div class="def-sl-group-title">Resolution Notes</div>
+        <textarea id="def-sl-resnotes" placeholder="Root cause and fix applied. Required before Closed." style="width:100%;min-height:64px;padding:9px 11px;border:1px solid var(--border);border-radius:7px;font-size:11.5px;font-family:inherit;resize:vertical;"></textarea>
+      </div>
+
+      <!-- RIGHT — AI Recommended Resolution card (FSD 10.3) -->
+      <div class="def-slideout-right">
+        <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);margin-bottom:8px;">AI Recommended Resolution</div>
+        <div class="def-ai-card" id="def-sl-resolution-card"></div>
+      </div>
+    </div>
+
+    <div class="def-slideout-footer">
+      <button class="btn-outline" style="flex:1;" onclick="alert('Escalated to RAID Issues (FSD 19).')">⚠ Add to RAID</button>
+      <button class="btn-primary" style="flex:1;" onclick="alert('Defect saved · Cloud ALM sync queued.')">💾 Save</button>
+    </div>
+  </div>
+
+  <!-- ─── Raise Defect modal — FSD 11 ─── -->
+  <div class="def-modal" id="def-modal">
+    <div class="def-modal-header">
+      <div>
+        <div style="font-size:15px;font-weight:800;color:var(--text-primary);">＋ Raise Defect</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Implementation context · BAC Global Template Greenfield Project</div>
+      </div>
+      <button class="close-btn" onclick="closeDefModal()">×</button>
+    </div>
+    <div class="def-modal-body" style="max-height:64vh;overflow-y:auto;">
+
+      <div class="def-form-row">
+        <label>Title <span style="color:#c62828;">*</span></label>
+        <input type="text" id="def-form-title" maxlength="120" placeholder="Short, specific summary (max 120 chars)">
+      </div>
+
+      <div class="def-form-row">
+        <label>Narrative <span style="color:#c62828;">*</span></label>
+        <textarea id="def-form-desc" placeholder="Full description including steps to reproduce and expected vs actual behavior."></textarea>
+        <div style="font-size:10px;color:var(--tsp-blue);margin-top:4px;cursor:pointer;" onclick="alert('Screenshot / file upload — attach evidence to the narrative.')">📎 Attach screenshot or file</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="def-form-row">
+          <label>Type <span style="color:#c62828;">*</span></label>
+          <select id="def-form-type"><option>Defect</option><option>Service Request</option><option>Enhancement</option></select>
+        </div>
+        <div class="def-form-row">
+          <label>Severity <span style="color:#c62828;">*</span></label>
+          <select id="def-form-severity"><option>P1</option><option>P2</option><option>P3</option><option>P4</option></select>
+        </div>
+      </div>
+
+      <div class="def-form-row">
+        <label>Capability Area <span style="color:#c62828;">*</span> <span id="def-form-ai-area" style="color:var(--tsp-blue);font-weight:700;">🤖 AI suggested</span></label>
+        <select id="def-form-module"></select>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:4px;">Pre-filtered to in-scope capability areas from Project Setup.</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="def-form-row">
+          <label>Category <span style="color:#c62828;">*</span> <span id="def-form-ai-cat" style="color:var(--tsp-blue);font-weight:700;">🤖 AI suggested</span></label>
+          <select id="def-form-cat"><option>Data</option><option>Configuration</option><option>Development</option><option>Security</option><option>User Error</option><option>Interface</option><option>Fiori</option><option>SAP/OSS</option></select>
+        </div>
+        <div class="def-form-row">
+          <label>Root Cause</label>
+          <select id="def-form-root"><option>— Not yet determined —</option><option>Requirement missed</option><option>Configuration gap</option><option>Development defect</option><option>Master data</option><option>Authorization</option><option>Transport</option><option>Integration</option><option>Environment</option><option>Regression</option><option>SAP standard</option><option>Custom code</option><option>Testing error</option><option>User error</option></select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="def-form-row">
+          <label>Deployment <span style="color:#c62828;">*</span></label>
+          <select id="def-form-wave"><option>Wave 1 — Core Finance &amp; Procurement</option><option>Wave 2 — SCM &amp; Manufacturing</option></select>
+        </div>
+        <div class="def-form-row">
+          <label>Phase <span style="color:#c62828;">*</span></label>
+          <select id="def-form-phase"><option>Explore</option><option>Realize — Unit Test</option><option selected>Realize — SIT</option><option>Realize — UAT</option><option>Deploy</option><option>Run</option></select>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:4px;">Captured automatically from the active project phase — used for defect leakage.</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="def-form-row">
+          <label>Created By <span style="color:#c62828;">*</span></label>
+          <select id="def-form-created-by" onchange="defSyncLoggedBy()"><option>Chris York</option><option>Ana Pereira</option><option>Michael Torres</option><option>James Okonkwo</option><option>Sarah Mitchell</option><option>Priya Nair</option></select>
+        </div>
+        <div class="def-form-row">
+          <label>Logged By <span style="color:#c62828;">*</span></label>
+          <select id="def-form-logged-by"><option>Chris York</option><option>Ana Pereira</option><option>Michael Torres</option><option>James Okonkwo</option><option>Sarah Mitchell</option><option>Priya Nair</option></select>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:4px;">Defaults to Created By.</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="def-form-row">
+          <label>Assigned To <span style="color:#c62828;">*</span></label>
+          <select id="def-form-assigned"><option>Michael Torres — Technical Lead</option><option>Ana Pereira</option><option>James Okonkwo</option><option>Sarah Mitchell</option><option>Priya Nair</option><option>Chris York</option></select>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:4px;">Defaults to the project technical lead; PM can reassign.</div>
+        </div>
+        <div class="def-form-row">
+          <label>Status</label>
+          <input type="text" id="def-form-status" value="New" readonly style="background:var(--bg-page);color:var(--text-muted);">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="def-form-row">
+          <label>Created Date / Time <span style="color:#c62828;">*</span></label>
+          <input type="text" id="def-form-created" readonly style="background:var(--bg-page);color:var(--text-muted);">
+          <div style="font-size:10px;color:var(--text-muted);margin-top:4px;">System timestamp at point of entry.</div>
+        </div>
+        <div class="def-form-row">
+          <label>Environment <span style="color:#c62828;">*</span></label>
+          <select id="def-form-env"><option>DEV</option><option selected>QAS</option><option>PRD</option></select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="def-form-row">
+          <label>Transaction / Fiori App / Program</label>
+          <input type="text" id="def-form-tx" placeholder="e.g. F110 or Manage Payment Proposals">
+        </div>
+        <div class="def-form-row">
+          <label>Linked Test Script</label>
+          <input type="text" id="def-form-script" placeholder="e.g. TS-0041">
+        </div>
+      </div>
+
+    </div>
+    <div class="def-modal-footer">
+      <button class="btn-grey" onclick="closeDefModal()">Cancel</button>
+      <button class="btn-primary" onclick="defSaveNew()">🤖 Save &amp; Run Resolution Agent</button>
     </div>
   </div>
 
@@ -8881,7 +9171,7 @@ window.navTo = navTo;
           <table class="data-table">
             <thead><tr><th>Criterion</th><th>Category</th><th>Data Source</th><th>Target</th><th>Current</th><th>Owner</th><th>Status</th></tr></thead>
             <tbody>
-              <tr><td><strong>All Critical Defects Closed</strong></td><td><span class="mod-badge">Testing</span></td><td style="font-size:11px;color:var(--tsp-blue);">Defect Management ⟳</td><td>0 Critical Open</td><td style="color:#c62828;font-weight:600;">3 Critical Open</td><td>Ana Pereira</td><td><span class="sev-badge sev-critical">⛔ NO-GO</span></td></tr>
+              <tr><td><strong>All P1 Defects Closed</strong></td><td><span class="mod-badge">Testing</span></td><td style="font-size:11px;color:var(--tsp-blue);">Defect Management ⟳</td><td>0 P1 Open</td><td style="color:#c62828;font-weight:600;">3 P1 Open</td><td>Ana Pereira</td><td><span class="sev-badge sev-critical">⛔ NO-GO</span></td></tr>
               <tr><td><strong>SIT/UAT Pass Rate ≥ 95%</strong></td><td><span class="mod-badge">Testing</span></td><td style="font-size:11px;color:var(--tsp-blue);">Test Execution Hub ⟳</td><td>≥ 95%</td><td style="color:#f59e0b;font-weight:600;">91%</td><td>Chris York</td><td><span class="sev-badge sev-medium">⚠ AMBER</span></td></tr>
               <tr><td><strong>Vendor Master Data Loaded</strong></td><td><span class="mod-badge">Data</span></td><td style="font-size:11px;color:var(--text-muted);">Manual</td><td>100%</td><td style="color:#2e7d32;font-weight:600;">100%</td><td>James Okonkwo</td><td><span class="status-badge status-approved">✓ GO</span></td></tr>
               <tr><td><strong>Customer Master Data Loaded</strong></td><td><span class="mod-badge">Data</span></td><td style="font-size:11px;color:var(--text-muted);">Manual</td><td>100%</td><td style="color:#2e7d32;font-weight:600;">100%</td><td>Ana Pereira</td><td><span class="status-badge status-approved">✓ GO</span></td></tr>
@@ -9961,7 +10251,7 @@ This may indicate the automated test script needs updating or the manual executi
                 <td style="font-size:11.5px;color:var(--tsp-blue);">CALM-D-0041</td>
                 <td>AP payment run producing duplicate proposals</td>
                 <td style="font-size:11.5px;color:var(--tsp-blue);">TS-0041</td>
-                <td><span class="sev-badge sev-critical">Critical</span></td>
+                <td><span class="sev-badge sev-critical">P1</span></td>
                 <td><span class="status-badge status-inanalysis">In Analysis</span></td>
                 <td><span class="status-badge status-inanalysis">In Analysis</span></td>
                 <td style="color:#2e7d32;font-size:11px;font-weight:600;">● In Sync</td>
@@ -9972,7 +10262,7 @@ This may indicate the automated test script needs updating or the manual executi
                 <td style="font-size:11.5px;color:var(--tsp-blue);">CALM-D-0038</td>
                 <td>Cost center hierarchy mapping error</td>
                 <td style="font-size:11.5px;color:var(--tsp-blue);">TS-0038</td>
-                <td><span class="sev-badge sev-high">High</span></td>
+                <td><span class="sev-badge sev-high">P2</span></td>
                 <td><span class="status-badge status-infix">In Fix</span></td>
                 <td><span class="status-badge status-infix">In Fix</span></td>
                 <td style="color:#2e7d32;font-size:11px;font-weight:600;">● In Sync</td>
@@ -9983,9 +10273,9 @@ This may indicate the automated test script needs updating or the manual executi
                 <td style="font-size:11.5px;color:var(--tsp-blue);">CALM-D-0035</td>
                 <td>Tax code not defaulting on foreign vendor invoices</td>
                 <td style="font-size:11.5px;color:var(--tsp-blue);">TS-0035</td>
-                <td><span class="sev-badge sev-high">High</span></td>
-                <td><span class="status-badge status-inretest">In Retest</span></td>
-                <td><span class="status-badge status-inretest">In Retest</span></td>
+                <td><span class="sev-badge sev-high">P2</span></td>
+                <td><span class="status-badge status-retesting">Retesting</span></td>
+                <td><span class="status-badge status-retesting">Retesting</span></td>
                 <td style="color:#2e7d32;font-size:11px;font-weight:600;">● In Sync</td>
                 <td>11</td>
               </tr>
@@ -10007,8 +10297,8 @@ This may indicate the automated test script needs updating or the manual executi
             <span onclick="navTo('project-exec')" style="cursor:pointer;">TSP Aria</span>
             <span style="opacity:.4;margin:0 4px;">/</span> Development Intelligence
           </div>
-          <div class="ov-project-title">BAC Global Template Greenfield Project</div>
-          <div class="ov-scope">Finance · Procurement · Manufacturing · Logistics — S/4HANA 2023 Public Cloud · Explore Phase</div>
+          <div class="ov-project-title">Development Intelligence</div>
+          <div class="ov-scope">All object types · Interface inventory · AI risk scoring</div>
         </div>
         <div class="ov-header-btns">
           <button class="ov-btn" onclick="navTo('project-exec')">← Back</button>
@@ -10018,8 +10308,12 @@ This may indicate the automated test script needs updating or the manual executi
       </div>
       <div class="ov-meta-strip">
         <div class="ov-meta-item">
+          <div class="ov-meta-label">Active Phase</div>
+          <span class="ov-badge ov-badge-phase">Explore</span>
+        </div>
+        <div class="ov-meta-item">
           <div class="ov-meta-label">Total Objects</div>
-          <span class="ov-badge ov-badge-phase">147 objects</span>
+          <span class="ov-badge ov-badge-phase">154 objects</span>
         </div>
         <div class="ov-meta-item">
           <div class="ov-meta-label">Interfaces (I-type)</div>
@@ -10038,10 +10332,10 @@ This may indicate the automated test script needs updating or the manual executi
 
     <div class="page-body">
 
-      <!-- Summary KPI strip -->
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px;">
+      <!-- Summary KPI strip — 7 categories: RICEFW + Agentic Solutions -->
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:16px;">
         <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid var(--tsp-blue);border-radius:10px;padding:12px;text-align:center;cursor:pointer;" onclick="ricefwTab('rfw-all')">
-          <div style="font-size:20px;font-weight:800;color:var(--tsp-blue);">147</div>
+          <div style="font-size:20px;font-weight:800;color:var(--tsp-blue);">154</div>
           <div style="font-size:10.5px;color:var(--text-muted);">All Objects</div>
         </div>
         <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #546e7a;border-radius:10px;padding:12px;text-align:center;cursor:pointer;" onclick="ricefwTab('rfw-reports')">
@@ -10064,16 +10358,21 @@ This may indicate the automated test script needs updating or the manual executi
           <div style="font-size:20px;font-weight:800;color:#2e7d32;">24</div>
           <div style="font-size:10.5px;color:var(--text-muted);">Forms &amp; Workflows (F/W)</div>
         </div>
+        <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #00838f;border-radius:10px;padding:12px;text-align:center;cursor:pointer;" onclick="ricefwTab('rfw-agentic')">
+          <div style="font-size:20px;font-weight:800;color:#00838f;">7</div>
+          <div style="font-size:10.5px;color:var(--text-muted);">Agentic Solutions (A)</div>
+        </div>
       </div>
 
       <!-- Tab bar -->
       <div class="cc-tab-bar">
-        <div class="cc-tab active" id="rfw-tab-all"          onclick="ricefwTab('rfw-all')">All Objects (147)</div>
+        <div class="cc-tab active" id="rfw-tab-all"          onclick="ricefwTab('rfw-all')">All Objects (154)</div>
         <div class="cc-tab"        id="rfw-tab-reports"      onclick="ricefwTab('rfw-reports')">R — Reports</div>
         <div class="cc-tab"        id="rfw-tab-interfaces"   onclick="ricefwTab('rfw-interfaces')">I — Interfaces ⭐</div>
         <div class="cc-tab"        id="rfw-tab-conversions"  onclick="ricefwTab('rfw-conversions')">C — Conversions</div>
         <div class="cc-tab"        id="rfw-tab-enhancements" onclick="ricefwTab('rfw-enhancements')">E — Enhancements</div>
         <div class="cc-tab"        id="rfw-tab-forms"        onclick="ricefwTab('rfw-forms')">F/W — Forms &amp; Workflows</div>
+        <div class="cc-tab"        id="rfw-tab-agentic"      onclick="ricefwTab('rfw-agentic')" style="color:#00838f;">🤖 A — Agentic Solutions</div>
         <div class="cc-tab"        id="rfw-tab-ai"           onclick="ricefwTab('rfw-ai')" style="color:#7b1fa2;">🤖 AI Analysis</div>
       </div>
 
@@ -10088,11 +10387,10 @@ This may indicate the automated test script needs updating or the manual executi
             <option value="">All Types</option>
             <option>Report</option><option>Interface</option><option>Conversion</option>
             <option>Enhancement</option><option>Form</option><option>Workflow</option>
+            <option>Agentic Solution</option>
           </select>
           <select id="rfw-filter-mod" onchange="rfwRenderAll()" style="padding:7px 10px;border:1px solid var(--border);border-radius:7px;font-size:12.5px;">
-            <option value="">All Modules</option>
-            <option>Finance</option><option>Procurement</option><option>SCM</option>
-            <option>HR</option><option>Controlling</option><option>OTC</option>
+            <option value="">All Capability Areas</option>
           </select>
           <select id="rfw-filter-status" onchange="rfwRenderAll()" style="padding:7px 10px;border:1px solid var(--border);border-radius:7px;font-size:12.5px;">
             <option value="">All Statuses</option>
@@ -10113,13 +10411,20 @@ This may indicate the automated test script needs updating or the manual executi
         <!-- effort totals bar -->
         <div id="rfw-effort-bar" style="display:flex;gap:16px;padding:10px 16px;background:var(--bg-white);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;flex-wrap:wrap;font-size:11.5px;"></div>
         <div class="table-wrap">
-          <table class="data-table" id="rfw-all-table">
+          <table class="data-table" id="rfw-all-table" style="min-width:1720px;">
+            <colgroup>
+              <col width="76"><col width="290"><col width="112"><col width="182"><col width="104">
+              <col width="150"><col width="132"><col width="168"><col width="200"><col width="130">
+              <col width="152">
+            </colgroup>
             <thead>
               <tr>
-                <th>ID</th><th>Object Name</th><th>Type</th><th>SAP Module</th>
-                <th>Complexity</th><th>Owner</th><th>Status</th>
+                <th>ID</th><th>Object Name</th><th>Type</th><th>Capability Area</th>
+                <th>Complexity</th><th>Business Requestor</th><th>Owner</th>
+                <th style="white-space:nowrap;">Developer <span style="font-weight:400;text-transform:none;opacity:.75;">· editable</span></th>
+                <th style="white-space:nowrap;">Status <span style="font-weight:400;text-transform:none;opacity:.75;">· editable</span></th>
                 <th style="white-space:nowrap;">Total Effort (hrs)</th>
-                <th>Clean Core</th><th>Spec / FSD</th>
+                <th>Clean Core</th>
               </tr>
             </thead>
             <tbody id="rfw-all-tbody"></tbody>
@@ -10363,6 +10668,87 @@ This may indicate the automated test script needs updating or the manual executi
           </tbody>
         </table></div>
       </div>
+
+      <!-- ── AGENTIC SOLUTIONS TAB (A) ──
+           Object type = SAP business agents delivered as project scope:
+           SAP Joule Assistant, Joule Studio agents and BTP agents built for a specific
+           client use case. This is an inventory / tracking view only.
+           Coding assistance for RICEFW objects is NOT managed here — that is the
+           Developer Assistant module (page-dev-assist). -->
+      <div id="rfw-agentic" style="display:none;">
+
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:#e0f7fa;border:1px solid #80deea;border-radius:10px;margin-bottom:14px;">
+          <span style="font-size:16px;">🤖</span>
+          <div style="font-size:12.5px;color:var(--text-primary);line-height:1.55;">
+            <strong>7 Agentic Solutions</strong> — SAP Joule Assistant and Joule / BTP agents built for a specific client use case and delivered as project scope.
+            Tracked as a seventh object class alongside RICEFW because they carry different build, governance and run-cost characteristics:
+            an <strong>autonomy level</strong> (L0–L5), a <strong>human oversight</strong> control, and <strong>tokens as recurring COGS</strong> rather than a one-off build cost.
+          </div>
+        </div>
+
+        <!-- Autonomy + run-cost summary -->
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;">
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #455a64;border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:19px;font-weight:800;color:#455a64;">1</div>
+            <div style="font-size:10.5px;color:var(--text-muted);">L1 — Assisted</div>
+          </div>
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #1565c0;border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:19px;font-weight:800;color:#1565c0;">2</div>
+            <div style="font-size:10.5px;color:var(--text-muted);">L2 — Supervised</div>
+          </div>
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #00838f;border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:19px;font-weight:800;color:#00838f;">3</div>
+            <div style="font-size:10.5px;color:var(--text-muted);">L3 — Delegated</div>
+          </div>
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #7b1fa2;border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:19px;font-weight:800;color:#7b1fa2;">1</div>
+            <div style="font-size:10.5px;color:var(--text-muted);">L4 — Autonomous</div>
+          </div>
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #00838f;border-radius:10px;padding:12px;text-align:center;" title="Estimated aggregate token consumption per day across all agents in scope — recurring client run cost, not build effort">
+            <div style="font-size:19px;font-weight:800;color:#00838f;">42.8k</div>
+            <div style="font-size:10.5px;color:var(--text-muted);">Tokens / day (est.)</div>
+          </div>
+        </div>
+
+        <div style="padding:9px 14px;background:#fff8e1;border:1px solid #f59e0b;border-radius:7px;font-size:12px;color:#856404;margin-bottom:12px;">
+          <strong>⚠ Governance:</strong> A-007 is live in production at <strong>L4 (Autonomous)</strong> — confirm the human-on-exception route is monitored and the guardrail set is signed off.
+        </div>
+
+        <div class="table-wrap">
+          <div style="overflow-x:auto;">
+            <table class="data-table" style="min-width:1470px;">
+              <colgroup>
+                <col width="72"><col width="272"><col width="176"><col width="132"><col width="200">
+                <col width="196"><col width="104"><col width="120"><col width="176">
+              </colgroup>
+              <thead>
+                <tr><th>ID</th><th>Agent Name</th><th>Capability Area</th><th>Autonomy</th><th>Platform</th><th>Human Oversight</th><th>Tokens / Day</th><th>Owner</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td style="font-weight:700;color:var(--tsp-blue);">A-001</td><td>Invoice Exception Triage Agent</td><td><span class="mod-badge">Finance</span></td><td><span class="rfw-aut rfw-aut-l3">L3 — Delegated</span></td><td><span class="rfw-plat">Joule Studio</span></td><td style="font-size:11px;">Approval required &gt; $50k</td><td class="rfw-tokens">8.4k</td><td>Ana Pereira</td><td><span class="status-badge status-infix">In Technical Build</span></td></tr>
+                <tr><td style="font-weight:700;color:var(--tsp-blue);">A-002</td><td>Vendor Master Data Steward</td><td><span class="mod-badge">Sourcing and Procurement</span></td><td><span class="rfw-aut rfw-aut-l2">L2 — Supervised</span></td><td><span class="rfw-plat">BTP AI Core</span></td><td style="font-size:11px;">Every change approved</td><td class="rfw-tokens">3.1k</td><td>James Okonkwo</td><td><span class="status-badge status-approved">Functional Spec Approved</span></td></tr>
+                <tr><td style="font-weight:700;color:var(--tsp-blue);">A-003</td><td>Payment Run Anomaly Detector</td><td><span class="mod-badge">Finance</span></td><td><span class="rfw-aut rfw-aut-l1">L1 — Assisted</span></td><td><span class="rfw-plat">SAP Joule Assistant</span></td><td style="font-size:11px;">Advisory only — no write-back</td><td class="rfw-tokens">5.6k</td><td>Ana Pereira</td><td><span class="status-badge status-approved">In Production</span></td></tr>
+                <tr><td style="font-weight:700;color:var(--tsp-blue);">A-004</td><td>PO Approval Routing Agent</td><td><span class="mod-badge">Sourcing and Procurement</span></td><td><span class="rfw-aut rfw-aut-l3">L3 — Delegated</span></td><td><span class="rfw-plat">SAP Build Process Automation</span></td><td style="font-size:11px;">Escalate if idle &gt; 3 days</td><td class="rfw-tokens">2.4k</td><td>Priya Nair</td><td><span class="status-badge status-review">In Technical Unit Test</span></td></tr>
+                <tr><td style="font-weight:700;color:var(--tsp-blue);">A-005</td><td>Demand Forecast Reconciliation Agent</td><td><span class="mod-badge">Supply Chain</span></td><td><span class="rfw-aut rfw-aut-l2">L2 — Supervised</span></td><td><span class="rfw-plat">BTP AI Core</span></td><td style="font-size:11px;">Planner sign-off per cycle</td><td class="rfw-tokens">12.8k</td><td>Michael Torres</td><td><span class="status-badge status-approved">Technical Spec Approved</span></td></tr>
+                <tr><td style="font-weight:700;color:var(--tsp-blue);">A-006</td><td>Credit Exposure Monitoring Agent</td><td><span class="mod-badge">Sales</span></td><td><span class="rfw-aut rfw-aut-l3">L3 — Delegated</span></td><td><span class="rfw-plat">Joule Studio</span></td><td style="font-size:11px;">Order block needs human</td><td class="rfw-tokens">4.2k</td><td>Sarah Mitchell</td><td><span class="status-badge status-inanalysis">Technical Spec in Process</span></td></tr>
+                <tr><td style="font-weight:700;color:var(--tsp-blue);">A-007</td><td>Service Ticket Classification Agent</td><td><span class="mod-badge">Service</span></td><td><span class="rfw-aut rfw-aut-l4">L4 — Autonomous</span></td><td><span class="rfw-plat">Joule Studio</span></td><td style="font-size:11px;">Human on exception only</td><td class="rfw-tokens">6.3k</td><td>Michael Torres</td><td><span class="status-badge status-approved">In Production</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="font-size:11px;color:var(--text-muted);margin-top:10px;">
+          Autonomy scale: <strong>L1</strong> Assisted (suggests, human executes) · <strong>L2</strong> Supervised (executes, each action approved) ·
+          <strong>L3</strong> Delegated (executes within guardrails, human spot-checks) · <strong>L4</strong> Autonomous (self-directed, human on exception) ·
+          <strong>L5</strong> Fully autonomous (not permitted in project scope without board approval).
+        </div>
+
+        <div style="margin-top:14px;padding:10px 14px;background:var(--tsp-blue-light);border:1px solid var(--border);border-radius:7px;font-size:11.5px;color:var(--text-primary);">
+          💻 Development Intelligence tracks and scores objects — it does not manage the build.
+          Code generation and developer support for these and all other object types is handled in
+          <span style="color:var(--tsp-blue);font-weight:700;cursor:pointer;" onclick="navTo('dev-assist','project-exec')">Developer Assistant ↗</span>.
+        </div>
+      </div><!-- /rfw-agentic -->
 
       <!-- ── AI ANALYSIS TAB ── -->
       <div id="rfw-ai" style="display:none;">
@@ -10809,15 +11195,25 @@ Saved to SharePoint: /Hypercare/DailyBriefings/')">📋 Generate Report</button>
       </div>
       <!-- Hypercare Lead view -->
       <div id="hc-lead" style="display:block;">
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px;">
           <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid var(--tsp-blue);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:800;color:var(--tsp-blue);">47</div><div style="font-size:10.5px;color:var(--text-muted);">Open Tickets</div></div>
           <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #2e7d32;border-radius:10px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#2e7d32;">74%</div><div style="font-size:10.5px;color:var(--text-muted);">Resolution Engine Match</div></div>
           <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #f59e0b;border-radius:10px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#f59e0b;">87%</div><div style="font-size:10.5px;color:var(--text-muted);">SLA Compliance</div></div>
           <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid var(--tsp-blue);border-radius:10px;padding:12px;text-align:center;"><div style="font-size:20px;font-weight:800;color:var(--tsp-blue);">12</div><div style="font-size:10.5px;color:var(--text-muted);">Articles Published</div></div>
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-top:3px solid #7b1fa2;border-radius:10px;padding:12px;text-align:center;" title="Mean Time to Recovery = AVERAGE(defect close date/time − defect submission date/time), over closed defects"><div id="hc-mttr-value" style="font-size:20px;font-weight:800;color:#7b1fa2;">—</div><div style="font-size:10.5px;color:var(--text-muted);">MTTR · Mean Time to Recovery</div><div id="hc-mttr-sub" style="font-size:9px;color:var(--text-muted);margin-top:2px;"></div></div>
+        </div>
+        <!-- Severity scope toggle — regenerates the two charts below -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;">Chart Scope</div>
+          <div style="display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+            <button id="hc-sev-btn-all" onclick="hcSetSeverity('all')" style="padding:6px 16px;border:none;border-right:1px solid var(--border);background:var(--tsp-blue);color:#fff;font-size:12px;font-weight:700;cursor:pointer;">All Defects</button>
+            <button id="hc-sev-btn-p1" onclick="hcSetSeverity('p1')" style="padding:6px 16px;border:none;background:var(--bg-white);color:var(--text-muted);font-size:12px;font-weight:600;cursor:pointer;">P1 Only</button>
+          </div>
+          <div id="hc-sev-note" style="font-size:11px;color:var(--text-muted);">Showing all severities · 47 open</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
-          <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:16px;"><div style="font-size:12.5px;font-weight:700;margin-bottom:10px;">Issues by Business Process</div><div style="height:160px;"><canvas id="hc-process-chart"></canvas></div></div>
-          <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:16px;"><div style="font-size:12.5px;font-weight:700;margin-bottom:10px;">Daily Ticket Volume Trend (Day 1–18)</div><div style="height:160px;"><canvas id="hc-trend-chart"></canvas></div></div>
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:16px;"><div style="font-size:12.5px;font-weight:700;margin-bottom:10px;">Issues by Business Process <span id="hc-process-scope" style="font-weight:700;font-size:10.5px;padding:2px 7px;border-radius:5px;background:var(--tsp-blue-light);color:var(--tsp-blue);margin-left:4px;">All Defects</span></div><div style="height:160px;"><canvas id="hc-process-chart"></canvas></div></div>
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:16px;"><div style="font-size:12.5px;font-weight:700;margin-bottom:10px;">Daily Ticket Volume Trend (Day 1–18) <span id="hc-trend-scope" style="font-weight:700;font-size:10.5px;padding:2px 7px;border-radius:5px;background:var(--tsp-blue-light);color:var(--tsp-blue);margin-left:4px;">All Defects</span></div><div style="height:160px;"><canvas id="hc-trend-chart"></canvas></div></div>
         </div>
         <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
           <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700;">Top 5 Open Issues · Sorted by Business Impact Score</div>
@@ -10849,7 +11245,7 @@ Saved to SharePoint: /Hypercare/DailyBriefings/')">📋 Generate Report</button>
             <div style="font-size:28px;font-weight:800;color:#f59e0b;margin-bottom:4px;">🟡 AMBER</div>
             <div style="font-size:13px;color:var(--text-primary);line-height:1.6;">Stabilization is progressing with ticket volume declining. Three critical Finance issues remain open and are being actively worked by the TSP team.</div>
           </div>
-          <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:12px;"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tsp-blue);margin-bottom:10px;">3 Critical Open Issues</div><div style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;line-height:1.6;"><div>⛔ <strong>GR/IR Clearing Not Balancing</strong> — Finance / Month-End Close · Open 17 days · Expected closure Jun 2</div><div>⛔ <strong>Intercompany Billing — FI Document Missing</strong> — Finance / Close · Open 26 days · Root cause identified, fix in progress</div><div>🟡 <strong>Cost Center Hierarchy Mapping Error</strong> — Controlling · Open 12 days · Fix deployed, in retest</div></div></div>
+          <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:12px;"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tsp-blue);margin-bottom:10px;">3 P1 Open Issues</div><div style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;line-height:1.6;"><div>⛔ <strong>GR/IR Clearing Not Balancing</strong> — Finance / Month-End Close · Open 17 days · Expected closure Jun 2</div><div>⛔ <strong>Intercompany Billing — FI Document Missing</strong> — Finance / Close · Open 26 days · Root cause identified, fix in progress</div><div>🟡 <strong>Cost Center Hierarchy Mapping Error</strong> — Controlling · Open 12 days · Fix deployed, in retest</div></div></div>
           <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;padding:18px;"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--tsp-blue);margin-bottom:8px;">Ticket Volume Trend</div><div style="font-size:12.5px;color:var(--text-primary);">Week 1: 31 new tickets → Week 2: 22 new tickets → Week 3 (partial): 12 new tickets. <strong>Declining trend — on track for Phase 1 exit.</strong></div></div>
         </div>
       </div>
@@ -11258,14 +11654,15 @@ Sign-off is captured as a recorded digital signature to advance from Stabilize t
         </div>
 
         <!-- Scoped objects table -->
-        <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-          <table class="data-table" style="table-layout:fixed;width:100%;">
+        <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:10px;overflow-x:auto;">
+          <table class="data-table" style="table-layout:fixed;width:100%;min-width:1476px;">
             <colgroup>
               <col style="width:52px;">
               <col style="width:180px;">
               <col style="width:150px;">
-              <col>
+              <col style="width:240px;">
               <col style="width:150px;">
+              <col style="width:130px;">
               <col style="width:100px;">
               <col style="width:110px;">
               <col style="width:140px;">
@@ -11279,6 +11676,7 @@ Sign-off is captured as a recorded digital signature to advance from Stabilize t
                 <th>Dependency</th>
                 <th>Description</th>
                 <th>Migration Method</th>
+                <th>Source</th>
                 <th style="text-align:center;">Record Count</th>
                 <th>Type</th>
                 <th>Workstream</th>
@@ -11493,12 +11891,15 @@ Sign-off is captured as a recorded digital signature to advance from Stabilize t
 
       <!-- Table -->
       <div id="dmh-table-wrap" style="overflow-x:auto;border:1px solid var(--border);border-radius:10px;background:var(--bg-white);">
-        <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:1100px;">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:1360px;">
           <thead>
             <tr style="background:#f8fafc;">
               <th style="padding:10px 8px;text-align:center;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);min-width:44px;max-width:52px;">Seq</th>
               <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);position:sticky;left:0;background:#f8fafc;z-index:2;min-width:180px;max-width:220px;">Object</th>
               <th style="padding:10px 12px;text-align:left;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);min-width:130px;">Data Owner</th>
+              <th style="padding:10px 8px;text-align:center;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);min-width:88px;">Pre-load Records</th>
+              <th style="padding:10px 8px;text-align:center;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);min-width:88px;">Post-load Records</th>
+              <th style="padding:10px 8px;text-align:center;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);min-width:80px;">Error Count</th>
               <th id="dmh-h1" class="dmh-stage-hdr" data-stage="0" style="padding:8px 6px;text-align:center;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);min-width:80px;cursor:pointer;" onclick="dmhToggleStageInfo(0)">1. Extract</th>
               <th id="dmh-h2" class="dmh-stage-hdr" data-stage="1" style="padding:8px 6px;text-align:center;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);min-width:80px;cursor:pointer;" onclick="dmhToggleStageInfo(1)">2. Cleanse</th>
               <th id="dmh-h3" class="dmh-stage-hdr" data-stage="2" style="padding:8px 6px;text-align:center;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);min-width:80px;cursor:pointer;" onclick="dmhToggleStageInfo(2)">3. Transform</th>
@@ -12370,7 +12771,7 @@ Sign-off is captured as a recorded digital signature to advance from Stabilize t
         </select>
         <select id="req-filter-type" onchange="reqRender()" style="border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:12px;background:var(--bg-white);outline:none;">
           <option value="">All Types</option>
-          <option>Configuration</option><option>Report</option><option>Interface</option><option>Conversion</option><option>Enhancement</option><option>Form</option><option>Workflow</option><option>Fiori App</option><option>Process</option>
+          <option>Configuration</option><option>Report</option><option>Interface</option><option>Conversion</option><option>Enhancement</option><option>Form</option><option>Workflow</option><option>Fiori App</option><option>Process</option><option>Agentic Solution</option>
         </select>
         <select id="req-filter-status" onchange="reqRender()" style="border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:12px;background:var(--bg-white);outline:none;">
           <option value="">All Statuses</option>
@@ -12432,6 +12833,14 @@ Sign-off is captured as a recorded digital signature to advance from Stabilize t
           <select id="req-edit-workstream" style="width:100%;padding:8px 12px;border:1px solid #D1D5DB;border-radius:7px;font-size:13px;background:#fff;color:#374151;outline:none;" onchange="reqFieldChanged('workstream');reqPopulateProcessIds();">
             <option value="">— Select —</option>
             <option>R2R</option><option>P2P</option><option>OTC</option><option>P2M</option><option>EWM</option><option>BASIS</option><option>PMO</option>
+          </select>
+        </div>
+        <!-- Type -->
+        <div>
+          <label style="font-size:11px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:5px;">Type</label>
+          <select id="req-edit-type" style="width:100%;padding:8px 12px;border:1px solid #D1D5DB;border-radius:7px;font-size:13px;background:#fff;color:#374151;outline:none;" onchange="reqFieldChanged('type')">
+            <option value="">— Select —</option>
+            <option>Configuration</option><option>Report</option><option>Interface</option><option>Conversion</option><option>Enhancement</option><option>Form</option><option>Workflow</option><option>Fiori App</option><option>Process</option>
           </select>
         </div>
         <!-- Process ID -->
@@ -20276,24 +20685,47 @@ function rfwRenderSlaTimeline(objId) {
 }
 
 var _rfwObjects = [
-  { id:'R-001', name:'AP Aging Report — Custom Format',            type:'Report',      module:'Finance',      complexity:'Medium',   owner:'James Okonkwo',  status:'In Technical Unit Test',
-    cleanCore:'✗ Non-Compliant', spec:{label:'FSD-FI-AR-001', url:'#'},
+  { id:'R-001', name:'AP Aging Report — Custom Format',            type:'Report',      module:'Finance', developer:'James Okonkwo',      complexity:'Medium',   owner:'James Okonkwo',  status:'In Technical Unit Test',
+    cleanCore:'✗ Non-Compliant',
+    reqId:'REQ-002', reqTitle:'Vendor Payment Remittance Report',
+    spec:{label:'FSD-FI-AR-001', url:'#'}, tsd:{label:'TSD-FI-AR-001'},
     effort:{ skills:[{skill:'ABAP Developer',hrs:24},{skill:'Functional Consultant',hrs:8}] } },
-  { id:'I-001', name:'EDI 850 — Vendor Purchase Order Outbound',   type:'Interface',   module:'Procurement',  complexity:'High',     owner:'Michael Torres', status:'Technical Spec Approved',
-    cleanCore:'✓ Standard', spec:{label:'IFS-MM-001', url:'#'},
+  { id:'I-001', name:'EDI 850 — Vendor Purchase Order Outbound',   type:'Interface',   module:'Sourcing and Procurement', developer:'Michael Torres',  complexity:'High',     owner:'Michael Torres', status:'Technical Spec Approved',
+    cleanCore:'✓ Standard',
+    reqId:'REQ-003', reqTitle:'SAP to Legacy ERP General Ledger Interface',
+    spec:{label:'IFS-MM-001', url:'#'}, tsd:{label:'TSD-MM-001'},
     effort:{ skills:[{skill:'Integration Developer',hrs:32},{skill:'Functional Consultant',hrs:12},{skill:'Basis / BTP',hrs:8}] } },
-  { id:'I-002', name:'IDoc ORDERS05 — Customer Sales Order Inbound',type:'Interface',  module:'OTC',          complexity:'High',     owner:'Ana Pereira',    status:'In Technical Build',
-    cleanCore:'✓ Standard', spec:{label:'IFS-SD-002', url:'#'},
+  { id:'I-002', name:'IDoc ORDERS05 — Customer Sales Order Inbound',type:'Interface',  module:'Sales', developer:'Elijah Chia',          complexity:'High',     owner:'Ana Pereira',    status:'In Technical Build',
+    cleanCore:'✓ Standard',
+    reqId:'REQ-003', reqTitle:'SAP to Legacy ERP General Ledger Interface',
+    spec:{label:'IFS-SD-002', url:'#'}, tsd:{label:'TSD-SD-002'},
     effort:{ skills:[{skill:'Integration Developer',hrs:28},{skill:'Functional Consultant',hrs:8}] } },
-  { id:'C-001', name:'Customer Master Data Migration — Legacy to S/4HANA', type:'Conversion', module:'OTC', complexity:'Critical', owner:'Sarah Mitchell', status:'Functional Spec Approved',
-    cleanCore:'~ Partial', spec:null,
+  { id:'C-001', name:'Customer Master Data Migration — Legacy to S/4HANA', type:'Conversion', module:'Sales', developer:'', complexity:'Critical', owner:'Sarah Mitchell', status:'Functional Spec Approved',
+    cleanCore:'~ Partial',
+    reqId:'REQ-004', reqTitle:'Legacy Customer Master Data Conversion',
+    spec:null, tsd:null,
     effort:{ skills:[{skill:'ABAP Developer',hrs:40},{skill:'Data Migration Lead',hrs:24},{skill:'Functional Consultant',hrs:16}] } },
-  { id:'E-001', name:'Payment Terms Validation Enhancement — BAdI', type:'Enhancement', module:'Finance',     complexity:'Medium',   owner:'Priya Nair',     status:'New',
-    cleanCore:'✓ In-App BAdI', spec:{label:'EXT-FI-001', url:'#'},
+  { id:'E-001', name:'Payment Terms Validation Enhancement — BAdI', type:'Enhancement', module:'Finance', developer:'',     complexity:'Medium',   owner:'Priya Nair',     status:'New',
+    cleanCore:'✓ In-App BAdI',
+    reqId:'REQ-008', reqTitle:'Inter-company Elimination Enhancement',
+    spec:{label:'EXT-FI-001', url:'#'}, tsd:null,
     effort:{ skills:[{skill:'ABAP Developer',hrs:16},{skill:'Functional Consultant',hrs:4}] } },
-  { id:'F-001', name:'Purchase Order Output — Custom PDF Layout',   type:'Form',        module:'Procurement', complexity:'Low',      owner:'Chris York',     status:'In Technical Build',
-    cleanCore:'✗ Custom', spec:null,
+  { id:'F-001', name:'Purchase Order Output — Custom PDF Layout',   type:'Form',        module:'Sourcing and Procurement', developer:'Priya Nair', complexity:'Low',      owner:'Chris York',     status:'In Technical Build',
+    cleanCore:'✗ Custom',
+    reqId:'REQ-001', reqTitle:'Customer Invoice Output Form',
+    spec:null, tsd:{label:'TSD-MM-014'},
     effort:{ skills:[{skill:'ABAP Developer',hrs:12},{skill:'Functional Consultant',hrs:4}] } },
+  // ── Agentic Solutions (A) — SAP Joule / BTP agents delivered as client scope ──
+  { id:'A-001', name:'Invoice Exception Triage Agent — Joule Studio', type:'Agentic Solution', module:'Finance', developer:'M Prasanna Tej', complexity:'High', owner:'Ana Pereira', status:'In Technical Build',
+    cleanCore:'✓ Standard',
+    reqId:'REQ-013', reqTitle:'Invoice Exception Triage Agent',
+    spec:{label:'AGT-FI-001', url:'#'}, tsd:{label:'TSD-FI-A001'},
+    effort:{ skills:[{skill:'AI / Agent Engineer',hrs:36},{skill:'Functional Consultant',hrs:14},{skill:'Basis / BTP',hrs:10}] } },
+  { id:'A-005', name:'Demand Forecast Reconciliation Agent — BTP AI Core', type:'Agentic Solution', module:'Supply Chain', developer:'', complexity:'Critical', owner:'Michael Torres', status:'Technical Spec Approved',
+    cleanCore:'✓ Standard',
+    reqId:'REQ-014', reqTitle:'Demand Forecast Reconciliation Agent',
+    spec:{label:'AGT-SC-005', url:'#'}, tsd:{label:'TSD-SC-A005'},
+    effort:{ skills:[{skill:'AI / Agent Engineer',hrs:48},{skill:'Integration Developer',hrs:20},{skill:'Functional Consultant',hrs:16}] } },
 ];
 
 // Stores { estHrs, actHrs } per skill, keyed by objectId
@@ -20350,7 +20782,20 @@ function rfwCleanCoreStyle(cc) {
 }
 
 // ── Render All Objects table ──────────────────────────────────────
+/* Capability Area filter is populated from the same Project Setup list used
+   across the platform, so it stays in step with in-scope processes. */
+function rfwPopulateAreaFilter() {
+  var sel = document.getElementById('rfw-filter-mod');
+  if (!sel || sel.options.length > 1) return;
+  var areas = (typeof _defCapAreas !== 'undefined' && _defCapAreas.length)
+    ? _defCapAreas
+    : ['Finance','Sourcing and Procurement','Supply Chain','Sales','Manufacturing','Human Resources','Service'];
+  sel.innerHTML = '<option value="">All Capability Areas</option>' +
+    areas.map(function(a){ return '<option>' + a + '</option>'; }).join('');
+}
+
 function rfwRenderAll() {
+  rfwPopulateAreaFilter();
   var search  = (document.getElementById('rfw-search')        || {}).value || '';
   var fType   = (document.getElementById('rfw-filter-type')   || {}).value || '';
   var fMod    = (document.getElementById('rfw-filter-mod')    || {}).value || '';
@@ -20385,20 +20830,18 @@ function rfwRenderAll() {
       effortCell = '<span style="font-size:12px;font-weight:600;color:var(--text-primary);">' + total + ' hrs</span>' +
         (actual ? '<br><span style="font-size:10px;color:#2e7d32;font-weight:600;">✓ Actual: ' + actual.totalActual + ' hrs</span>' : '');
     }
-    var specCell = o.spec
-      ? '<a href="' + o.spec.url + '" onclick="event.stopPropagation();alert(\'Opening ' + o.spec.label + ' on SharePoint...\')" style="color:var(--tsp-blue);font-size:11.5px;font-weight:600;text-decoration:none;">📄 ' + o.spec.label + ' ↗</a>'
-      : '<span style="color:var(--text-muted);font-size:11px;">—</span>';
     return '<tr onclick="rfwOpenDetail(\'' + o.id + '\')" style="cursor:pointer;">' +
       '<td style="font-weight:700;color:var(--tsp-blue);">' + o.id + '</td>' +
       '<td>' + o.name + '</td>' +
       '<td><span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;' + rfwTypeStyle(o.type) + '">' + o.type + '</span></td>' +
       '<td><span class="mod-badge">' + o.module + '</span></td>' +
       '<td><span class="sev-badge ' + rfwComplexityClass(o.complexity) + '">' + o.complexity + '</span></td>' +
+      '<td style="font-size:11.5px;color:var(--text-muted);" title="From the linked requirement — not editable here">' + rfwRequestor(o) + '</td>' +
       '<td style="font-size:12px;">' + (o.owner || '—') + '</td>' +
-      '<td><span class="status-badge ' + rfwStatusClass(o.status) + '">' + o.status + '</span></td>' +
+      '<td onclick="event.stopPropagation();">' + rfwDeveloperSelect(o) + '</td>' +
+      '<td onclick="event.stopPropagation();">' + rfwStatusSelect(o) + '</td>' +
       '<td>' + effortCell + '</td>' +
       '<td><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;' + rfwCleanCoreStyle(o.cleanCore) + '">' + (o.cleanCore || '—') + '</span></td>' +
-      '<td onclick="event.stopPropagation();">' + specCell + '</td>' +
       '</tr>';
   }).join('');
 
@@ -20420,6 +20863,30 @@ function rfwRenderAll() {
 // ── Row Detail Panel ──────────────────────────────────────────────
 var _rfwDetailId = null;
 
+/* One traceability row in the Row Detail panel. When a target is present the row
+   is clickable and navigates to the owning module; the detail panel is closed
+   first, otherwise it stays fixed on top of the destination page. */
+function rfwTraceRow(icon, label, value, pageKey, emptyText) {
+  var head = '<div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);margin-bottom:3px;">' + label + '</div>';
+  if (!value) {
+    return '<div style="margin-bottom:8px;">' + head +
+      '<div style="font-size:12px;color:var(--text-muted);padding:8px 12px;border:1px dashed var(--border);border-radius:7px;background:var(--bg-page);">' +
+      icon + ' ' + emptyText + '</div></div>';
+  }
+  return '<div style="margin-bottom:8px;">' + head +
+    '<div onclick="rfwGoTo(\'' + pageKey + '\')" title="Open in ' +
+      ({ 'req-list':'Requirements List', 'fspec-hub':'Functional Specification Hub', 'tsd-hub':'Technical Specification Hub' }[pageKey] || 'module') + '" ' +
+    'style="cursor:pointer;color:var(--tsp-blue);font-size:12.5px;font-weight:600;padding:8px 12px;border:1px solid var(--border);border-radius:7px;background:var(--bg-page);">' +
+    icon + ' ' + value + ' ↗</div></div>';
+}
+
+/* Close the Row Detail panel before navigating, then jump to the owning module. */
+function rfwGoTo(pageKey) {
+  rfwCloseDetail();
+  if (typeof navTo === 'function') navTo(pageKey, 'project-exec');
+}
+window.rfwGoTo = rfwGoTo;
+
 function rfwOpenDetail(objId) {
   var o = _rfwObjects.find(function(x){ return x.id === objId; });
   if (!o) return;
@@ -20434,7 +20901,11 @@ function rfwOpenDetail(objId) {
     '<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;' + rfwTypeStyle(o.type) + '">' + o.type + '</span>' +
     '<span class="mod-badge">' + o.module + '</span>' +
     '<span class="sev-badge ' + rfwComplexityClass(o.complexity) + '">' + o.complexity + '</span>' +
-    '<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;' + rfwCleanCoreStyle(o.cleanCore) + '">' + (o.cleanCore || '—') + '</span>';
+    '<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;' + rfwCleanCoreStyle(o.cleanCore) + '">' + (o.cleanCore || '—') + '</span>' +
+    (o.developer
+      ? '<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:#e8f5e9;color:#2e7d32;">👤 ' + o.developer + '</span>'
+      : '<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:#fde8e8;color:#c62828;">🔒 No developer assigned</span>') +
+    '<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:10px;background:var(--bg-page);color:var(--text-muted);" title="From the linked requirement">🙋 Requestor: ' + rfwRequestor(o) + '</span>';
 
   // Skills table
   var actual = _rfwActualHours[o.id];
@@ -20466,12 +20937,19 @@ function rfwOpenDetail(objId) {
   // Training note
   document.getElementById('rfwd-training-note').style.display = actual ? 'block' : 'none';
 
-  // Spec
+  // ── Traceability: linked requirement + Functional / Technical Spec Hubs ──
   var specWrap = document.getElementById('rfwd-spec-wrap');
-  specWrap.innerHTML = o.spec
-    ? '<div style="font-size:12px;font-weight:700;color:var(--text-primary);margin-bottom:6px;">📄 Functional Spec</div>' +
-      '<a href="' + o.spec.url + '" onclick="alert(\'Opening ' + o.spec.label + ' on SharePoint...\')" style="color:var(--tsp-blue);font-size:12.5px;font-weight:600;text-decoration:none;display:block;padding:8px 12px;border:1px solid var(--border);border-radius:7px;background:var(--bg-page);">📄 ' + o.spec.label + ' ↗</a>'
-    : '';
+  specWrap.innerHTML =
+    '<div style="font-size:12px;font-weight:700;color:var(--text-primary);margin-bottom:6px;">🔗 Traceability</div>' +
+    rfwTraceRow('📋', 'Requirement',
+      o.reqId ? o.reqId + ' — ' + o.reqTitle : '',
+      'req-list', 'No requirement linked') +
+    rfwTraceRow('📄', 'Functional Spec',
+      o.spec ? o.spec.label : '',
+      'fspec-hub', 'Not yet generated') +
+    rfwTraceRow('⚙️', 'Technical Spec',
+      o.tsd ? o.tsd.label : '',
+      'tsd-hub', 'Not yet generated');
 
   // Status selector
   var sel = document.getElementById('rfwd-status-sel');
@@ -20507,26 +20985,128 @@ function rfwRecordStatusTransition(objId, prevStatus, newStatus) {
   hist.push({ status: newStatus, enteredAt: Date.now(), exitedAt: null });
 }
 
-function rfwStatusChanged(sel) {
-  var newStatus = sel.value;
-  var o = _rfwObjects.find(function(x){ return x.id === _rfwDetailId; });
+/* Lifecycle status list — single source for the detail panel select and the
+   inline select rendered in the All Objects list view. */
+var _rfwStatusList = [
+  'New','Functional Spec in Process','Functional Spec Ready for Approval','Functional Spec Approved',
+  'Technical Spec in Process','Technical Spec Approved','In Technical Build','In Technical Unit Test',
+  'In Functional Unit Test','In User Acceptance Testing','BPO Approval','In Production'
+];
+
+/* Developer roster for the inline Developer editor. Blank = not yet assigned. */
+var _rfwDevelopers = ['James Okonkwo','Michael Torres','Priya Nair','Ana Pereira',
+  'Sarah Mitchell','Elijah Chia','M Prasanna Tej','Satya Prakash Singh'];
+
+/* Status beyond this point requires an assigned developer (FSD 6.3 / 7.4). */
+var _RFW_DEV_GATE_AFTER = 'Technical Spec Approved';
+function rfwDevGateBlocks(o, newStatus) {
+  var gate = _rfwStatusList.indexOf(_RFW_DEV_GATE_AFTER);
+  return _rfwStatusList.indexOf(newStatus) > gate && !(o.developer || '').trim();
+}
+
+/* Business Requestor is derived from the linked requirement record — read-only here. */
+function rfwRequestor(o) {
+  if (!o.reqId || typeof _reqData === 'undefined') return '—';
+  var r = _reqData.find(function(x){ return x.id === o.reqId; });
+  return r ? r.responsible : '—';
+}
+
+/* Inline Developer editor. May be left unassigned; the status dropdown enforces
+   that an object cannot progress past Technical Spec Approved without one. */
+function rfwDeveloperSelect(o) {
+  var unassigned = !(o.developer || '').trim();
+  return '<select class="rfw-dev-sel' + (unassigned ? ' rfw-dev-none' : '') + '" ' +
+    'onchange="rfwDeveloperChanged(this,\'' + o.id + '\')" ' +
+    'onclick="event.stopPropagation();" title="Assign developer">' +
+    '<option value=""' + (unassigned ? ' selected' : '') + '>— Unassigned —</option>' +
+    _rfwDevelopers.map(function(dv){
+      return '<option' + (dv === o.developer ? ' selected' : '') + '>' + dv + '</option>';
+    }).join('') + '</select>';
+}
+
+function rfwDeveloperChanged(sel, objId) {
+  var o = _rfwObjects.find(function(x){ return x.id === objId; });
+  if (!o) return;
+  o.developer = sel.value;
+  rfwRenderAll();
+  if (_rfwDetailId === objId) rfwOpenDetail(objId);
+  rfwToast(sel.value ? '✓ ' + o.id + ' developer: ' + sel.value
+                     : '⚠ ' + o.id + ' developer unassigned — cannot progress past ' + _RFW_DEV_GATE_AFTER,
+           sel.value ? 'var(--tsp-blue)' : '#c62828');
+}
+window.rfwDeveloperChanged = rfwDeveloperChanged;
+
+function rfwToast(msg, bg) {
+  var t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:' + (bg || 'var(--tsp-blue)') +
+    ';color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.2);max-width:420px;';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 3200);
+}
+
+/* Inline status dropdown for a list row. Styled to read as the status badge it
+   replaces; the cell stops click propagation so changing status does not also
+   open the Row Detail panel. Statuses gated by the developer rule are disabled. */
+function rfwStatusSelect(o) {
+  var cls = rfwStatusClass(o.status);
+  return '<select class="rfw-status-sel status-badge ' + cls + '" ' +
+    'onchange="rfwListStatusChanged(this,\'' + o.id + '\')" ' +
+    'onclick="event.stopPropagation();" title="Change lifecycle status">' +
+    _rfwStatusList.map(function(s){
+      var blocked = rfwDevGateBlocks(o, s);
+      return '<option' + (s === o.status ? ' selected' : '') + (blocked ? ' disabled' : '') + '>' +
+        s + (blocked ? ' 🔒' : '') + '</option>';
+    }).join('') + '</select>' +
+    (rfwDevGateBlocks(o, 'In Technical Build')
+      ? '<div style="font-size:9.5px;color:#c62828;font-weight:600;margin-top:3px;">🔒 Assign a developer to progress</div>'
+      : '');
+}
+
+/* Shared transition handler used by both the detail panel and the list view. */
+function rfwApplyStatus(objId, newStatus, sel) {
+  var o = _rfwObjects.find(function(x){ return x.id === objId; });
   if (!o) return;
   var prevStatus = o.status;
+  if (newStatus === prevStatus) return;
+
+  // Developer gate — an object cannot progress past Technical Spec Approved
+  // until a developer is assigned (FSD 6.3 / 7.4).
+  if (rfwDevGateBlocks(o, newStatus)) {
+    if (sel) sel.value = prevStatus;
+    rfwToast('🔒 ' + o.id + ' cannot move to "' + newStatus + '" — assign a developer first.', '#c62828');
+    return;
+  }
 
   // Trigger actual hours modal when transitioning TO Functional Unit Test
   if (newStatus === 'In Functional Unit Test' && prevStatus !== 'In Functional Unit Test') {
     _rfwActualCtx = { objId: o.id, prevStatus: prevStatus };
     rfwOpenActualHours(o.id);
-    sel.value = prevStatus;
+    if (sel) sel.value = prevStatus;
     return;
   }
 
   // Record the transition in history
   rfwRecordStatusTransition(o.id, prevStatus, newStatus);
   o.status = newStatus;
-  rfwRenderSlaTimeline(o.id);
+  if (_rfwDetailId === o.id) rfwRenderSlaTimeline(o.id);
   rfwRenderAll();
+
+  var toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--tsp-blue);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.2);';
+  toast.textContent = '✓ ' + o.id + ' → ' + newStatus;
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.remove(); }, 2600);
 }
+
+function rfwStatusChanged(sel) {
+  rfwApplyStatus(_rfwDetailId, sel.value, sel);
+}
+
+function rfwListStatusChanged(sel, objId) {
+  rfwApplyStatus(objId, sel.value, sel);
+}
+window.rfwListStatusChanged = rfwListStatusChanged;
 
 // ── Actual Hours Modal ────────────────────────────────────────────
 function rfwOpenActualHours(objId) {
@@ -20727,8 +21307,8 @@ function rfwSaveNewObject() {
 }
 
 function ricefwTab(tabId) {
-  var panels = ['rfw-all','rfw-reports','rfw-interfaces','rfw-conversions','rfw-enhancements','rfw-forms','rfw-ai'];
-  var btns   = ['rfw-tab-all','rfw-tab-reports','rfw-tab-interfaces','rfw-tab-conversions','rfw-tab-enhancements','rfw-tab-forms','rfw-tab-ai'];
+  var panels = ['rfw-all','rfw-reports','rfw-interfaces','rfw-conversions','rfw-enhancements','rfw-forms','rfw-agentic','rfw-ai'];
+  var btns   = ['rfw-tab-all','rfw-tab-reports','rfw-tab-interfaces','rfw-tab-conversions','rfw-tab-enhancements','rfw-tab-forms','rfw-tab-agentic','rfw-tab-ai'];
   panels.forEach(function(p){var el=document.getElementById(p);if(el)el.style.display=(p===tabId)?'block':'none';});
   var btnId='rfw-tab-'+tabId.replace('rfw-','');
   btns.forEach(function(b){var el=document.getElementById(b);if(!el)return;if(b===btnId)el.classList.add('active');else el.classList.remove('active');});
@@ -21225,21 +21805,142 @@ function hcAudience(el, viewId) {
   }
 }
 
+// ── Hypercare Command Centre — MTTR (Mean Time to Recovery) ──────────────
+// MTTR = AVERAGE(defect close date/time − defect submission date/time),
+// averaged over defects that have actually reached Closed.
+//
+// NOTE ON DATA: the app holds no close timestamps. `_defects` carries only
+// `raised` (date, no time) and `days`, and `days` is age measured to a single
+// as-of date (2026-05-26) for every row — including the closed one — so it is
+// NOT time-to-resolve and cannot feed this formula. Only 1 of the 8 rows in
+// `_defects` is Closed, which would make an average of n=1.
+// The sample below is therefore ILLUSTRATIVE. DEF-019 is the one entry that
+// also exists in `_defects` (status 'Closed', raised Apr 28). Timestamps are
+// UTC ('Z') so the subtraction is immune to daylight-saving shifts.
+// Add/edit rows freely — the KPI tile recomputes from whatever is here.
+var _hcClosedDefects = [
+  { id:'DEF-019', module:'Procurement', severity:'Medium',   submitted:'2026-04-28T09:15:00Z', closed:'2026-05-12T16:40:00Z' },
+  { id:'DEF-021', module:'Finance',     severity:'High',     submitted:'2026-05-01T11:00:00Z', closed:'2026-05-09T14:30:00Z' },
+  { id:'DEF-022', module:'OTC',         severity:'Medium',   submitted:'2026-05-02T08:20:00Z', closed:'2026-05-06T17:05:00Z' },
+  { id:'DEF-025', module:'Controlling', severity:'High',     submitted:'2026-05-06T14:45:00Z', closed:'2026-05-18T10:20:00Z' },
+  { id:'DEF-026', module:'SCM',         severity:'Medium',   submitted:'2026-05-07T10:05:00Z', closed:'2026-05-11T12:35:00Z' },
+  { id:'DEF-028', module:'Finance',     severity:'Critical', submitted:'2026-05-09T16:30:00Z', closed:'2026-05-21T09:10:00Z' },
+  { id:'DEF-030', module:'HR',          severity:'Low',      submitted:'2026-05-11T09:00:00Z', closed:'2026-05-13T15:45:00Z' },
+  { id:'DEF-031', module:'Procurement', severity:'High',     submitted:'2026-05-12T13:20:00Z', closed:'2026-05-19T11:00:00Z' },
+  { id:'DEF-034', module:'OTC',         severity:'Medium',   submitted:'2026-05-14T08:45:00Z', closed:'2026-05-22T16:15:00Z' },
+  { id:'DEF-036', module:'Finance',     severity:'Critical', submitted:'2026-05-16T10:30:00Z', closed:'2026-05-25T14:50:00Z' }
+];
+
+// Rows usable for the average: both timestamps present, parseable, close >= submit.
+function _hcMttrRows(list) {
+  return (list || []).filter(function(r) {
+    if (!r || !r.submitted || !r.closed) return false;
+    var a = new Date(r.submitted).getTime(), b = new Date(r.closed).getTime();
+    return !isNaN(a) && !isNaN(b) && b >= a;
+  });
+}
+
+// Returns mean days to recovery, or null when there is nothing to average.
+function hcMttrDays(list) {
+  var rows = _hcMttrRows(list);
+  if (!rows.length) return null;
+  var totalMs = rows.reduce(function(sum, r) {
+    return sum + (new Date(r.closed).getTime() - new Date(r.submitted).getTime());
+  }, 0);
+  return (totalMs / rows.length) / 86400000;   // ms → days
+}
+
+function hcRenderMttr() {
+  var v = document.getElementById('hc-mttr-value');
+  var s = document.getElementById('hc-mttr-sub');
+  if (!v) return;
+  var rows = _hcMttrRows(_hcClosedDefects);
+  var days = hcMttrDays(_hcClosedDefects);
+  if (days === null) {
+    v.textContent = 'n/a';
+    if (s) s.textContent = 'no closed defects';
+    return;
+  }
+  v.textContent = days.toFixed(1) + 'd';
+  if (s) s.textContent = 'avg of ' + rows.length + ' closed · illustrative';
+}
+window.hcRenderMttr = hcRenderMttr;
+
+// ── Hypercare Command Centre — chart data by severity scope ──────────────
+// 'all' figures are the original dashboard aggregates (open sums to 47, matching
+// the Open Tickets KPI tile). 'p1' figures are ILLUSTRATIVE, not sourced: the app
+// holds no per-severity or per-day P1 data. They are set consistent with the rest
+// of this page — 3 open Finance criticals (cf. DEF-041 / DEF-033 / DEF-024 in
+// _defects, all severity 'Critical' and all Finance) and a declining trend.
+// Safe to edit these six arrays; nothing else needs to change.
+var _hcChartData = {
+  all: {
+    label:   'All Defects',
+    note:    'Showing all severities · 47 open',
+    process: { open:[18,8,7,6,5,3],   resolved:[12,5,4,8,3,2] },
+    trend:   { added:[12,9,8,7,6,8,5,4,6,4,5,3,4,3,2,3,2,1],
+               resolved:[3,5,6,7,8,6,8,9,7,9,8,10,9,11,10,9,11,12] }
+  },
+  p1: {
+    label:   'P1 Only',
+    note:    'Showing P1 (Critical) only · 6 open · illustrative figures',
+    process: { open:[3,1,1,1,0,0],    resolved:[4,2,1,2,1,0] },
+    trend:   { added:[3,2,2,1,2,1,1,1,2,1,1,0,1,1,0,1,0,0],
+               resolved:[0,1,1,2,2,2,2,1,2,1,2,1,1,1,1,1,1,1] }
+  }
+};
+var _hcSeverity = 'all';
+var _hcCharts   = { process:null, trend:null };
+
+function _hcSevBtn(id, active) {
+  var b = document.getElementById(id);
+  if (!b) return;
+  b.style.background = active ? 'var(--tsp-blue)' : 'var(--bg-white)';
+  b.style.color      = active ? '#fff' : 'var(--text-muted)';
+  b.style.fontWeight = active ? '700' : '600';
+}
+
+function hcRenderLeadCharts() {
+  if (!window.Chart) return;
+  var d = _hcChartData[_hcSeverity] || _hcChartData.all;
+
+  var pc = document.getElementById('hc-process-chart');
+  if (pc) {
+    if (_hcCharts.process) { _hcCharts.process.destroy(); _hcCharts.process = null; }
+    _hcCharts.process = new Chart(pc, {type:'bar', data:{labels:['Finance','Controlling','OTC','Procurement','SCM','HR'],
+      datasets:[{label:'Open',data:d.process.open,backgroundColor:'#c62828'},
+                {label:'Resolved',data:d.process.resolved,backgroundColor:'#2e7d32'}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},
+               scales:{x:{stacked:true,ticks:{font:{size:10}}},y:{stacked:true,beginAtZero:true,ticks:{font:{size:10},precision:0}}}}});
+  }
+  var tc = document.getElementById('hc-trend-chart');
+  if (tc) {
+    if (_hcCharts.trend) { _hcCharts.trend.destroy(); _hcCharts.trend = null; }
+    _hcCharts.trend = new Chart(tc, {type:'line', data:{
+      labels:['D1','D2','D3','D4','D5','D6','D7','D8','D9','D10','D11','D12','D13','D14','D15','D16','D17','D18'],
+      datasets:[{label:'New Tickets',data:d.trend.added,borderColor:'#c62828',tension:.3,fill:false},
+                {label:'Resolved',data:d.trend.resolved,borderColor:'#2e7d32',tension:.3,fill:false}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},
+               scales:{x:{ticks:{font:{size:9}}},y:{beginAtZero:true,ticks:{font:{size:10},precision:0}}}}});
+  }
+
+  var ps = document.getElementById('hc-process-scope'); if (ps) ps.textContent = d.label;
+  var ts = document.getElementById('hc-trend-scope');   if (ts) ts.textContent = d.label;
+  var nt = document.getElementById('hc-sev-note');      if (nt) nt.textContent = d.note;
+  _hcSevBtn('hc-sev-btn-all', _hcSeverity === 'all');
+  _hcSevBtn('hc-sev-btn-p1',  _hcSeverity === 'p1');
+}
+
+function hcSetSeverity(scope) {
+  _hcSeverity = (scope === 'p1') ? 'p1' : 'all';
+  hcRenderLeadCharts();
+}
+window.hcSetSeverity = hcSetSeverity;
+
 function initHcCharts(viewId) {
   if (viewId === 'hc-lead') {
-    var pc = document.getElementById('hc-process-chart');
-    if (pc && window.Chart) new Chart(pc, {type:'bar', data:{labels:['Finance','Controlling','OTC','Procurement','SCM','HR'],
-      datasets:[{label:'Open',data:[18,8,7,6,5,3],backgroundColor:'#c62828'},
-                {label:'Resolved',data:[12,5,4,8,3,2],backgroundColor:'#2e7d32'}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},
-               scales:{x:{stacked:true,ticks:{font:{size:10}}},y:{stacked:true,ticks:{font:{size:10}}}}}});
-    var tc = document.getElementById('hc-trend-chart');
-    if (tc && window.Chart) new Chart(tc, {type:'line', data:{
-      labels:['D1','D2','D3','D4','D5','D6','D7','D8','D9','D10','D11','D12','D13','D14','D15','D16','D17','D18'],
-      datasets:[{label:'New Tickets',data:[12,9,8,7,6,8,5,4,6,4,5,3,4,3,2,3,2,1],borderColor:'#c62828',tension:.3,fill:false},
-                {label:'Resolved',data:[3,5,6,7,8,6,8,9,7,9,8,10,9,11,10,9,11,12],borderColor:'#2e7d32',tension:.3,fill:false}]},
-      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},
-               scales:{x:{ticks:{font:{size:9}}},y:{ticks:{font:{size:10}}}}}});
+    hcRenderMttr();          // independent of Chart.js — render even if CDN is blocked
+    hcRenderLeadCharts();
   }
   if (viewId === 'hc-pmo') {
     var ppc = document.getElementById('hc-pmo-chart');
@@ -21860,73 +22561,318 @@ function kddModalTab(el, tabId) {
 }
 
 // ══ DEFECT MANAGEMENT ═══════════════════════════════════════
+// Aligned to TSP_DefectManagement_FSD_v1.0 (July 2026 revision):
+//  · Severity P1/P2/P3/P4 replaces Critical/High/Medium/Low
+//  · SAP Module replaced by Capability Area (project-setup referenced)
+//  · Wave renamed Deployment; Phase captured for defect leakage
+//  · Status workflow New → Assigned → In Analysis → In Fix →
+//    Ready for Retest → Retesting → Closed / Deferred / Rejected /
+//    Duplicate / Cancelled
+//  · Adds Type, Narrative, Category, Root Cause, Created By,
+//    Logged By, Resolved Date/Time
 function switchDefectContext(el) {
   el.closest('.def-ctx-tabs').querySelectorAll('.def-ctx-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
 }
 
+// ── VALUE LISTS (FSD 8.2 / 11.1) ──────────────────────────
+// Capability Areas — referenced in Project Setup for in-scope processes
+var _defCapAreas = ['Application Development and Integration','Application Platform and Infrastructure',
+  'Asset Management','Database and Data Management','Energy Data Management','Finance','Human Resources',
+  'IT Management','Manufacturing','Marketing','Project Engagement Management','R&D/Engineering','Sales',
+  'Service','Solutions for Specific Industries','Sourcing and Procurement','Supply Chain',
+  'Utilities Billing','Utility Infrastructure'];
+var _defCategories = ['Data','Configuration','Development','Security','User Error','Interface','Fiori','SAP/OSS'];
+var _defRootCauses = ['Requirement missed','Configuration gap','Development defect','Master data','Authorization',
+  'Transport','Integration','Environment','Regression','SAP standard','Custom code','Testing error','User error'];
+var _defStatusList = ['New','Assigned','In Analysis','In Fix','Ready for Retest','Retesting','Closed','Deferred','Rejected','Duplicate','Cancelled'];
+var _defStatusCls = {
+  'New':'status-new','Assigned':'status-assigned','In Analysis':'status-inanalysis','In Fix':'status-infix',
+  'Ready for Retest':'status-readyretest','Retesting':'status-retesting','Closed':'status-closed',
+  'Deferred':'status-deferred','Rejected':'status-rejected','Duplicate':'status-duplicate','Cancelled':'status-cancelled'
+};
+var _defSevCls  = { 'P1':'sev-critical','P2':'sev-high','P3':'sev-medium','P4':'sev-low' };
+var _defTypeCls = { 'Defect':'def-type-defect','Service Request':'def-type-service','Enhancement':'def-type-enh' };
+var _defTypeShort = { 'Defect':'Defect','Service Request':'Service Req','Enhancement':'Enhancement' };
+
 // ── DEFECT DATA ───────────────────────────────────────────
-var _defects = [{'id': 'DEF-041', 'title': 'AP payment run producing duplicate payment proposals', 'module': 'Finance', 'wave': 'Wave 1', 'severity': 'Critical', 'status': 'In Analysis', 'assigned': 'Ana Pereira', 'raised': 'May 22', 'days': 4, 'cat': 'Functional', 'env': 'QAS', 'tx': 'F110', 'desc': 'The automatic payment run (F110) is producing duplicate payment proposals for vendors that have partially cleared invoices. Root cause: FBZP document type assignment gap for partial payment clearing.', 'calm': 'CALM-8847', 'script': 'TS-0041', 'res_engine': 'Internal Match', 'res_conf': '94%', 'res_steps': '1. In FBZP, verify document type for partial payment is correctly assigned to clearing account\n2. Check clearing reason codes in OBB8 — ensure partial clearing flag is set\n3. Re-run F110 in test mode to verify exclusion of partially cleared items', 'sap_note': '2847391'}, {'id': 'DEF-038', 'title': 'Cost center hierarchy mapping error in planning integration', 'module': 'Controlling', 'wave': 'Wave 1', 'severity': 'High', 'status': 'In Fix', 'assigned': 'Michael Torres', 'raised': 'May 19', 'days': 7, 'cat': 'Data', 'env': 'QAS', 'tx': 'KP06', 'desc': 'Cost center hierarchy mapping is producing incorrect planning data when the profit center group hierarchy does not align with the cost center hierarchy structure.', 'calm': 'CALM-8838', 'script': 'TS-0038', 'res_engine': 'Internal Match', 'res_conf': '81%', 'res_steps': '1. Review cost center group hierarchy in KSH1\n2. Align profit center assignments via KE51\n3. Re-run planning layout', 'sap_note': ''}, {'id': 'DEF-035', 'title': 'Tax code not defaulting on foreign vendor invoices', 'module': 'Finance', 'wave': 'Wave 1', 'severity': 'High', 'status': 'In Retest', 'assigned': 'James Okonkwo', 'raised': 'May 15', 'days': 11, 'cat': 'Configuration', 'env': 'QAS', 'tx': 'FB60', 'desc': 'Tax code does not default when posting invoices for foreign vendors. Affects all vendors in country code GB and DE. Manual tax code entry required as workaround.', 'calm': 'CALM-8835', 'script': 'TS-0035', 'res_engine': 'External', 'res_conf': '', 'res_steps': '1. Check FTXP tax code for vendor country\n2. Verify OB40 account assignment\n3. Check vendor master tax classification', 'sap_note': '1502808'}, {'id': 'DEF-033', 'title': 'GR/IR clearing account not balancing after period close', 'module': 'Finance', 'wave': 'Wave 1', 'severity': 'Critical', 'status': 'In Analysis', 'assigned': 'Sarah Mitchell', 'raised': 'May 14', 'days': 12, 'cat': 'Functional', 'env': 'QAS', 'tx': 'MR11', 'desc': 'GR/IR clearing account (19300001) is showing an unbalanced position after period close. MR11 not clearing the expected amount.', 'calm': 'CALM-8833', 'script': 'TS-0033', 'res_engine': 'Searching', 'res_conf': '', 'res_steps': '', 'sap_note': ''}, {'id': 'DEF-029', 'title': 'Material ledger activation blocking standard cost release', 'module': 'Controlling', 'wave': 'Wave 2', 'severity': 'High', 'status': 'In Fix', 'assigned': 'Priya Nair', 'raised': 'May 10', 'days': 16, 'cat': 'Configuration', 'env': 'QAS', 'tx': 'CK11N', 'desc': 'Material ledger activation is preventing standard cost release in CK11N. Error: Material ledger not yet active for plant.', 'calm': 'CALM-8829', 'script': 'TS-0029', 'res_engine': 'Internal Match', 'res_conf': '88%', 'res_steps': '1. Activate material ledger for plant in OMX1\n2. Re-run CK11N cost estimate\n3. Mark and release standard cost', 'sap_note': ''}, {'id': 'DEF-027', 'title': 'Customer credit exposure calculation incorrect', 'module': 'OTC', 'wave': 'Wave 2', 'severity': 'Medium', 'status': 'New', 'assigned': 'Chris York', 'raised': 'May 8', 'days': 18, 'cat': 'Functional', 'env': 'QAS', 'tx': 'FD32', 'desc': 'Credit exposure calculation is not including open delivery values in the credit check. Results in credit limit appearing higher than actual exposure.', 'calm': '', 'script': 'TS-0027', 'res_engine': 'None', 'res_conf': '', 'res_steps': '', 'sap_note': ''}, {'id': 'DEF-024', 'title': 'Intercompany billing not generating FI document', 'module': 'Finance', 'wave': 'Wave 1', 'severity': 'Critical', 'status': 'In Analysis', 'assigned': 'Ana Pereira', 'raised': 'May 5', 'days': 21, 'cat': 'Integration', 'env': 'QAS', 'tx': 'VF01', 'desc': 'Intercompany billing process is creating SD billing document but not triggering the corresponding FI accounting document. No journal entry created.', 'calm': 'CALM-8824', 'script': '', 'res_engine': 'External', 'res_conf': '', 'res_steps': '1. Check intercompany billing type configuration in VOFA\n2. Verify account assignment in VKOA\n3. Check posting block on billing type', 'sap_note': ''}, {'id': 'DEF-019', 'title': 'Output type not triggering for PO confirmation', 'module': 'Procurement', 'wave': 'Wave 1', 'severity': 'Medium', 'status': 'Closed', 'assigned': 'James Okonkwo', 'raised': 'Apr 28', 'days': 28, 'cat': 'Configuration', 'env': 'PRD', 'tx': 'ME21N', 'desc': 'Purchase order output type (NEU) not triggering automatically on PO creation. Users must manually trigger output.', 'calm': 'CALM-8819', 'script': 'TS-0019', 'res_engine': 'Internal Match', 'res_conf': '91%', 'res_steps': '1. Check output condition type in MN04\n2. Verify output procedure assignment in M/08\n3. Confirm partner functions', 'sap_note': ''}];
+var _defects = [
+{id:'DEF-041', type:'Defect', title:'AP payment run producing duplicate payment proposals',
+ module:'Finance', proc_id:'J60', proc_name:'Accounts Payable — Automatic Payment', wave:'Wave 1',
+ phase:'Realize — SIT', severity:'P1', status:'In Analysis', cat:'Configuration', root:'Configuration gap',
+ created_by:'Ana Pereira', logged_by:'Ana Pereira', assigned:'Ana Pereira',
+ raised:'May 22, 09:14', resolved:'', days:4, env:'QAS', tx:'F110',
+ desc:'The automatic payment run (F110) is producing duplicate payment proposals for vendors that have partially cleared invoices. Steps to reproduce: (1) post a vendor invoice, (2) clear part of it via F-53, (3) run F110 for the vendor. Expected: partially cleared item excluded. Actual: item proposed a second time.',
+ calm:'CALM-8847', calm_tc:'TC-11204', script:'TS-0041', sla:'breach', sla_note:'SLA Breached · 12h ago',
+ res_engine:'Internal Match', res_conf:'94%',
+ res_steps:'1. In FBZP, verify document type for partial payment is correctly assigned to clearing account\n2. Check clearing reason codes in OBB8 — ensure partial clearing flag is set\n3. Re-run F110 in test mode to verify exclusion of partially cleared items',
+ sap_note:'2847391'},
+{id:'DEF-038', type:'Defect', title:'Cost center hierarchy mapping error in planning integration',
+ module:'Finance', proc_id:'4KG', proc_name:'Overhead Cost Planning', wave:'Wave 1',
+ phase:'Realize — SIT', severity:'P2', status:'In Fix', cat:'Data', root:'Master data',
+ created_by:'Priya Nair', logged_by:'Michael Torres', assigned:'Michael Torres',
+ raised:'May 19, 14:02', resolved:'', days:7, env:'QAS', tx:'KP06',
+ desc:'Cost center hierarchy mapping is producing incorrect planning data when the profit center group hierarchy does not align with the cost center hierarchy structure. Expected: planning layout aggregates to the profit center group. Actual: unassigned costs land in the default cost center.',
+ calm:'CALM-8838', calm_tc:'TC-11190', script:'TS-0038', sla:'ok', sla_note:'Within SLA · 9h remaining',
+ res_engine:'Internal Match', res_conf:'81%',
+ res_steps:'1. Review cost center group hierarchy in KSH1\n2. Align profit center assignments via KE51\n3. Re-run planning layout',
+ sap_note:''},
+{id:'DEF-035', type:'Defect', title:'Tax code not defaulting on foreign vendor invoices',
+ module:'Finance', proc_id:'J60', proc_name:'Accounts Payable — Invoice Entry', wave:'Wave 1',
+ phase:'Realize — SIT', severity:'P2', status:'Retesting', cat:'Configuration', root:'Configuration gap',
+ created_by:'Fahema Akter', logged_by:'James Okonkwo', assigned:'James Okonkwo',
+ raised:'May 15, 11:37', resolved:'', days:11, env:'QAS', tx:'FB60',
+ desc:'Tax code does not default when posting invoices for foreign vendors. Affects all vendors in country code GB and DE. Manual tax code entry required as workaround. Expected: tax code defaults from vendor master classification. Actual: field blank.',
+ calm:'CALM-8835', calm_tc:'TC-11175', script:'TS-0035', sla:'ok', sla_note:'Within SLA · 26h remaining',
+ res_engine:'External', res_conf:'',
+ res_steps:'1. Check FTXP tax code for vendor country\n2. Verify OB40 account assignment\n3. Check vendor master tax classification',
+ sap_note:'1502808'},
+{id:'DEF-033', type:'Defect', title:'GR/IR clearing account not balancing after period close',
+ module:'Finance', proc_id:'BNX', proc_name:'Period-End Closing — General Ledger', wave:'Wave 1',
+ phase:'Realize — SIT', severity:'P1', status:'In Analysis', cat:'Data', root:'',
+ created_by:'Sarah Mitchell', logged_by:'Sarah Mitchell', assigned:'Sarah Mitchell',
+ raised:'May 14, 08:20', resolved:'', days:12, env:'QAS', tx:'MR11',
+ desc:'GR/IR clearing account (19300001) is showing an unbalanced position after period close. MR11 not clearing the expected amount. Steps to reproduce: run MR11 for plant 1710 after MM period close.',
+ calm:'CALM-8833', calm_tc:'TC-11168', script:'TS-0033', sla:'breach', sla_note:'SLA Breached · 4d ago',
+ res_engine:'Searching', res_conf:'', res_steps:'', sap_note:''},
+{id:'DEF-029', type:'Defect', title:'Material ledger activation blocking standard cost release',
+ module:'Manufacturing', proc_id:'BEG', proc_name:'Standard Cost Calculation', wave:'Wave 2',
+ phase:'Realize — Unit Test', severity:'P2', status:'In Fix', cat:'Configuration', root:'Environment',
+ created_by:'Priya Nair', logged_by:'Priya Nair', assigned:'Priya Nair',
+ raised:'May 10, 16:45', resolved:'', days:16, env:'QAS', tx:'CK11N',
+ desc:'Material ledger activation is preventing standard cost release in CK11N. Error: Material ledger not yet active for plant. Expected: cost estimate marks and releases. Actual: hard error at release step.',
+ calm:'CALM-8829', calm_tc:'TC-11141', script:'TS-0029', sla:'risk', sla_note:'At Risk · 3h remaining',
+ res_engine:'Internal Match', res_conf:'88%',
+ res_steps:'1. Activate material ledger for plant in OMX1\n2. Re-run CK11N cost estimate\n3. Mark and release standard cost',
+ sap_note:''},
+{id:'DEF-027', type:'Enhancement', title:'Customer credit exposure calculation incorrect',
+ module:'Sales', proc_id:'BD9', proc_name:'Credit Management — Exposure Check', wave:'Wave 2',
+ phase:'Realize — UAT', severity:'P3', status:'New', cat:'Development', root:'',
+ created_by:'Chris York', logged_by:'Chris York', assigned:'Michael Torres',
+ raised:'May 8, 10:05', resolved:'', days:18, env:'QAS', tx:'FD32',
+ desc:'Credit exposure calculation is not including open delivery values in the credit check. Results in credit limit appearing higher than actual exposure. Requested change: include open deliveries in the exposure basis.',
+ calm:'', calm_tc:'', script:'TS-0027', sla:'ok', sla_note:'Within SLA · 31h remaining',
+ res_engine:'None', res_conf:'', res_steps:'', sap_note:''},
+{id:'DEF-024', type:'Defect', title:'Intercompany billing not generating FI document',
+ module:'Sales', proc_id:'BKJ', proc_name:'Intercompany Sales — Billing', wave:'Wave 1',
+ phase:'Realize — SIT', severity:'P1', status:'In Analysis', cat:'Interface', root:'Integration',
+ created_by:'Esteban Picone', logged_by:'Ana Pereira', assigned:'Ana Pereira',
+ raised:'May 5, 13:28', resolved:'', days:21, env:'QAS', tx:'VF01',
+ desc:'Intercompany billing process is creating the SD billing document but not triggering the corresponding FI accounting document. No journal entry created. Expected: accounting document generated on release to accounting.',
+ calm:'CALM-8824', calm_tc:'', script:'', sla:'breach', sla_note:'SLA Breached · 6d ago',
+ res_engine:'External', res_conf:'',
+ res_steps:'1. Check intercompany billing type configuration in VOFA\n2. Verify account assignment in VKOA\n3. Check posting block on billing type',
+ sap_note:''},
+{id:'DEF-019', type:'Service Request', title:'Output type not triggering for PO confirmation',
+ module:'Sourcing and Procurement', proc_id:'J45', proc_name:'Purchase Order Processing', wave:'Wave 1',
+ phase:'Realize — Unit Test', severity:'P3', status:'Closed', cat:'Configuration', root:'Configuration gap',
+ created_by:'Katie Farwell', logged_by:'James Okonkwo', assigned:'James Okonkwo',
+ raised:'Apr 28, 09:50', resolved:'May 26, 15:12', days:28, env:'PRD', tx:'ME21N',
+ desc:'Purchase order output type (NEU) not triggering automatically on PO creation. Users must manually trigger output. Expected: output determined on save.',
+ calm:'CALM-8819', calm_tc:'TC-11090', script:'TS-0019', sla:'ok', sla_note:'Closed within SLA',
+ res_engine:'Internal Match', res_conf:'91%',
+ res_steps:'1. Check output condition type in MN04\n2. Verify output procedure assignment in M/08\n3. Confirm partner functions',
+ sap_note:''}];
+
+var _defSortKey = 'status';
+var _defSortDir = 1;
 
 function _getDef(id) {
   return _defects.find(function(d){ return d.id === id; }) || {};
 }
+function defEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+// ── KPI STRIP COUNTS — TSP Open / Client Open ─────────────
+// TSP Open    = open records awaiting TSP action  (New, Assigned, In Analysis, In Fix)
+// Client Open = open records awaiting client action (Ready for Retest, Retesting)
+var _defTspOpenStatuses    = ['New','Assigned','In Analysis','In Fix'];
+var _defClientOpenStatuses = ['Ready for Retest','Retesting'];
+
+function defRenderKpis() {
+  function count(list) {
+    return _defects.filter(function(d){ return list.indexOf(d.status) !== -1; }).length;
+  }
+  var t = document.getElementById('def-kpi-tsp-open');
+  if (t) t.textContent = count(_defTspOpenStatuses);
+  var c = document.getElementById('def-kpi-client-open');
+  if (c) c.textContent = count(_defClientOpenStatuses);
+}
+window.defRenderKpis = defRenderKpis;
+
+// ── INIT + TABLE RENDER (FSD 8.1 / 8.2) ───────────────────
+function defInit() {
+  // Capability Area value lists — filter bar and Raise Defect modal
+  var f = document.getElementById('def-f-area');
+  if (f && !f.options.length) {
+    f.innerHTML = '<option>All Capability Areas</option>' + _defCapAreas.map(function(a){ return '<option>' + defEsc(a) + '</option>'; }).join('');
+  }
+  var m = document.getElementById('def-form-module');
+  if (m && !m.options.length) {
+    m.innerHTML = _defCapAreas.map(function(a){ return '<option' + (a === 'Finance' ? ' selected' : '') + '>' + defEsc(a) + '</option>'; }).join('');
+  }
+  defRenderKpis();
+  defRenderTable();
+}
+window.defInit = defInit;
+
+function defSort(key) {
+  if (_defSortKey === key) { _defSortDir = -_defSortDir; } else { _defSortKey = key; _defSortDir = 1; }
+  defRenderTable();
+}
+window.defSort = defSort;
+
+function defRenderTable() {
+  var tbody = document.getElementById('def-tbody');
+  if (!tbody) return;
+  function val(id){ var e = document.getElementById(id); return e ? e.value : ''; }
+  var q      = (val('def-f-search') || '').toLowerCase();
+  var fType  = val('def-f-type'),   fArea   = val('def-f-area');
+  var fDep   = val('def-f-deploy'), fPhase  = val('def-f-phase');
+  var fSev   = val('def-f-sev'),    fStatus = val('def-f-status');
+
+  var rows = _defects.filter(function(d){
+    if (q && (d.title + ' ' + d.desc).toLowerCase().indexOf(q) === -1) return false;
+    if (fType   && fType.indexOf('All')   !== 0 && d.type     !== fType)   return false;
+    if (fArea   && fArea.indexOf('All')   !== 0 && d.module   !== fArea)   return false;
+    if (fDep    && fDep.indexOf('All')    !== 0 && fDep.indexOf(d.wave) !== 0) return false;
+    if (fPhase  && fPhase.indexOf('All')  !== 0 && d.phase    !== fPhase)  return false;
+    if (fSev    && fSev.indexOf('All')    !== 0 && d.severity !== fSev)    return false;
+    if (fStatus && fStatus.indexOf('All') !== 0 && d.status   !== fStatus) return false;
+    return true;
+  });
+
+  var sevOrder    = { 'P1':1,'P2':2,'P3':3,'P4':4 };
+  var statusOrder = {};
+  _defStatusList.forEach(function(s,i){ statusOrder[s] = i; });
+  rows.sort(function(a,b){
+    var k = _defSortKey, x, y;
+    if (k === 'severity')    { x = sevOrder[a.severity];    y = sevOrder[b.severity]; }
+    else if (k === 'status') { x = statusOrder[a.status];   y = statusOrder[b.status]; }
+    else if (k === 'days')   { x = a.days;                  y = b.days; }
+    else { x = String(a[k] || '').toLowerCase(); y = String(b[k] || '').toLowerCase(); }
+    if (x < y) return -1 * _defSortDir;
+    if (x > y) return  1 * _defSortDir;
+    return 0;
+  });
+
+  ['id','type','module','wave','phase','severity','status','created_by','assigned','days'].forEach(function(k){
+    var ind = document.getElementById('def-si-' + k);
+    if (ind) ind.textContent = (_defSortKey === k) ? (_defSortDir === 1 ? '▲' : '▼') : '';
+  });
+
+  tbody.innerHTML = rows.map(function(d){
+    // Row tint: light green if Closed, light amber if SLA breached (FSD 8.3)
+    var tint = (d.status === 'Closed') ? 'background:#f4fbf5;' : (d.sla === 'breach' ? 'background:#fffaf0;' : '');
+    var title = d.title.length > 55 ? d.title.slice(0,55) + '…' : d.title;
+    var re = { 'Internal Match':'<span class="re-badge re-internal">🤖 ' + d.res_conf + '</span>',
+               'External':'<span class="re-badge re-external">🌐 External</span>',
+               'Searching':'<span class="re-badge re-searching">⏳ Searching</span>' }[d.res_engine]
+             || '<span class="re-none">—</span>';
+    return '<tr onclick="openDefDetail(\'' + d.id + '\')" style="cursor:pointer;' + tint + '">' +
+      '<td style="font-weight:700;color:var(--tsp-blue);">' + d.id + (d.calm ? '' : ' <span title="Not linked to Cloud ALM" style="color:#f59e0b;">⚠</span>') + '</td>' +
+      '<td><span class="def-type ' + (_defTypeCls[d.type] || '') + '">' + defEsc(_defTypeShort[d.type] || d.type) + '</span></td>' +
+      '<td title="' + defEsc(d.title) + '">' + defEsc(title) + '</td>' +
+      '<td><span class="mod-badge">' + defEsc(d.module) + '</span></td>' +
+      '<td><span style="font-size:10.5px;font-weight:600;color:' + (d.wave === 'Wave 1' ? 'var(--tsp-blue)' : '#e65100') + ';">' + defEsc(d.wave) + '</span></td>' +
+      '<td style="font-size:11px;color:var(--text-muted);">' + defEsc(d.phase) + '</td>' +
+      '<td><span class="sev-badge ' + (_defSevCls[d.severity] || 'sev-low') + '">' + d.severity + '</span></td>' +
+      '<td><span class="status-badge ' + (_defStatusCls[d.status] || 'status-deferred') + '">' + defEsc(d.status) + '</span></td>' +
+      '<td style="font-size:11.5px;">' + defEsc(d.created_by) + '</td>' +
+      '<td style="font-size:11.5px;">' + defEsc(d.assigned) + '</td>' +
+      '<td style="font-size:11px;color:var(--text-muted);">' + defEsc(d.raised) + '</td>' +
+      '<td>' + (d.status === 'Closed' ? '—' : d.days) + '</td>' +
+      '<td>' + re + '</td></tr>';
+  }).join('');
+
+  var info = document.getElementById('def-table-info');
+  if (info) info.textContent = 'Showing ' + rows.length + ' of ' + _defects.length + ' records · click any row for the detail panel · click a column header to sort';
+}
+window.defRenderTable = defRenderTable;
+
+// ── DETAIL SLIDE-OUT (FSD 10) ─────────────────────────────
 function openDefDetail(id) {
   var d = _getDef(id);
   if (!d.id) return;
-  // Populate header
   document.getElementById('def-sl-id').textContent = d.id;
-  document.getElementById('def-sl-severity').className = 'sev-badge sev-' + d.severity.toLowerCase();
-  document.getElementById('def-sl-severity').textContent = d.severity;
+  var sevEl = document.getElementById('def-sl-severity');
+  sevEl.className = 'sev-badge ' + (_defSevCls[d.severity] || 'sev-low');
+  sevEl.textContent = d.severity;
   document.getElementById('def-sl-title').textContent = d.title;
-  // Status chips
-  var statuses = ['New','In Analysis','In Fix','In Retest','Closed','Deferred'];
+
+  // Status action bar — full workflow, active status highlighted (FSD 10.1)
   var statusHtml = '';
-  statuses.forEach(function(s) {
-    var active = (s === d.status) ? 'font-weight:800;opacity:1;' : 'opacity:.5;cursor:pointer;';
-    var cls = {New:'status-new','In Analysis':'status-inanalysis','In Fix':'status-infix','In Retest':'status-inretest',Closed:'status-closed',Deferred:'status-draft'}[s] || 'status-draft';
-    statusHtml += '<span class="status-badge ' + cls + '" style="' + active + 'padding:5px 12px;cursor:pointer;" onclick="defUpdateStatus(\'' + id + '\',\'' + s + '\')" title="Set status to ' + s + '">' + s + '</span> ';
+  _defStatusList.forEach(function(s) {
+    var active = (s === d.status) ? 'font-weight:800;opacity:1;box-shadow:0 0 0 1.5px var(--tsp-blue);' : 'opacity:.45;';
+    statusHtml += '<span class="status-badge ' + (_defStatusCls[s] || 'status-deferred') + '" style="' + active +
+      'padding:4px 9px;cursor:pointer;" onclick="defUpdateStatus(\'' + id + '\',\'' + s + '\')" title="Set status to ' + s + '">' + s + '</span>';
   });
   document.getElementById('def-sl-status-bar').innerHTML = statusHtml;
-  // Left fields
-  document.getElementById('def-sl-module').textContent = d.module;
-  document.getElementById('def-sl-wave').textContent = d.wave;
-  document.getElementById('def-sl-cat').textContent = d.cat;
-  document.getElementById('def-sl-env').textContent = d.env;
-  document.getElementById('def-sl-tx').textContent = d.tx || '—';
-  document.getElementById('def-sl-assigned').textContent = d.assigned;
-  document.getElementById('def-sl-raised').textContent = d.raised;
-  document.getElementById('def-sl-days').textContent = d.days + ' days';
-  document.getElementById('def-sl-calm').textContent = d.calm || '—';
-  document.getElementById('def-sl-script').textContent = d.script || '—';
-  document.getElementById('def-sl-desc').textContent = d.desc;
-  // AI Resolution card
+
+  // SLA indicator (FSD 10.2)
+  var slaEl = document.getElementById('def-sl-sla');
+  slaEl.className = 'def-sla-' + (d.sla === 'breach' ? 'breach' : d.sla === 'risk' ? 'risk' : 'ok');
+  slaEl.style.cssText = 'font-size:11px;font-weight:700;padding:7px 10px;border-radius:6px;margin-bottom:14px;';
+  slaEl.textContent = (d.sla === 'breach' ? '⛔ ' : d.sla === 'risk' ? '⚠ ' : '✓ ') + (d.sla_note || '—');
+
+  function set(elId, v) { var e = document.getElementById(elId); if (e) e.textContent = (v === '' || v == null) ? '—' : v; }
+  set('def-sl-type', d.type);
+  set('def-sl-module', d.module);
+  set('def-sl-procid', d.proc_id);
+  set('def-sl-procname', d.proc_name);
+  set('def-sl-tx', d.tx);
+  set('def-sl-env', d.env);
+  set('def-sl-cat', d.cat);
+  set('def-sl-root', d.root || 'Not yet determined');
+  set('def-sl-wave', d.wave);
+  set('def-sl-phase', d.phase);
+  set('def-sl-created-by', d.created_by);
+  set('def-sl-logged-by', d.logged_by);
+  set('def-sl-assigned', d.assigned);
+  set('def-sl-raised', d.raised);
+  set('def-sl-resolved', d.resolved || 'Not resolved');
+  set('def-sl-days', d.status === 'Closed' ? 'Closed' : d.days + ' days');
+  set('def-sl-calm', d.calm);
+  set('def-sl-calmtc', d.calm_tc);
+  set('def-sl-script', d.script);
+  set('def-sl-desc', d.desc);
+  var notes = document.getElementById('def-sl-resnotes');
+  if (notes) notes.value = d.res_notes || '';
+
+  // AI Recommended Resolution card
   var re = d.res_engine;
   var rCard = document.getElementById('def-sl-resolution-card');
   if (re === 'Internal Match') {
-    rCard.style.borderLeftColor = '#2e7d32';
-    rCard.innerHTML = '<div class="def-ai-badge">🤖 Internal Match</div><div class="def-ai-conf" style="color:#2e7d32">' + d.res_conf + '</div>' +
-      '<div class="def-ai-root" style="font-size:12px;line-height:1.55;color:var(--text-primary);margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border);">SAP Note: ' + (d.sap_note || 'N/A') + '</div>' +
-      '<ol class="def-ai-steps" style="font-size:11.5px;line-height:1.8;color:var(--text-primary);padding-left:16px;margin-bottom:10px;">' +
-      d.res_steps.split('\n').map(function(s){ return '<li>' + s.replace(/^\d+\.\s*/,'') + '</li>'; }).join('') + '</ol>' +
+    var amber = parseInt(d.res_conf, 10) < 85;
+    rCard.style.borderLeftColor = amber ? '#f59e0b' : '#2e7d32';
+    rCard.innerHTML = '<div class="def-ai-badge"' + (amber ? ' style="background:#fff8e1;color:#8d6e00;"' : '') + '>🤖 Internal Match</div>' +
+      '<div class="def-ai-conf" style="color:' + (amber ? '#8d6e00' : '#2e7d32') + '">' + d.res_conf + '</div>' +
+      '<div class="def-ai-source">Matched from: Greenfield · Feb 2026 · ' + defEsc(d.module) + '</div>' +
+      (amber ? '<div style="font-size:10px;color:#8d6e00;font-weight:700;margin-bottom:8px;">Possible match — verify before applying</div>' : '') +
+      '<div class="def-ai-root">Root cause: ' + defEsc(d.root || 'see resolution steps') + '.' + (d.sap_note ? ' SAP Note ' + d.sap_note + ' applies.' : '') + '</div>' +
+      '<ol class="def-ai-steps">' +
+      d.res_steps.split('\n').map(function(s){ return '<li>' + defEsc(s.replace(/^\d+\.\s*/,'')) + '</li>'; }).join('') + '</ol>' +
+      (d.sap_note ? '<div class="def-ai-note">SAP Note: ' + d.sap_note + '</div>' : '') +
       '<button class="def-apply-btn" onclick="defMarkApplied(\'' + id + '\')">✓ Mark as Applied</button>' +
       '<span class="def-ext-link" onclick="defSearchExternal(\'' + id + '\')">🌐 Search External Sources</span>';
   } else if (re === 'External') {
     rCard.style.borderLeftColor = 'var(--tsp-blue)';
     rCard.innerHTML = '<div class="def-ai-badge" style="background:var(--tsp-blue-light);color:var(--tsp-blue);">🌐 External Source</div>' +
-      '<div style="font-size:12px;line-height:1.55;color:var(--text-primary);margin-bottom:10px;">' +
-      (d.res_steps ? d.res_steps.split('\n').map(function(s,i){ return (i+1)+'. '+s.replace(/^\d+\.\s*/,''); }).join('<br>') : 'External recommendation retrieved from SAP Community.') + '</div>' +
+      '<div class="def-ai-source">Synthesized from SAP Community · SAP Support Portal · SAP Notes</div>' +
+      '<ol class="def-ai-steps">' +
+      (d.res_steps ? d.res_steps.split('\n').map(function(s){ return '<li>' + defEsc(s.replace(/^\d+\.\s*/,'')) + '</li>'; }).join('')
+                   : '<li>External recommendation retrieved from SAP Community.</li>') + '</ol>' +
       (d.sap_note ? '<div class="def-ai-note">SAP Note: ' + d.sap_note + '</div>' : '') +
       '<button class="def-apply-btn" onclick="defMarkApplied(\'' + id + '\')">✓ Mark as Applied</button>';
   } else if (re === 'Searching') {
     rCard.style.borderLeftColor = '#9e9e9e';
-    rCard.innerHTML = '<div class="def-ai-badge re-searching">⏳ Resolution Engine Searching...</div><div style="font-size:12px;color:var(--text-muted);margin-top:8px;">Querying cross-project knowledge base and SAP Community. Check back in a moment.</div>';
+    rCard.innerHTML = '<div class="def-ai-badge re-searching">⏳ Resolution Engine Searching…</div>' +
+      '<div style="font-size:11.5px;color:var(--text-muted);margin-top:8px;line-height:1.55;">Querying the cross-project knowledge base and SAP Community. Check back in a moment.</div>';
   } else {
     rCard.style.borderLeftColor = '#dde5ef';
-    rCard.innerHTML = '<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:16px 0;">No automated resolution found.<br><br><button onclick="defSearchExternal(\'' + id + '\')" class="btn-outline" style="padding:6px 14px;font-size:11.5px;">🌐 Search External Sources</button></div>';
+    rCard.innerHTML = '<div style="font-size:11.5px;color:var(--text-muted);text-align:center;padding:14px 0;line-height:1.6;">No automated resolution found.<br><br>' +
+      '<button onclick="defSearchExternal(\'' + id + '\')" class="btn-outline" style="padding:6px 12px;font-size:11px;">🌐 Retry External Search</button>' +
+      '<br><br><span class="def-ext-link" onclick="document.getElementById(\'def-sl-resnotes\').focus()">Document Manually</span></div>';
   }
-  // Show panel
   document.getElementById('def-overlay').classList.add('open');
   document.getElementById('def-slideout').classList.add('open');
   window._currentDefId = id;
@@ -21934,19 +22880,15 @@ function openDefDetail(id) {
 
 function defUpdateStatus(id, newStatus) {
   var d = _getDef(id);
-  if (d) {
+  if (d && d.id) {
     d.status = newStatus;
-    // Re-render status bar
+    if (newStatus === 'Closed' && !d.resolved) {
+      var now = new Date();
+      d.resolved = now.toLocaleString('en-US', {month:'short', day:'numeric'}) + ', ' +
+        String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    }
     openDefDetail(id);
-    // Update the table row badge
-    document.querySelectorAll('#page-aria-defects tbody tr').forEach(function(row) {
-      var idCell = row.querySelector('td:first-child');
-      if (idCell && idCell.textContent.trim() === id) {
-        var statusCells = row.querySelectorAll('td');
-        var cls = {New:'status-new','In Analysis':'status-inanalysis','In Fix':'status-infix','In Retest':'status-inretest',Closed:'status-closed',Deferred:'status-draft'}[newStatus]||'status-draft';
-        if (statusCells[5]) statusCells[5].innerHTML = '<span class="status-badge ' + cls + '">' + newStatus + '</span>';
-      }
-    });
+    defRenderTable();
     var toast = document.createElement('div');
     toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--tsp-blue);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.2);';
     toast.textContent = '✓ Status updated to ' + newStatus + ' · Cloud ALM sync queued';
@@ -21958,7 +22900,7 @@ function defUpdateStatus(id, newStatus) {
 function defMarkApplied(id) {
   defUpdateStatus(id, 'Closed');
   closeDefDetail();
-  alert('✓ Resolution marked as applied for ' + id + '.\n\nDefect status updated to Closed.\nResolution committed to cross-project knowledge base.\nCloud ALM sync queued.');
+  alert('✓ Resolution marked as applied for ' + id + '.\n\nDefect status updated to Closed.\nResolved date/time stamped.\nResolution committed to the cross-project knowledge base.\nCloud ALM sync queued.');
 }
 
 function defSearchExternal(id) {
@@ -21967,62 +22909,75 @@ function defSearchExternal(id) {
 }
 
 function closeDefDetail() {
-  document.getElementById('def-overlay').classList.remove('open');
-  document.getElementById('def-slideout').classList.remove('open');
+  var o = document.getElementById('def-overlay'); if (o) o.classList.remove('open');
+  var s = document.getElementById('def-slideout'); if (s) s.classList.remove('open');
   window._currentDefId = null;
 }
 
+// ── RAISE DEFECT MODAL (FSD 11) ───────────────────────────
+function defNowStamp() {
+  var now = new Date();
+  return now.toLocaleString('en-US', {month:'short', day:'numeric', year:'numeric'}) + ', ' +
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+}
+function defSyncLoggedBy() {
+  var c = document.getElementById('def-form-created-by');
+  var l = document.getElementById('def-form-logged-by');
+  if (c && l) l.value = c.value;
+}
+window.defSyncLoggedBy = defSyncLoggedBy;
+
 function openDefModal() {
-  // Reset form
-  document.getElementById('def-form-title').value = '';
-  document.getElementById('def-form-module').value = 'Finance';
-  document.getElementById('def-form-severity').value = 'High';
-  document.getElementById('def-form-cat').value = 'Functional';
-  document.getElementById('def-form-env').value = 'QAS';
-  document.getElementById('def-form-tx').value = '';
-  document.getElementById('def-form-desc').value = '';
-  document.getElementById('def-form-assigned').value = '';
-  document.getElementById('def-form-target').value = '';
-  document.getElementById('def-form-script').value = '';
-  document.getElementById('def-form-wave').value = 'Wave 1 — Core Finance & Procurement';
+  defInit();
+  function set(id, v){ var e = document.getElementById(id); if (e) e.value = v; }
+  set('def-form-title','');
+  set('def-form-desc','');
+  set('def-form-type','Defect');
+  set('def-form-severity','P2');
+  set('def-form-module','Finance');
+  set('def-form-cat','Configuration');
+  set('def-form-root','— Not yet determined —');
+  set('def-form-wave','Wave 1 — Core Finance & Procurement');
+  set('def-form-phase','Realize — SIT');
+  set('def-form-created-by','Chris York');
+  set('def-form-logged-by','Chris York');
+  set('def-form-assigned','Michael Torres — Technical Lead');
+  set('def-form-status','New');
+  set('def-form-created', defNowStamp());
+  set('def-form-env','QAS');
+  set('def-form-tx','');
+  set('def-form-script','');
   document.getElementById('def-modal').classList.add('open');
   document.getElementById('def-overlay').classList.add('open');
 }
 
 function closeDefModal() {
-  document.getElementById('def-modal').classList.remove('open');
-  document.getElementById('def-overlay').classList.remove('open');
+  var m = document.getElementById('def-modal'); if (m) m.classList.remove('open');
+  var o = document.getElementById('def-overlay'); if (o) o.classList.remove('open');
 }
 
 function defSaveNew() {
-  var title = document.getElementById('def-form-title').value.trim();
+  function val(id){ var e = document.getElementById(id); return e ? e.value : ''; }
+  var title = (val('def-form-title') || '').trim();
   if (!title) { alert('Please enter a defect title.'); return; }
-  var module = document.getElementById('def-form-module').value;
-  var sev = document.getElementById('def-form-severity').value;
-  var newId = 'DEF-0' + (Math.floor(Math.random()*900)+100);
-  // Add to data
-  _defects.unshift({id:newId,title:title,module:module,wave:document.getElementById('def-form-wave').value,
-    severity:sev,status:'New',assigned:document.getElementById('def-form-assigned').value||'Unassigned',
-    raised:'Today',days:0,cat:document.getElementById('def-form-cat').value,
-    env:document.getElementById('def-form-env').value,tx:document.getElementById('def-form-tx').value,
-    desc:document.getElementById('def-form-desc').value,calm:'',script:document.getElementById('def-form-script').value,
-    res_engine:'Searching',res_conf:'',res_steps:'',sap_note:''});
-  // Add row to table
-  var tbody = document.querySelector('#page-aria-defects .table-wrap tbody');
-  if (tbody) {
-    var sevCls = {Critical:'sev-critical',High:'sev-high',Medium:'sev-medium',Low:'sev-low'}[sev]||'sev-medium';
-    var row = document.createElement('tr');
-    row.setAttribute('onclick','openDefDetail(\'' + newId + '\')');
-    row.style.cursor = 'pointer';
-    row.innerHTML = '<td style="font-weight:700;color:var(--tsp-blue);">' + newId + '</td>' +
-      '<td>' + title + '</td><td><span class="mod-badge">' + module + '</span></td>' +
-      '<td><span style="font-size:10.5px;font-weight:600;color:var(--tsp-blue);">Wave 1</span></td>' +
-      '<td><span class="sev-badge ' + sevCls + '">' + sev + '</span></td>' +
-      '<td><span class="status-badge status-new">New</span></td>' +
-      '<td>' + (document.getElementById('def-form-assigned').value||'Unassigned') + '</td>' +
-      '<td>Today</td><td>0</td><td><span class="re-badge re-searching">⏳ Searching</span></td>';
-    tbody.insertBefore(row, tbody.firstChild);
-  }
+  if (!(val('def-form-desc') || '').trim()) { alert('Narrative is mandatory — describe the defect and the steps to reproduce.'); return; }
+  var newId  = 'DEF-0' + (Math.floor(Math.random()*900)+100);
+  var root   = val('def-form-root');
+  var stamp  = val('def-form-created') || defNowStamp();
+  _defects.unshift({
+    id:newId, type:val('def-form-type'), title:title,
+    module:val('def-form-module'), proc_id:'', proc_name:'',
+    wave:val('def-form-wave').indexOf('Wave 2') === 0 ? 'Wave 2' : 'Wave 1',
+    phase:val('def-form-phase'), severity:val('def-form-severity'), status:'New',
+    cat:val('def-form-cat'), root:(root.indexOf('—') === 0 ? '' : root),
+    created_by:val('def-form-created-by'), logged_by:val('def-form-logged-by'),
+    assigned:(val('def-form-assigned') || 'Unassigned').split(' — ')[0],
+    raised:stamp, resolved:'', days:0, env:val('def-form-env'), tx:val('def-form-tx'),
+    desc:val('def-form-desc'), calm:'', calm_tc:'', script:val('def-form-script'),
+    sla:'ok', sla_note:'Within SLA · timer started',
+    res_engine:'Searching', res_conf:'', res_steps:'', sap_note:''
+  });
+  defRenderTable();
   closeDefModal();
   var toast = document.createElement('div');
   toast.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#2e7d32;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.2);';
@@ -22030,6 +22985,13 @@ function defSaveNew() {
   document.body.appendChild(toast);
   setTimeout(function(){ toast.remove(); }, 4000);
 }
+
+// Render on first load as well as on navTo (initFns map)
+(function defBoot(){
+  function go(){ if (document.getElementById('def-tbody')) defInit(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(go, 300); });
+  else setTimeout(go, 300);
+})();
 
 // ── TESTING PLAN ─────────────────────────────────────────────────
 var _tpPhases = [
@@ -22967,6 +23929,8 @@ var _dolDescriptions = {}; // { objId: freetext description }
 var _dolMethods = {};      // { objId: migration method }
 var _dolRecordCounts = {}; // { dep+'|'+mock+'|'+objId: number }
 var _dolDependencies = {}; // { dep+'|'+mock+'|'+objId: dependencyObjId }
+var _dolSources = ['Epicor', 'Manual']; // shared Source value list (user can add more)
+var _dolSourceVals = {}; // { dep+'|'+mock+'|'+objId: source value }
 var _dolActiveDeployment = null;
 var _dolActiveMock = 'Mock 0';
 var _dolMode = 'select'; // 'select' | 'scoped'
@@ -23374,7 +24338,7 @@ function dolRenderScoped() {
         MDM:'MDM — Master Data Management',
         EWM:'EWM — Warehouse & Plant Maintenance'
       }[o.module] || o.module;
-      html += '<tr><td colspan="10" style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:6px 12px;">' +
+      html += '<tr><td colspan="11" style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:6px 12px;">' +
               '<span style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);">' + modLabel + '</span>' +
               '</td></tr>';
       lastModule = o.module;
@@ -23429,6 +24393,12 @@ function dolRenderScoped() {
         }).join('') +
         '</select>' +
       '</td>' +
+      // Source
+      '<td style="padding:6px 8px;">' +
+        '<select onchange="dolChangeSource(' + o.id + ',this.value)" style="width:120px;border:1px solid var(--border);border-radius:5px;padding:4px 6px;font-size:11.5px;background:#fff;">' +
+        dolBuildSourceOptions(_dolSourceVals[_dolActiveDeployment+'|'+_dolActiveMock+'|'+o.id] || '') +
+        '</select>' +
+      '</td>' +
       // Record Count
       '<td style="padding:6px 8px;text-align:center;">' +
         '<input type="number" min="0" step="1" placeholder="0" value="' + (_dolRecordCounts[_dolActiveDeployment+'|'+_dolActiveMock+'|'+o.id] || '') + '" ' +
@@ -23474,6 +24444,32 @@ function dolChangeRecordCount(id, val) {
 function dolChangeDependency(id, val) {
   var key = _dolActiveDeployment + '|' + _dolActiveMock + '|' + id;
   _dolDependencies[key] = val ? parseInt(val) : null;
+}
+
+// ── Source dropdown (editable shared value list) ──────────────────────────────
+function dolSourceKey(id) {
+  return _dolActiveDeployment + '|' + _dolActiveMock + '|' + id;
+}
+function dolBuildSourceOptions(cur) {
+  var esc = function(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+  var opts = '<option value="">&#8212; Select &#8212;</option>';
+  _dolSources.forEach(function(s) {
+    opts += '<option value="' + esc(s) + '"' + (cur === s ? ' selected' : '') + '>' + esc(s) + '</option>';
+  });
+  opts += '<option value="__add__">+ Add new source&#8230;</option>';
+  return opts;
+}
+function dolChangeSource(id, val) {
+  if (val === '__add__') {
+    var nv = (window.prompt('Enter new source value:') || '').trim();
+    if (nv) {
+      if (_dolSources.indexOf(nv) < 0) _dolSources.push(nv); // update list for all subsequent objects
+      _dolSourceVals[dolSourceKey(id)] = nv;
+    }
+    dolRenderScoped(); // re-render so the new value appears in every Source dropdown
+    return;
+  }
+  _dolSourceVals[dolSourceKey(id)] = val || null;
 }
 
 // ══════════════════════════════════════════════════════════════════════
@@ -25593,6 +26589,75 @@ var _dmhDataLead    = null;
 var _dmhApprovalCtx  = null; // { objId, stageIdx }
 var _dmhCanvasDrawn  = false;
 var _dmhPendingFile  = null;
+var _dmhCounts       = {};   // { dep+'|'+mock+'|'+objId : { preload, preloadLocked, postload, errors } }
+
+// ── DMH: per-object / per-mock record counts ──────────────────────────────
+function dmhCountsKey(objId) {
+  return _dmhActiveDep + '|' + _dmhActiveMock + '|' + objId;
+}
+function dmhGetCounts(objId) {
+  var k = dmhCountsKey(objId);
+  if (!_dmhCounts[k]) _dmhCounts[k] = { preload: null, preloadLocked: false, postload: null, errors: null };
+  return _dmhCounts[k];
+}
+function dmhCountChanged(objId, field, val) {
+  var c = dmhGetCounts(objId);
+  if (field === 'preload' && c.preloadLocked) return; // locked once a pre-load file has been verified
+  var n = parseInt(val, 10);
+  c[field] = isNaN(n) ? null : n;
+}
+
+// Verify a record count from an uploaded pre-load file (Excel, CSV, or XML).
+// Calls cb(count) with a number, or cb(null) if the count could not be read.
+function dmhCountRecordsFromFile(file, cb) {
+  var name = (file.name || '').toLowerCase();
+  try {
+    if (/\.(csv|tsv|txt)$/.test(name)) {
+      var r = new FileReader();
+      r.onload = function(e) {
+        var text = e.target.result || '';
+        var lines = text.split(/\r\n|\r|\n/).filter(function(l){ return l.trim() !== ''; });
+        cb(lines.length > 0 ? lines.length - 1 : 0); // minus header row
+      };
+      r.onerror = function(){ cb(null); };
+      r.readAsText(file);
+    } else if (/\.xls[xmb]?$/.test(name)) {
+      if (typeof XLSX === 'undefined') { cb(null); return; }
+      var r2 = new FileReader();
+      r2.onload = function(e) {
+        try {
+          var wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array' });
+          var ws = wb.Sheets[wb.SheetNames[0]];
+          var rows = XLSX.utils.sheet_to_json(ws, { header: 1, blankrows: false });
+          cb(rows.length > 0 ? rows.length - 1 : 0); // minus header row
+        } catch (err) { cb(null); }
+      };
+      r2.onerror = function(){ cb(null); };
+      r2.readAsArrayBuffer(file);
+    } else if (/\.xml$/.test(name)) {
+      var r3 = new FileReader();
+      r3.onload = function(e) {
+        try {
+          var xml = new DOMParser().parseFromString(e.target.result || '', 'application/xml');
+          if (xml.getElementsByTagName('parsererror').length) { cb(null); return; }
+          var all = xml.getElementsByTagName('*');
+          var tally = {};
+          for (var i = 0; i < all.length; i++) {
+            var t = all[i].tagName;
+            tally[t] = (tally[t] || 0) + 1;
+          }
+          var max = 0;
+          Object.keys(tally).forEach(function(k){ if (tally[k] > max) max = tally[k]; });
+          cb(max); // most frequent repeating element = record rows
+        } catch (err) { cb(null); }
+      };
+      r3.onerror = function(){ cb(null); };
+      r3.readAsText(file);
+    } else {
+      cb(null);
+    }
+  } catch (err) { cb(null); }
+}
 
 var _dmhStages = [
   { key:'extraction',    label:'Extraction',               role:'Data Owner',                short:'Extract'    },
@@ -25802,6 +26867,31 @@ function dmhRenderTable() {
         '<div style="font-size:10.5px;color:var(--text-muted);margin-top:1px;">' + o.area + '</div>' +
       '</td>' +
       '<td style="padding:9px 12px;font-size:11.5px;color:var(--text-muted);">' + ownerName + '</td>';
+
+    // Record-count cells: Pre-load (locks after file upload), Post-load, Error Count
+    var cnt = dmhGetCounts(o.id);
+    var numBase = 'width:72px;padding:4px 5px;border:1px solid var(--border);border-radius:5px;font-size:12px;text-align:right;';
+    html +=
+      '<td style="padding:6px 5px;text-align:center;">' +
+        '<input type="number" min="0" step="1" placeholder="0" value="' + (cnt.preload != null ? cnt.preload : '') + '" ' +
+        (cnt.preloadLocked ? 'readonly title="Locked — verified from uploaded pre-load file" ' : '') +
+        'oninput="this.value=this.value.replace(/[^0-9]/g,&quot;&quot;)" ' +
+        'onchange="dmhCountChanged(' + o.id + ',&quot;preload&quot;,this.value)" ' +
+        'style="' + numBase + (cnt.preloadLocked ? 'background:#eef2f7;color:#64748b;cursor:not-allowed;' : 'background:#fff;') + '">' +
+        (cnt.preloadLocked ? '<div style="font-size:8.5px;color:#2E7D32;font-weight:700;margin-top:2px;letter-spacing:.03em;">&#128274; FROM FILE</div>' : '') +
+      '</td>' +
+      '<td style="padding:6px 5px;text-align:center;">' +
+        '<input type="number" min="0" step="1" placeholder="0" value="' + (cnt.postload != null ? cnt.postload : '') + '" ' +
+        'oninput="this.value=this.value.replace(/[^0-9]/g,&quot;&quot;)" ' +
+        'onchange="dmhCountChanged(' + o.id + ',&quot;postload&quot;,this.value)" ' +
+        'style="' + numBase + 'background:#fff;">' +
+      '</td>' +
+      '<td style="padding:6px 5px;text-align:center;">' +
+        '<input type="number" min="0" step="1" placeholder="0" value="' + (cnt.errors != null ? cnt.errors : '') + '" ' +
+        'oninput="this.value=this.value.replace(/[^0-9]/g,&quot;&quot;)" ' +
+        'onchange="dmhCountChanged(' + o.id + ',&quot;errors&quot;,this.value)" ' +
+        'style="' + numBase + 'background:#fff;' + '">' +
+      '</td>';
 
     _dmhStages.forEach(function(st, si) {
       var approval = dmhGetStage(o.id, si);
@@ -26013,17 +27103,29 @@ function dmhFileSelected(input) {
   var file = input.files ? input.files[0] : null;
   if (!file) return;
   _dmhPendingFile = {
-    name:     file.name,
-    size:     file.size,
-    sizeKb:   Math.round(file.size / 102.4) / 10,
-    modified: new Date(file.lastModified).toLocaleDateString(),
-    ts:       Date.now()
+    name:        file.name,
+    size:        file.size,
+    sizeKb:      Math.round(file.size / 102.4) / 10,
+    modified:    new Date(file.lastModified).toLocaleDateString(),
+    ts:          Date.now(),
+    recordCount: null
   };
-  var confirm = document.getElementById('dmh-appr-file-confirm');
-  if (confirm) {
-    confirm.style.display = '';
-    confirm.innerHTML = '<span style="font-size:11px;color:#1565C0;">&#128206; ' + file.name + ' (' + _dmhPendingFile.sizeKb + ' KB, modified ' + _dmhPendingFile.modified + ')</span>';
+  var confirmEl = document.getElementById('dmh-appr-file-confirm');
+  var meta = '<span style="font-size:11px;color:#1565C0;">&#128206; ' + file.name + ' (' + _dmhPendingFile.sizeKb + ' KB, modified ' + _dmhPendingFile.modified + ')</span>';
+  if (confirmEl) {
+    confirmEl.style.display = '';
+    confirmEl.innerHTML = meta + '<div style="font-size:11px;color:#6B7280;margin-top:3px;">Verifying record count&#8230;</div>';
   }
+  // Verify the record count from the file, then update & lock Pre-load Records
+  dmhCountRecordsFromFile(file, function(count) {
+    _dmhPendingFile.recordCount = count;
+    if (confirmEl) {
+      var line = (count != null)
+        ? '<div style="font-size:11px;color:#1B5E20;font-weight:700;margin-top:3px;">&#10003; ' + count + ' records detected &mdash; Pre-load Records will be set and locked.</div>'
+        : '<div style="font-size:11px;color:#B45309;font-weight:600;margin-top:3px;">&#9888; Record count could not be read automatically. Enter Pre-load Records manually in the table.</div>';
+      confirmEl.innerHTML = meta + line;
+    }
+  });
 }
 
 function dmhConfirmApproval() {
@@ -26050,7 +27152,15 @@ function dmhConfirmApproval() {
     notes:       notesEl ? notesEl.value : '',
     ts:          Date.now()
   };
-  if (ctx.stageIdx === 4 && _dmhPendingFile) record.file = _dmhPendingFile;
+  if (ctx.stageIdx === 4 && _dmhPendingFile) {
+    record.file = _dmhPendingFile;
+    // Pre-load Validation: update the verified count and lock the Pre-load Records field
+    if (_dmhPendingFile.recordCount != null) {
+      var c = dmhGetCounts(ctx.objId);
+      c.preload = _dmhPendingFile.recordCount;
+      c.preloadLocked = true;
+    }
+  }
 
   dmhSetStage(ctx.objId, ctx.stageIdx, record);
   dmhCloseApproval();
@@ -26074,6 +27184,11 @@ function dmhViewApproval(objId, stageIdx) {
       for (var si = stageIdx; si < _dmhStages.length; si++) {
         delete _dmhLifecycle[dep][objId][si];
       }
+    }
+    // Undoing the Pre-load Validation stage releases the Pre-load Records lock
+    if (stageIdx <= 4) {
+      var c = dmhGetCounts(objId);
+      c.preloadLocked = false;
     }
     dmhRenderTable();
     dmhRenderKpi();
@@ -26193,7 +27308,8 @@ var _reqTypeCfg = {
   'Form':          { bg:'#EDE9FE', fg:'#5B21B6' },
   'Workflow':      { bg:'#FFF7ED', fg:'#C2410C' },
   'Fiori App':     { bg:'#DBEAFE', fg:'#1D4ED8' },
-  'Process':       { bg:'#F0F9FF', fg:'#0C4A6E' }
+  'Process':       { bg:'#F0F9FF', fg:'#0C4A6E' },
+  'Agentic Solution': { bg:'#E0F7FA', fg:'#00838F' }
 };
 
 var _reqData = [
@@ -26208,12 +27324,14 @@ var _reqData = [
   { id:'REQ-009', title:'Supplier Invoice Dunning Process',         type:'Process',       workstream:'P2P',   processId:'P2P-BP-012', responsible:'Michael Chen',   status:'New',            description:'Define and configure the supplier invoice dunning process for overdue disputed invoices, aligned with BAC Global accounts payable policy.' },
   { id:'REQ-010', title:'Sales Order BOM Explosion Report',         type:'Report',        workstream:'OTC',   processId:'OTC-BP-008', responsible:'David Kim',      status:'In TUT Testing', description:'Report showing BOM explosion for configured sales orders, supporting the BAC Global order management team in delivery date confirmation.' },
   { id:'REQ-011', title:'Batch Classification Migration',           type:'Conversion',    workstream:'EWM',   processId:'EWM-BP-001', responsible:'Maria Garcia',   status:'Approved',       description:'Migration of batch master and classification data for 80,000 material batches from legacy WMS, preserving quality inspection results and expiry dates.' },
-  { id:'REQ-012', title:'Fixed Asset Register Conversion',          type:'Conversion',    workstream:'R2R',   processId:'R2R-BP-001', responsible:'Lisa Park',      status:'In TUT Testing', description:'Migration of fixed asset master and open depreciation values from legacy system. Includes asset class mapping, useful life recalculation, and cutover balancing.' }
+  { id:'REQ-012', title:'Fixed Asset Register Conversion',          type:'Conversion',    workstream:'R2R',   processId:'R2R-BP-001', responsible:'Lisa Park',      status:'In TUT Testing', description:'Migration of fixed asset master and open depreciation values from legacy system. Includes asset class mapping, useful life recalculation, and cutover balancing.' },
+  { id:'REQ-013', title:'Invoice Exception Triage Agent',            type:'Agentic Solution', workstream:'P2P', processId:'P2P-BP-007', responsible:'Michael Chen',  status:'In Development', description:'Joule Studio agent that triages blocked and exception AP invoices, proposes a resolution path, and posts within delegated authority. Approval required above $50k. Autonomy L3 — Delegated.' },
+  { id:'REQ-014', title:'Demand Forecast Reconciliation Agent',      type:'Agentic Solution', workstream:'EWM', processId:'EWM-BP-004', responsible:'Maria Garcia', status:'Approved',       description:'BTP AI Core agent that reconciles statistical forecast against consensus demand plan and surfaces variances above tolerance for planner sign-off each cycle. Autonomy L2 — Supervised.' }
 ];
 
 var _reqActiveIdx  = -1;
 var _reqIsAddMode  = false;
-var _reqNextId     = 13;
+var _reqNextId     = 15;
 
 function reqInit() {
   reqRender();
@@ -26390,10 +27508,12 @@ function reqOpenEdit(idx) {
   var descEl   = document.getElementById('req-edit-desc');
   var wsEl     = document.getElementById('req-edit-workstream');
   var statusEl = document.getElementById('req-edit-status');
+  var typeEl   = document.getElementById('req-edit-type');
   if (titleEl)  titleEl.value  = r.title       || '';
   if (descEl)   descEl.value   = r.description || '';
   if (wsEl)     wsEl.value     = r.workstream  || '';
   if (statusEl) statusEl.value = r.status      || 'New';
+  if (typeEl)   typeEl.value   = r.type        || '';
   reqPopulateProcessIds(r.processId || '');
   reqPopulateResponsible(r.responsible || '');
 
@@ -26419,10 +27539,12 @@ function reqOpenAdd() {
   var descEl   = document.getElementById('req-edit-desc');
   var wsEl     = document.getElementById('req-edit-workstream');
   var statusEl = document.getElementById('req-edit-status');
+  var typeEl   = document.getElementById('req-edit-type');
   if (titleEl)  titleEl.value  = '';
   if (descEl)   descEl.value   = '';
   if (wsEl)     wsEl.value     = '';
   if (statusEl) statusEl.value = 'New';
+  if (typeEl)   typeEl.value   = '';
   reqPopulateProcessIds('');
   reqPopulateResponsible('');
 
@@ -26452,6 +27574,7 @@ function reqFieldChanged(field) {
   if (field === 'processId')   { el = document.getElementById('req-edit-processid');   newVal = el ? el.value : ''; r.processId   = newVal; }
   if (field === 'responsible') { el = document.getElementById('req-edit-responsible'); newVal = el ? el.value : ''; r.responsible = newVal; }
   if (field === 'status')      { el = document.getElementById('req-edit-status');      newVal = el ? el.value : ''; r.status      = newVal; }
+  if (field === 'type')        { el = document.getElementById('req-edit-type');        newVal = el ? el.value : ''; r.type        = newVal; }
   var label = field === 'processId' ? 'Process ID' : field.charAt(0).toUpperCase() + field.slice(1);
   var syncVal = (field === 'status' && _reqAlmStatusMap[newVal]) ? (_reqAlmStatusMap[newVal] + ' (Cloud ALM)') : newVal;
   fspecShowAlmSync(label, syncVal);
@@ -26474,7 +27597,7 @@ function reqSaveNew() {
     processId:   (document.getElementById('req-edit-processid')   || {}).value || '',
     responsible: (document.getElementById('req-edit-responsible') || {}).value || '',
     status:      (document.getElementById('req-edit-status')      || {}).value || 'New',
-    type:        ''
+    type:        (document.getElementById('req-edit-type')        || {}).value || ''
   };
   _reqData.unshift(r);
   reqCloseEdit();
@@ -33508,26 +34631,89 @@ window.tbProjectChange = tbProjectChange;
 /* Self-contained. SLA Management page + AMS (Named/Pool) restructuring of
    Team Setup & Staffing Plan. In-memory, kb/sla/ams-prefixed. */
 
-/* ---------- SLA Management ---------- */
-var _SLA_SEV = ['Critical','High','Medium','Low'];
-var _SLA_SEV_STYLE = { Critical:{bg:'#FEE2E2',fg:'#991B1B'}, High:{bg:'#FFEDD5',fg:'#9A3412'}, Medium:{bg:'#FEF3C7',fg:'#92400E'}, Low:{bg:'#DCFCE7',fg:'#166534'} };
+/* ---------- SLA Management ----------
+   Aligned to TSP_DefectManagement_FSD_v1.0 Section 14.4 (July 2026 revision).
+   Severities are P1–P4. AMS is tiered by resourcing model:
+   Named FTE / Named ½ Time / Pool. "Initial response" carries the FSD
+   Response Times table; "Target resolution" carries the Resolution Times
+   table. Values here are TSP defaults — SLA is set per customer in
+   Project Setup (FSD 2.2). */
+var _SLA_SEV = ['P1','P2','P3','P4'];
+var _SLA_SEV_STYLE = { P1:{bg:'#FEE2E2',fg:'#991B1B'}, P2:{bg:'#FFEDD5',fg:'#9A3412'}, P3:{bg:'#FEF3C7',fg:'#92400E'}, P4:{bg:'#F3F4F6',fg:'#374151'} };
 var _SLA_UNITS = ['Minutes','Hours','Business hours','Business days','Days'];
 var _SLA_COV = ['24×7','Business hours','On-call'];
+var _SLA_TIERS = ['Named FTE','Named ½ Time','Pool'];
 var _slaCtx = 'Implementation';
 var _slaData = null;
 
+/* Breach actions by severity — FSD 14.4 */
+var _SLA_BREACH = {
+  P1:'Immediate alert to PM; defect elevated in Command Center feed',
+  P2:'Daily staleness alert to PM',
+  P3:'Weekly staleness alert',
+  P4:'No automated alert'
+};
+
+/* Response (initial) and Resolution (target) defaults per context/tier — FSD 14.4 */
+var _SLA_DEFAULTS = {
+  'Implementation': {
+    P1:{ initial:{v:24,u:'Hours',           d:'Response within 24 hours'},          target:{v:1,u:'Days',          d:'Resolve by end of current test round'} },
+    P2:{ initial:{v:48,u:'Business hours',  d:'Response within 48 business hours'}, target:{v:5,u:'Business days', d:'Resolve within five business days'} },
+    P3:{ initial:{v:48,u:'Business hours',  d:'Response within 48 business hours'}, target:{v:10,u:'Business days',d:'Resolve within ten business days'} },
+    P4:{ initial:{v:48,u:'Business hours',  d:'Response within 48 business hours'}, target:{v:1,u:'Days',          d:'Resolve before phase gate'} }
+  },
+  'AMS.Named FTE': {
+    P1:{ initial:{v:2,u:'Hours', d:'Named FTE: 2 hours to initial response'},  target:{v:4,u:'Hours', d:'Named FTE: 4 hours to resolution'} },
+    P2:{ initial:{v:4,u:'Hours', d:'Named FTE: 4 hours to initial response'},  target:{v:8,u:'Hours', d:'Named FTE: 8 hours to resolution'} },
+    P3:{ initial:{v:8,u:'Hours', d:'Named FTE: 8 hours to initial response'},  target:{v:24,u:'Hours',d:'Named FTE: 24 hours to resolution'} },
+    P4:{ initial:{v:8,u:'Hours', d:'Named FTE: 8 hours to initial response'},  target:{v:72,u:'Hours',d:'Named FTE: 72 hours to resolution'} }
+  },
+  'AMS.Named ½ Time': {
+    P1:{ initial:{v:4,u:'Hours', d:'Named ½ time resource: 4 hours to initial response'},  target:{v:16,u:'Hours',d:'Named ½ time resource: 16 hours to resolution'} },
+    P2:{ initial:{v:8,u:'Hours', d:'Named ½ time resource: 8 hours to initial response'},  target:{v:24,u:'Hours',d:'Named ½ time resource: 24 hours to resolution'} },
+    P3:{ initial:{v:16,u:'Hours',d:'Named ½ time resource: 16 hours to initial response'}, target:{v:48,u:'Hours',d:'Named ½ time resource: 48 hours to resolution'} },
+    P4:{ initial:{v:16,u:'Hours',d:'Named ½ time resource: 16 hours to initial response'}, target:{v:90,u:'Hours',d:'Named ½ time resource: 90 hours to resolution'} }
+  },
+  'AMS.Pool': {
+    P1:{ initial:{v:24,u:'Hours',d:'Pool: 24 hours to initial response'}, target:{v:24,u:'Hours', d:'Pool: 24 hours to resolution'} },
+    P2:{ initial:{v:24,u:'Hours',d:'Pool: 24 hours to initial response'}, target:{v:48,u:'Hours', d:'Pool: 48 hours to resolution'} },
+    P3:{ initial:{v:72,u:'Hours',d:'Pool: 72 hours to initial response'}, target:{v:72,u:'Hours', d:'Pool: 72 hours to resolution'} },
+    P4:{ initial:{v:72,u:'Hours',d:'Pool: 72 hours to initial response'}, target:{v:114,u:'Hours',d:'Pool: 114 hours to resolution'} }
+  },
+  'HyperCare': {
+    P1:{ initial:{v:2,u:'Hours', d:'2 hours to initial response'},  target:{v:2,u:'Hours', d:'Restore service within two hours'} },
+    P2:{ initial:{v:4,u:'Hours', d:'4 hours to initial response'},  target:{v:4,u:'Hours', d:'Resolution path within four hours'} },
+    P3:{ initial:{v:8,u:'Hours', d:'8 hours to initial response'},  target:{v:8,u:'Hours', d:'Resolution within eight hours'} },
+    P4:{ initial:{v:24,u:'Hours',d:'24 hours to log'},              target:{v:24,u:'Hours',d:'Resolution within 24 hours'} }
+  }
+};
+
+/* Update frequency, escalation and coverage keep generic per-severity defaults */
+var _SLA_GENERIC = {
+  P1:{ update:{v:1,u:'Hours',d:'Update every hour until service is restored'},     escalation:{v:2,u:'Hours',d:'Escalate if no progress after two hours'},        coverage:{v:'24×7',d:'24×7 support'} },
+  P2:{ update:{v:4,u:'Hours',d:'Update every four hours'},                          escalation:{v:4,u:'Business hours',d:'Escalate after four business hours'},   coverage:{v:'Business hours',d:'Business hours cover'} },
+  P3:{ update:{v:1,u:'Business days',d:'Daily status update'},                      escalation:{v:2,u:'Business days',d:'Escalate after two business days'},      coverage:{v:'Business hours',d:'Business hours cover'} },
+  P4:{ update:{v:3,u:'Business days',d:'Update every three business days'},          escalation:{v:3,u:'Business days',d:'Escalate after three business days'},    coverage:{v:'Business hours',d:'Business hours cover'} }
+};
+
 function slaEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function slaSevDefault(sev){
-  var d = {
-    Critical:{ initial:{v:15,u:'Minutes',d:'Production-down response'}, update:{v:1,u:'Hours',d:'Update every hour until service is restored'}, target:{v:4,u:'Hours',d:'Restore service within four hours'}, escalation:{v:2,u:'Hours',d:'Escalate if no progress after two hours'}, coverage:{v:'24×7',d:'24×7 support'} },
-    High:{ initial:{v:1,u:'Hours',d:'Major function impaired response'}, update:{v:4,u:'Hours',d:'Update every four hours'}, target:{v:8,u:'Business hours',d:'Resolution path within eight business hours'}, escalation:{v:4,u:'Business hours',d:'Escalate after four business hours'}, coverage:{v:'Business hours',d:'Business hours cover'} },
-    Medium:{ initial:{v:4,u:'Business hours',d:'Moderate impact response'}, update:{v:1,u:'Business days',d:'Daily status update'}, target:{v:3,u:'Business days',d:'Resolution within three business days'}, escalation:{v:2,u:'Business days',d:'Escalate after two business days'}, coverage:{v:'Business hours',d:'Business hours cover'} },
-    Low:{ initial:{v:1,u:'Business days',d:'Minor issue response'}, update:{v:3,u:'Business days',d:'Update every three business days'}, target:{v:5,u:'Business days',d:'Resolution within five business days'}, escalation:{v:3,u:'Business days',d:'Escalate after three business days'}, coverage:{v:'Business hours',d:'Business hours cover'} }
-  };
-  return JSON.parse(JSON.stringify(d[sev]));
+
+function slaSevDefault(sev, loc){
+  var key = _SLA_DEFAULTS[loc] ? loc : 'Implementation';
+  var t = _SLA_DEFAULTS[key][sev] || _SLA_DEFAULTS['Implementation'][sev];
+  var g = _SLA_GENERIC[sev];
+  return JSON.parse(JSON.stringify({
+    initial: t.initial, update: g.update, target: t.target,
+    escalation: g.escalation, coverage: g.coverage,
+    breach: { d: _SLA_BREACH[sev] }
+  }));
 }
-function slaSevSet(){ var o={}; _SLA_SEV.forEach(function(s){ o[s]=slaSevDefault(s); }); return o; }
-function slaBuildDefaults(){ return { Implementation: slaSevSet(), AMS: { Named: slaSevSet(), Pool: slaSevSet() }, HyperCare: slaSevSet() }; }
+function slaSevSet(loc){ var o={}; _SLA_SEV.forEach(function(s){ o[s]=slaSevDefault(s, loc); }); return o; }
+function slaBuildDefaults(){
+  var ams = {};
+  _SLA_TIERS.forEach(function(t){ ams[t] = slaSevSet('AMS.' + t); });
+  return { Implementation: slaSevSet('Implementation'), AMS: ams, HyperCare: slaSevSet('HyperCare') };
+}
 function slaEnsure(){ if(!_slaData) _slaData = slaBuildDefaults(); }
 function slaLocObj(loc){ var p=loc.split('.'); var o=_slaData[p[0]]; if(p[1]) o=o[p[1]]; return o; }
 
@@ -33535,6 +34721,8 @@ function slaInit(){
   slaEnsure();
   var nm=document.getElementById('sla-project-name');
   if(nm && typeof _tskProjects!=='undefined'){ var cur=_tskProjects.filter(function(p){return p.id===_tskCurrentProject;})[0]; if(cur) nm.textContent=cur.name; }
+  var fi=document.getElementById('sla-footer-info');
+  if(fi) fi.textContent='Defect SLA rules · 3 delivery contexts · 4 severities (P1–P4) · AMS tiered by Named FTE / Named ½ Time / Pool';
   slaSetContext(_slaCtx);
 }
 window.slaInit = slaInit;
@@ -33561,17 +34749,27 @@ function slaCovHtml(loc, sev, cell){
     '<input class="ps-input sla-desc" type="text" value="'+slaEsc(cell.d)+'" onchange="slaSet(\''+loc+'\',\''+sev+'\',\'coverage\',\'d\',this.value)"/>'+
   '</div>';
 }
+/* SLA breach action — FSD 14.4 */
+function slaBreachHtml(loc, sev, cell){
+  return '<div class="sla-cell">'+
+    '<button class="sla-reset" onclick="slaResetCell(\''+loc+'\',\''+sev+'\',\'breach\')">↺ Reset default</button>'+
+    '<input class="ps-input sla-desc" type="text" value="'+slaEsc(cell.d)+'" onchange="slaSet(\''+loc+'\',\''+sev+'\',\'breach\',\'d\',this.value)"/>'+
+  '</div>';
+}
 function slaGrid(loc){
   var o=slaLocObj(loc); if(!o) return '';
-  var h='<div style="overflow-x:auto;"><table class="sla-table"><thead><tr><th style="min-width:80px;">Severity</th><th>Initial response</th><th>Update frequency</th><th>Target resolution</th><th>Escalation threshold</th><th>Coverage</th></tr></thead><tbody>';
+  var h='<div style="overflow-x:auto;"><table class="sla-table"><thead><tr><th style="min-width:80px;">Severity</th><th>Initial response<br><span style="font-weight:400;text-transform:none;">(response time)</span></th><th>Update frequency</th><th>Target resolution<br><span style="font-weight:400;text-transform:none;">(resolution time)</span></th><th>Escalation threshold</th><th>Coverage</th><th>SLA breach action</th></tr></thead><tbody>';
   _SLA_SEV.forEach(function(sev){
     var s=_SLA_SEV_STYLE[sev]; var e=o[sev];
+    if(!e) return;
+    if(!e.breach) e.breach={d:_SLA_BREACH[sev]};
     h+='<tr><td><span class="sla-sev-badge" style="background:'+s.bg+';color:'+s.fg+';">'+sev+'</span></td>'+
        '<td>'+slaCellHtml(loc,sev,'initial',e.initial)+'</td>'+
        '<td>'+slaCellHtml(loc,sev,'update',e.update)+'</td>'+
        '<td>'+slaCellHtml(loc,sev,'target',e.target)+'</td>'+
        '<td>'+slaCellHtml(loc,sev,'escalation',e.escalation)+'</td>'+
-       '<td>'+slaCovHtml(loc,sev,e.coverage)+'</td></tr>';
+       '<td>'+slaCovHtml(loc,sev,e.coverage)+'</td>'+
+       '<td>'+slaBreachHtml(loc,sev,e.breach)+'</td></tr>';
   });
   return h+'</tbody></table></div>';
 }
@@ -33579,18 +34777,20 @@ function slaRender(){
   slaEnsure();
   var c=document.getElementById('sla-grids'); if(!c) return;
   if(_slaCtx==='AMS'){
-    c.innerHTML='<div class="sla-grid-title">🙋 Named Resources</div>'+slaGrid('AMS.Named')+
-      '<div class="sla-grid-title" style="margin-top:24px;">👥 Pool Resources</div>'+slaGrid('AMS.Pool');
+    var icons={'Named FTE':'🙋','Named ½ Time':'🕐','Pool':'👥'};
+    c.innerHTML = _SLA_TIERS.map(function(t,i){
+      return '<div class="sla-grid-title"'+(i?' style="margin-top:24px;"':'')+'>'+icons[t]+' '+t+' Resources</div>'+slaGrid('AMS.'+t);
+    }).join('');
   } else {
     c.innerHTML=slaGrid(_slaCtx);
   }
 }
 function slaSet(loc,sev,col,field,val){
   slaEnsure(); var o=slaLocObj(loc); if(!o||!o[sev]||!o[sev][col]) return;
-  if(field==='v' && col!=='coverage'){ o[sev][col].v = (val===''?'':Number(val)); } else { o[sev][col][field]=val; }
+  if(field==='v' && col!=='coverage' && col!=='breach'){ o[sev][col].v = (val===''?'':Number(val)); } else { o[sev][col][field]=val; }
 }
 window.slaSet = slaSet;
-function slaResetCell(loc,sev,col){ slaEnsure(); var o=slaLocObj(loc); if(!o||!o[sev]) return; var def=slaSevDefault(sev); o[sev][col]=def[col]; slaRender(); }
+function slaResetCell(loc,sev,col){ slaEnsure(); var o=slaLocObj(loc); if(!o||!o[sev]) return; var def=slaSevDefault(sev,loc); o[sev][col]=def[col]; slaRender(); }
 window.slaResetCell = slaResetCell;
 function slaResetAll(){ _slaData = slaBuildDefaults(); slaRender(); }
 window.slaResetAll = slaResetAll;
@@ -34196,9 +35396,10 @@ var SWA_PH = {
   'RPA':       { name:'Amit Tiwari', title:'Practice Head — RPA',       email:'atiwari@tsp.tech' }
 };
 // Sales Partner is derived from the Account Executive's reporting line.
+// To add another AE, add an entry here with their `partner` set to the Sales
+// Partner they report to — the escalation chain picks it up automatically.
 var SWA_AE = {
-  'Chip Eldridge':  { name:'Chip Eldridge',  title:'Account Executive', email:'celdridge@tsp.tech',  partner:'Brandon Gordon' },
-  'Dana Whitfield': { name:'Dana Whitfield', title:'Account Executive', email:'dwhitfield@tsp.tech', partner:'Matt Olive' }
+  'Chip Eldridge':  { name:'Chip Eldridge',  title:'Account Executive', email:'celdridge@tsp.tech',  partner:'Brandon Gordon' }
 };
 var SWA_SP = {
   'Brandon Gordon': { name:'Brandon Gordon', title:'Sales Partner', email:'bgordon@tsp.tech' },
@@ -34262,7 +35463,7 @@ function swaSeed(){
     users:310, countries:'United States, Mexico', start:'2026-09-28', submitted:'20 Jul 2026',
     coCodes:3, mfg:false, plants:0, wm:true, whs:4,
     areas:['Finance','Sales','Supply Chain'], items:16,
-    ricefw:58, devHours:8600, weeks:30, ae:'Dana Whitfield',
+    ricefw:58, devHours:8600, weeks:30, ae:'Chip Eldridge',
     roles:[
       ['Engagement Lead','PMO','Onshore',420,152,245],
       ['Solution Architect','SCM','Onshore',680,118,190],
@@ -34274,7 +35475,7 @@ function swaSeed(){
     ],
     steps:[ {key:'ae', status:'approved', date:'21 Jul 2026 08:55'} ],
     audit:[
-      {ts:'21 Jul 2026 08:55', who:'Dana Whitfield (Account Executive)', act:'Approved', cmt:'Pricing matches the verbal we gave the client.'},
+      {ts:'21 Jul 2026 08:55', who:'Chip Eldridge (Account Executive)', act:'Approved', cmt:'Pricing matches the verbal we gave the client.'},
       {ts:'20 Jul 2026 17:40', who:'Chris York', act:'Submitted for approval', cmt:''}
     ]
   },
@@ -34283,7 +35484,7 @@ function swaSeed(){
     users:150, countries:'United States', start:'2026-08-17', submitted:'14 Jul 2026',
     coCodes:1, mfg:false, plants:0, wm:false, whs:0,
     areas:['Finance','Human Resources'], items:7,
-    ricefw:22, devHours:3200, weeks:18, ae:'Dana Whitfield',
+    ricefw:22, devHours:3200, weeks:18, ae:'Chip Eldridge',
     roles:[
       ['Analytics Lead','SAC','Onshore',360,132,235],
       ['SAC Modeler','SAC','Offshore',880,66,118],
@@ -34301,7 +35502,7 @@ function swaSeed(){
       {ts:'16 Jul 2026 08:30', who:'Aaron Blasi (Practice Head — Analytics)', act:'Approved', cmt:'Team is available from the 17th. Released to client.'},
       {ts:'15 Jul 2026 10:15', who:'Mardi Gillum (Legal)', act:'Approved', cmt:'BAA executed — PHI handling clauses in place.'},
       {ts:'15 Jul 2026 08:05', who:'Jenny Shen (PMO)', act:'Approved', cmt:'18-week plan is realistic for the scope. No resource conflicts in August.'},
-      {ts:'14 Jul 2026 18:02', who:'Dana Whitfield (Account Executive)', act:'Approved', cmt:''},
+      {ts:'14 Jul 2026 18:02', who:'Chip Eldridge (Account Executive)', act:'Approved', cmt:''},
       {ts:'14 Jul 2026 17:10', who:'Aaron Blasi', act:'Submitted for approval', cmt:''}
     ]
   }
