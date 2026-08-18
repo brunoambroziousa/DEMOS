@@ -51,6 +51,32 @@
     margin:7px auto 0;border:3px solid #F0F6FB;box-shadow:0 0 0 2.5px var(--tsp-navy);}
   .lc-ms .lc-sub{margin-top:15px;}
 
+  /* standalone milestone marker, placed between sections rather than on the lifecycle line */
+  /* onboarding migration — standalone milestone callout */
+  .migration-callout{position:relative;max-width:900px;margin:46px auto 8px;background:#fff;
+    border:1.5px solid var(--sky-2);border-top:3px solid var(--tsp-blue-lt);
+    border-radius:14px;padding:24px 28px 18px;box-shadow:0 8px 26px rgba(39,98,153,.10);}
+  .migration-callout .dia{position:absolute;top:-11px;left:50%;margin-left:-9.5px;
+    width:19px;height:19px;background:var(--tsp-blue-lt);transform:rotate(45deg);
+    border:3px solid #E3EDF5;}
+  .migration-callout .mc-label{display:block;text-align:center;font-size:10px;font-weight:800;
+    letter-spacing:1.6px;text-transform:uppercase;color:var(--tsp-blue-lt);margin-bottom:14px;}
+  .migration-callout .mc-body{display:flex;align-items:center;gap:26px;}
+  .migration-callout .mc-text{flex:1;}
+  .migration-callout .mc-text h3{font-size:19px;font-weight:800;color:var(--tsp-navy);margin-bottom:6px;}
+  .migration-callout .mc-text p{font-size:13.5px;line-height:1.55;color:#456075;}
+  .migration-callout .mc-proof{flex:0 0 168px;text-align:center;
+    border-left:1px solid var(--sky-2);padding-left:24px;}
+  .migration-callout .mc-proof .n{font-size:38px;font-weight:800;color:var(--tsp-blue);line-height:1;}
+  .migration-callout .mc-proof .d{font-size:11.5px;color:#5E7B90;margin-top:6px;line-height:1.4;}
+  .migration-callout .mc-foot{margin-top:16px;padding-top:13px;border-top:1px solid var(--sky);
+    font-size:12px;color:#5E7B90;font-style:italic;line-height:1.5;}
+  @media (max-width:640px){
+    .migration-callout .mc-body{flex-direction:column;gap:18px;}
+    .migration-callout .mc-proof{flex:none;border-left:none;padding-left:0;
+      border-top:1px solid var(--sky-2);padding-top:16px;width:100%;}
+  }
+
   /* ownership brackets */
   .lc-bracket{position:relative;height:36px;max-width:1050px;margin:4px auto 0;}
   .lc-bracket .bar{position:absolute;top:4px;height:9px;border:2px solid;
@@ -83,6 +109,19 @@
   .aria-stage h3{font-size:15.5px;font-weight:800;margin-bottom:6px;color:#fff;}
   .aria-stage p{font-size:13px;line-height:1.5;color:#D3E3EF;}
   .aria-note{margin-top:11px;font-size:12.5px;color:#A5C2DA;font-style:italic;}
+  .aria-stage .ext{margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.18);
+    font-size:10.5px;font-weight:700;color:#8FB2D4;}
+
+  .fabric-band{margin:6px 0 4px;}
+  .fabric-ties{display:grid;grid-template-columns:1fr 74px 2.2fr 74px 1.6fr;height:11px;}
+  .fabric-ties i{display:block;width:2px;height:100%;margin:0 auto;border-radius:1px;
+    background:linear-gradient(180deg,rgba(243,209,110,0) 0%,rgba(243,209,110,.85) 100%);}
+  .fabric-ties i.gap{background:none;}
+  .fabric-strip{text-align:center;background:linear-gradient(180deg,#FBF0CB,#F3DE9E);
+    border:1px solid #E6C874;border-radius:9px;padding:5px 14px;box-shadow:0 6px 16px rgba(0,0,0,.16);}
+  .fabric-strip .fabric-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.3px;
+    color:#5C4813;margin-right:8px;}
+  .fabric-strip .fabric-note{font-size:11.5px;color:#7A6321;font-style:italic;}
 
   /* integrations strip inside the ARIA band */
   .integrations{margin-top:14px;padding-top:13px;border-top:1px solid rgba(255,255,255,.20);
@@ -171,6 +210,13 @@
   .tool .storerow{min-height:20px;margin-bottom:6px;}
   .storebadge{display:inline-block;background:var(--tsp-blue);color:#fff;font-size:8.5px;font-weight:800;
     letter-spacing:1.1px;text-transform:uppercase;padding:3.5px 9px;border-radius:4px;}
+  .tool .store-link{display:inline-flex;align-self:flex-start;align-items:center;gap:5px;margin-top:auto;padding-top:12px;
+    font-size:11.5px;font-weight:800;color:var(--tsp-blue);text-decoration:none;
+    border-bottom:1.5px solid rgba(39,98,153,.30);padding-bottom:1px;transition:color .15s,border-color .15s;}
+  .tool .store-link span{font-size:12.5px;transition:transform .15s;display:inline-block;}
+  .tool .store-link:hover{color:var(--tsp-navy);border-color:var(--tsp-navy);}
+  .tool .store-link:hover span{transform:translate(2px,-2px);}
+  .tool .store-link:focus-visible{outline:2px solid var(--tsp-blue);outline-offset:3px;border-radius:2px;}
   .tool h3{font-size:15px;font-weight:800;color:var(--tsp-blue);margin-bottom:6px;}
   .tool p{font-size:12.5px;line-height:1.48;color:#456075;}
   .tool .connects{margin-top:10px;font-size:11.5px;font-weight:700;color:var(--tsp-navy);}
@@ -272,6 +318,8 @@
     .chapter:not(.in-view) .tools-grid .tool,
     .chapter:not(.in-view) .agent-chips .chip{opacity:1;transform:none;}
     .scroll-progress{display:none;}
+    .tool .store-link span{transition:none;}
+    .tool .store-link:hover span{transform:none;}
   }
   @media (max-width:768px){
     .chapter{margin-top:40px;}
@@ -325,6 +373,7 @@
       <div class="aria-stage">
         <h3>Project · Explore → Realize → Deploy</h3>
         <p>Workshops become specs, decisions are recorded, tests are generated and executed, data migration and cutover run end to end — synced with SAP Cloud ALM.</p>
+        <div class="ext">↳ TSP FastMove · Migration</div>
       </div>
       <div class="aria-arrow"><span class="gl">→</span><span class="tx">go-live</span></div>
       <div class="aria-stage">
@@ -332,6 +381,17 @@
         <p><b>Stabilize</b> (hypercare intelligence) then <b>Manage</b>: agentic AMS with specialist agents per domain, defined autonomy levels, every decision auditable.</p>
       </div>
     </div>
+
+    <div class="fabric-band">
+      <div class="fabric-ties" aria-hidden="true">
+        <i></i><i class="gap"></i><i></i><i class="gap"></i><i></i>
+      </div>
+      <div class="fabric-strip">
+        <span class="fabric-tag">TSP Knowledge Fabric</span>
+        <span class="fabric-note">fed by every process across Contract, Project and Support</span>
+      </div>
+    </div>
+
     <div class="integrations">
       <span class="int-lbl">Works with what you already run</span>
       <span class="int-badge lead">SAP Cloud ALM<em>project data stays in sync, both ways</em></span>
@@ -449,6 +509,7 @@
         <p>Candidates photograph their documents; AI extracts and validates the data and writes it back to the profile. HR reviews exceptions instead of typing.</p>
         <div class="connects">Connects to <em>Onboarding</em><em>Employee Central</em></div>
         <div class="live">Live: Gerdau (BR) · Heineken (BR &amp; NL) — ~4,200 candidates/yr at Heineken alone</div>
+        <a class="store-link" href="https://store.sap.com/dcp/en/product/display-2002000975_live_v1/data-collection-for-onboarding" target="_blank" rel="noopener">See it on the SAP Store <span aria-hidden="true">↗</span></a>
       </div>
       <div class="tool" data-id="doc-generator" data-connects="ec" data-pulse="up">
         <div class="storerow"></div>
@@ -463,6 +524,7 @@
         <p>One page per person for succession and PDC conversations — job data, skills, competencies and career interests pulled together from SuccessFactors on demand.</p>
         <div class="connects">Connects to <em>Succession &amp; Development</em><em>Employee Central</em></div>
         <div class="live">Live: Gerdau (BR)</div>
+        <a class="store-link" href="https://store.sap.com/dcp/en/product/display-2002000297_live_v1/tsp-employee-talent-card" target="_blank" rel="noopener">See it on the SAP Store <span aria-hidden="true">↗</span></a>
       </div>
       <div class="tool" data-id="docusign" data-connects="ec" data-pulse="up">
         <div class="storerow"><span class="storebadge">✦ On the SAP Store</span></div>
@@ -470,8 +532,28 @@
         <p>Signature triggered from SF events, workflows or campaigns; the signed document files itself back under the employee profile.</p>
         <div class="connects">Connects to <em>Employee Central</em><em>Workflows</em></div>
         <div class="live">Live: Digicel · Gerdau · LA Care · NNS</div>
+        <a class="store-link" href="https://store.sap.com/dcp/en/product/display-2001015863_live_v1/tsp-electronic-document-signing-docusign-integration-with-sf-ec" target="_blank" rel="noopener">See it on the SAP Store <span aria-hidden="true">↗</span></a>
       </div>
     </div>
+  </div>
+
+  <!-- onboarding migration milestone -->
+  <div class="chapter">
+  <div class="migration-callout">
+    <div class="dia" aria-hidden="true"></div>
+    <span class="mc-label">Mandatory milestone · Onboarding Migration</span>
+    <div class="mc-body">
+      <div class="mc-text">
+        <h3>SF Onboarding 1.0 is being retired.</h3>
+        <p>Every client still on it has a forced move to 2.0 ahead — on top of any SmartRecruiters or ERP HCM migration already on their plate. It is not a question of whether, only of when and with whom.</p>
+      </div>
+      <div class="mc-proof">
+        <div class="n" data-count="30" data-suffix="+">0+</div>
+        <div class="d">Onboarding migrations already delivered by TSP</div>
+      </div>
+    </div>
+    <p class="mc-foot">Data, workflows and configuration moved end to end — migrated with a proven method, not rebuilt from scratch.</p>
+  </div>
   </div>
 
   <!-- bridge -->
@@ -580,6 +662,14 @@
         if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(el); }
       });
     }
+  });
+
+  /* store links live inside clickable tool cards: let the link do its job only */
+  document.querySelectorAll('.store-link').forEach(function(a){
+    a.addEventListener('click', function(e){ e.stopPropagation(); });
+    a.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' ') e.stopPropagation();
+    });
   });
 
   canvas.addEventListener('click', function(){ clearFocus(); });
