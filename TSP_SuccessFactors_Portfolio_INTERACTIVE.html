@@ -420,20 +420,21 @@
     <!-- agents now sit on top: they are the layer in charge -->
     <div class="agents">
       <div class="agents-head">
-        <h3>✦ Joule &amp; the SuccessFactors Autonomous agents</h3>
-        <p>This is the layer in charge now. The employee meets the agent first — the module second.</p>
+        <h3>✦ Joule Assistants &amp; the SuccessFactors AI agents</h3>
+        <p>This is the layer taking charge. Ask a Joule Assistant and it puts the agents to work — or they run on their own, unprompted, on the module underneath.</p>
       </div>
       <div class="agent-chips">
-        <div class="chip" data-id="agent-smartrecruiters" data-connects="smartrecruiters" data-pulse="acts"><b>SmartRecruiters Winston</b> <span>· candidate-facing, tied into Joule</span></div>
-        <div class="chip" data-id="agent-performance" data-connects="performance" data-pulse="acts"><b>Performance &amp; Goals Agent</b></div>
-        <div class="chip" data-id="agent-hrservice" data-connects="service-center" data-pulse="acts"><b>HR Service Agent</b></div>
-        <div class="chip" data-id="agent-payroll" data-connects="ec-payroll" data-pulse="acts"><b>Payroll Agent</b></div>
-        <div class="chip" data-id="agent-careertalent" data-connects="succession" data-pulse="acts"><b>Career &amp; Talent Dev. Agent</b></div>
-        <div class="chip" data-id="agent-peopleintel" data-connects="people-analytics" data-pulse="acts"><b>People Intelligence Agent</b></div>
-        <div class="chip" data-id="agent-edi" data-connects="ec" data-pulse="acts"><b>Employee Data Integration Agent</b></div>
-        <div class="chip build" data-id="agent-custom" data-pulse="acts"><b>Custom Agents on Joule Studio 2.0</b> <span>· build your own, EA</span></div>
+        <div class="chip" data-id="agent-edi" data-connects="ec" data-pulse="acts"><b>Core HR Assistant</b></div>
+        <div class="chip" data-id="agent-smartrecruiters" data-connects="smartrecruiters" data-pulse="acts"><b>Recruiting Assistant</b></div>
+        <div class="chip" data-id="agent-onboarding" data-connects="onboarding" data-pulse="acts"><b>Onboarding Assistant</b></div>
+        <div class="chip" data-id="agent-payroll" data-connects="ec-payroll" data-pulse="acts"><b>Payroll Assistant</b></div>
+        <div class="chip" data-id="agent-performance" data-connects="performance" data-pulse="acts"><b>Performance &amp; Goals Assistant</b></div>
+        <div class="chip" data-id="agent-careertalent" data-connects="succession" data-pulse="acts"><b>Career &amp; Talent Development Assistant</b></div>
+        <div class="chip" data-id="agent-peopleintel" data-connects="people-analytics" data-pulse="acts"><b>People Intelligence Assistant</b></div>
+        <div class="chip" data-id="agent-hrservice" data-connects="service-center" data-pulse="acts"><b>HR Service Assistant</b></div>
+        <div class="chip build" data-id="agent-custom" data-pulse="acts"><b>Build your own</b> <span>· on Joule Studio</span></div>
       </div>
-      <p class="agents-foot">Agent availability varies by module and by the edition the client has licensed. Joule Studio 2.0's managed builder is in Early Adopter Care — GA targeted for Q3 2026.</p>
+      <p class="agents-foot">SAP positions most of this as roadmap: the assistants are planned for 2026–2027 and the agents behind them are indicative and subject to change (SAP plan as of Q3 2026). Availability also depends on the edition the client has licensed.</p>
     </div>
 
     <div class="acts-on"><span>▼ the agents act on the configuration, the data and the processes underneath ▼</span></div>
@@ -441,45 +442,45 @@
     <div class="modules">
       <div class="module" data-id="ec" data-connects="doc-generator talent-card docusign agent-edi" data-pulse="up acts">
         <h3>Employee Central</h3>
-        <div class="agentof">Employee Data Integration Agent</div>
+        <div class="agentof">Core HR Assistant</div>
         <p>The core: one system of record for every employee, event and org structure.</p>
         <div class="ext">↳ TSP Doc Generator · DocuSign</div>
       </div>
       <div class="module newsap" data-id="smartrecruiters" data-connects="agent-smartrecruiters" data-pulse="acts">
         <h3>SmartRecruiters<span class="flag">NEW</span></h3>
-        <div class="agentof" style="color:#8A5D0B">Winston — candidate-facing agent</div>
+        <div class="agentof" style="color:#8A5D0B">Winston — AI recruiting companion</div>
         <p>SAP's recruiting platform since the 2025 acquisition. Replaces SuccessFactors Recruiting — the whole installed base has to move.</p>
         <div class="ext" style="color:#8A5D0B">↳ TSP delivers SmartRecruiters</div>
       </div>
-      <div class="module" data-id="onboarding" data-connects="data-collection" data-pulse="up">
+      <div class="module" data-id="onboarding" data-connects="data-collection agent-onboarding" data-pulse="up acts">
         <h3>Onboarding</h3>
         <p>From offer accepted to day one — documents, data and tasks for every new hire.</p>
         <div class="ext">↳ TSP Data Collection</div>
       </div>
       <div class="module" data-id="ec-payroll" data-connects="agent-payroll" data-pulse="acts">
         <h3>EC Payroll</h3>
-        <div class="agentof">Payroll Agent</div>
+        <div class="agentof">Payroll Assistant</div>
         <p>Payroll running on the same core employee data — no re-keying.</p>
       </div>
       <div class="module" data-id="performance" data-connects="agent-performance" data-pulse="acts">
         <h3>Performance &amp; Goals</h3>
-        <div class="agentof">Performance &amp; Goals Agent</div>
+        <div class="agentof">Performance &amp; Goals Assistant</div>
         <p>Goals, reviews and continuous feedback across the year.</p>
       </div>
       <div class="module" data-id="succession" data-connects="talent-card agent-careertalent" data-pulse="up acts">
         <h3>Succession &amp; Development</h3>
-        <div class="agentof">Career &amp; Talent Dev. Agent</div>
+        <div class="agentof">Career &amp; Talent Development Assistant</div>
         <p>Succession pipelines, growth plans and internal mobility.</p>
         <div class="ext">↳ TSP Employee Talent Card</div>
       </div>
       <div class="module" data-id="people-analytics" data-connects="agent-peopleintel" data-pulse="acts">
         <h3>People Analytics</h3>
-        <div class="agentof">People Intelligence Agent</div>
+        <div class="agentof">People Intelligence Assistant</div>
         <p>Workforce questions answered from the data the project left behind.</p>
       </div>
       <div class="module" data-id="service-center" data-connects="agent-hrservice" data-pulse="acts">
         <h3>EC Service Center</h3>
-        <div class="agentof">HR Service Agent</div>
+        <div class="agentof">HR Service Assistant</div>
         <p>Employee questions on policy and process, ticketed and answered.</p>
       </div>
     </div>
@@ -497,7 +498,7 @@
 
   <!-- TSP tools layer -->
   <div class="band tools chapter">
-    <div class="band-label">TSP products — built on SAP BTP, delivered inside SuccessFactors</div>
+    <div class="band-label">TSP products — built on SAP BAIP, delivered inside SuccessFactors</div>
     <div class="tools-head">
       <h2>Four clean-core extensions that keep the data ready for AI</h2>
       <p>No new platform, no new data location — everything lives in SuccessFactors. <b>Three of the four are published on the SAP Store.</b></p>
