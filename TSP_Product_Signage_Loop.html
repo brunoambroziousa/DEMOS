@@ -69,9 +69,29 @@
   .warm .chips span{background:#fff;border:1px solid var(--cream-br);color:var(--amber);}
   .chips.tight span{font-size:clamp(11px,1.75vmin,23px);padding:.38em .75em;}
 
+  .note .road{display:inline-block;margin-top:.5em;font-size:.72em;font-weight:700;color:#9DB3C4;letter-spacing:.3px;}
   .note{margin-top:clamp(9px,1.5vh,20px);font-size:clamp(11px,1.7vmin,22px);line-height:1.4;
     color:#7C94A6;font-weight:700;}
   .dark .note{color:var(--straw);} .warm .note{color:var(--amber);}
+
+  /* ---------- layer mini-map: where in the story this slide sits ---------- */
+  .lmap{position:absolute;top:clamp(13px,2.1vh,32px);right:clamp(15px,2.3vw,46px);
+    display:flex;flex-direction:column;gap:clamp(5px,.8vh,12px);z-index:3;}
+  .lrow{display:flex;align-items:center;justify-content:flex-end;gap:clamp(7px,.9vw,15px);}
+  .lrow span{font-size:clamp(9px,1.35vmin,19px);font-weight:800;letter-spacing:1.2px;
+    text-transform:uppercase;color:#A9BECE;white-space:nowrap;}
+  .lrow b{display:flex;align-items:center;justify-content:center;
+    width:clamp(20px,2.7vmin,40px);height:clamp(20px,2.7vmin,40px);border-radius:7px;
+    font-size:clamp(11px,1.7vmin,24px);font-weight:800;
+    border:2px solid var(--sky-2);color:#A9BECE;background:transparent;}
+  .lrow.on span{color:var(--blue);}
+  .lrow.on b{background:var(--blue);border-color:var(--blue);color:#fff;
+    box-shadow:0 4px 12px rgba(39,98,153,.30);}
+  .dark .lrow span{color:#6E90AE;}
+  .dark .lrow b{border-color:rgba(255,255,255,.22);color:#6E90AE;}
+  .dark .lrow.on span{color:var(--straw);}
+  .dark .lrow.on b{background:var(--straw);border-color:var(--straw);color:#5C4813;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);}
 
   /* ---------- ARIA: the flagship slide ---------- */
   .aria-slide{align-items:stretch;}
@@ -148,7 +168,7 @@
   .agents-slide{align-items:stretch;}
   .agents-slide .inner{display:flex;flex-direction:column;justify-content:center;gap:clamp(10px,1.8vh,24px);}
   .agrid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(8px,1.3vh,17px);}
-  @media (min-aspect-ratio:1/1){ .agrid{grid-template-columns:repeat(4,1fr);} }
+  @media (min-aspect-ratio:1/1){ .agrid{grid-template-columns:repeat(3,1fr);} }
   .ag{background:#F5FBF7;border:2px solid #BEE0C8;border-radius:12px;
     padding:clamp(11px,1.9vh,25px) clamp(11px,1.3vw,24px);position:relative;
     display:flex;flex-direction:column;justify-content:center;min-height:clamp(58px,9vh,124px);}
@@ -170,11 +190,10 @@
   .ints{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(9px,1.5vh,20px);
     max-width:1300px;margin:0 auto;}
   @media (min-aspect-ratio:1/1){ .ints{grid-template-columns:repeat(4,1fr);} }
-  .int{background:#fff;border:2px solid var(--sky-2);border-radius:12px;text-align:center;
+  .int{background:linear-gradient(180deg,#F4F9FD,var(--sky));border:2px solid var(--blue);
+    border-radius:12px;text-align:center;box-shadow:0 10px 26px rgba(39,98,153,.16);
     padding:clamp(13px,2.3vh,30px) clamp(10px,1.2vw,20px);}
-  .int.lead{background:linear-gradient(180deg,#F4F9FD,var(--sky));border-color:var(--blue);
-    box-shadow:0 10px 26px rgba(39,98,153,.18);}
-  .int.lead i{color:#4C6A80;}
+  .int i{color:#4C6A80;}
   .int b{display:block;font-size:clamp(14px,2.7vmin,36px);font-weight:800;color:var(--blue);line-height:1.12;}
   .int i{display:block;font-style:normal;margin-top:.35em;font-size:clamp(10px,1.55vmin,20px);color:#5E7B90;font-weight:600;}
 
@@ -232,7 +251,7 @@
     </section>
     <section class="slide thesis center" data-chapter="Our wedge" data-dwell="5.5" aria-hidden="true">
       <div class="inner">
-        <h2>We make your data <span style="color:var(--straw)">ready for them.</span></h2>
+        <h2>We make it all <span style="color:var(--straw)">ready for them.</span></h2>
         <p class="kick" style="margin-top:.5em;">And keep it that way after go-live.</p></div>
     </section>
     <section class="slide light" data-chapter="The whole map" data-dwell="7.5" aria-hidden="true">
@@ -249,9 +268,14 @@
     </section>
     <section class="slide dark aria-slide" data-chapter="Layer 1 · ARIA" data-dwell="9" aria-hidden="true">
       <div class="inner">
+        <div class="lmap" aria-hidden="true">
+          <div class="lrow on"><span>TSP ARIA</span><b>1</b></div>
+          <div class="lrow"><span>SuccessFactors</span><b>2</b></div>
+          <div class="lrow"><span>TSP products</span><b>3</b></div>
+        </div>
         <div class="aria-top">
           <div>
-            <div class="eyebrow">Layer 1 · TSP management layer</div>
+            <div class="eyebrow">TSP management layer</div>
             <h2>TSP ARIA<span>AI Hub</span></h2>
           </div>
           <p class="kick">One agentic platform across the whole lifecycle.</p>
@@ -271,28 +295,39 @@
     </section>
     <section class="slide light agents-slide" data-chapter="Layer 2 · Agents" data-dwell="9.5" aria-hidden="true">
       <div class="inner">
+        <div class="lmap" aria-hidden="true">
+          <div class="lrow"><span>TSP ARIA</span><b>1</b></div>
+          <div class="lrow on"><span>SuccessFactors</span><b>2</b></div>
+          <div class="lrow"><span>TSP products</span><b>3</b></div>
+        </div>
         <div class="phead">
-          <div class="eyebrow">Layer 2 · SAP SuccessFactors</div>
-          <h2>The autonomous agents are in charge now.</h2>
-          <p class="kick" style="max-width:34em;">Ask Joule, or let them run on their own.</p>
+          <div class="eyebrow">SAP SuccessFactors</div>
+          <h2>The AI layer is taking charge.</h2>
+          <p class="kick" style="max-width:34em;">Ask a Joule Assistant, or let the agents run on their own.</p>
         </div>
         <div class="agrid">
-          <div class="ag"><span class="dot"></span><b>SmartRecruiters Winston</b><i>candidate-facing</i></div>
-          <div class="ag"><span class="dot"></span><b>Performance &amp; Goals</b></div>
-          <div class="ag"><span class="dot"></span><b>HR Service</b></div>
-          <div class="ag"><span class="dot"></span><b>Payroll</b></div>
-          <div class="ag"><span class="dot"></span><b>Career &amp; Talent Dev.</b></div>
-          <div class="ag"><span class="dot"></span><b>People Intelligence</b></div>
-          <div class="ag"><span class="dot"></span><b>Employee Data Integration</b></div>
-          <div class="ag build"><span class="dot"></span><b>Build your own</b><i>Joule Studio 2.0</i></div>
+          <div class="ag"><span class="dot"></span><b>Core HR</b><i>Assistant</i></div>
+          <div class="ag"><span class="dot"></span><b>Recruiting</b><i>Assistant</i></div>
+          <div class="ag"><span class="dot"></span><b>Onboarding</b><i>Assistant</i></div>
+          <div class="ag"><span class="dot"></span><b>Payroll</b><i>Assistant</i></div>
+          <div class="ag"><span class="dot"></span><b>Performance &amp; Goals</b><i>Assistant</i></div>
+          <div class="ag"><span class="dot"></span><b>Career &amp; Talent Dev.</b><i>Assistant</i></div>
+          <div class="ag"><span class="dot"></span><b>People Intelligence</b><i>Assistant</i></div>
+          <div class="ag"><span class="dot"></span><b>HR Service</b><i>Assistant</i></div>
+          <div class="ag build"><span class="dot"></span><b>Build your own</b><i>on Joule Studio</i></div>
         </div>
-        <p class="note" style="text-align:center;">They act on the configuration, the data and the processes underneath.</p>
+        <p class="note" style="text-align:center;">They act on the configuration, the data and the processes underneath.<br><span class="road">SAP roadmap 2026–2027 · availability indicative and subject to change</span></p>
       </div>
     </section>
     <section class="slide light fill" data-chapter="Layer 3 · Products" data-dwell="8.5" aria-hidden="true">
       <div class="inner">
+        <div class="lmap" aria-hidden="true">
+          <div class="lrow"><span>TSP ARIA</span><b>1</b></div>
+          <div class="lrow"><span>SuccessFactors</span><b>2</b></div>
+          <div class="lrow on"><span>TSP products</span><b>3</b></div>
+        </div>
         <div class="phead">
-          <div class="eyebrow">Layer 3 · TSP products, built on SAP BTP</div>
+          <div class="eyebrow">TSP products, built on SAP BTP</div>
           <h2>Four extensions. No new platform.</h2>
           <p class="kick">Three of them are live on the SAP Store.</p>
         </div>
@@ -315,9 +350,9 @@
       <div class="inner">
         <div class="phead"><div class="eyebrow">No rip and replace</div>
           <h2>Works with what you already run.</h2>
-          <p class="kick" style="max-width:30em;">ARIA doesn't replace SAP Cloud ALM.<br>It feeds it.</p></div>
+          <p class="kick" style="max-width:30em;">ARIA doesn't replace your systems. It feeds them.</p></div>
         <div class="ints">
-          <div class="int lead"><b>SAP SuccessFactors</b><i>where HR actually runs</i></div>
+          <div class="int"><b>SAP SuccessFactors</b><i>where HR actually runs</i></div>
           <div class="int"><b>SAP Cloud ALM</b><i>project data in sync, both ways</i></div>
           <div class="int"><b>SAP S/4HANA</b><i>the HR-to-finance seam</i></div>
           <div class="int"><b>ServiceNow</b><i>and other service desks</i></div>
