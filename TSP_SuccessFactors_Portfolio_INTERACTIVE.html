@@ -191,9 +191,15 @@
   .agents-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
   .agents-head h3{font-size:16.5px;font-weight:800;color:var(--green);}
   .agents-head p{font-size:13px;color:#3c6b49;}
-  .agent-chips{display:flex;flex-wrap:wrap;gap:8px;}
-  .chip{background:#fff;border:1.5px solid #bcdcc5;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:#1e5c2e;}
+  .agent-chips{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:12px;}
+  @media (max-width:820px){ .agent-chips{grid-template-columns:repeat(2,1fr);} }
+  .chip-group{display:flex;flex-direction:column;gap:8px;}
+  .chip-glabel{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;
+    color:#1e5c2e;background:#fff;border:1px solid #bcdcc5;border-radius:6px;
+    padding:4px 6px;text-align:center;}
+  .chip{background:#fff;border:1.5px solid #bcdcc5;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:600;color:#1e5c2e;text-align:center;}
   .chip.build{border-style:dashed;background:#F5FBF7;}
+  .chip.build.wide{display:block;margin:0 auto;border-radius:999px;padding:8px 18px;text-align:center;max-width:340px;}
   .chip b{font-weight:800;}
   .chip span{color:#6b917a;font-weight:500;font-size:11.5px;}
   .agents-foot{margin-top:9px;font-size:11.5px;color:#5d8069;font-style:italic;}
@@ -302,14 +308,23 @@
   .aria-stages .aria-stage,.modules .module,.tools-grid .tool,.agent-chips .chip{
     transition-delay:var(--stagger,0s);
   }
-  .aria-stages .aria-stage:nth-child(1),.modules .module:nth-child(1),.tools-grid .tool:nth-child(1),.agent-chips .chip:nth-child(1){--stagger:.02s;}
-  .aria-stages .aria-stage:nth-child(2),.modules .module:nth-child(2),.tools-grid .tool:nth-child(2),.agent-chips .chip:nth-child(2){--stagger:.08s;}
-  .aria-stages .aria-stage:nth-child(3),.modules .module:nth-child(3),.tools-grid .tool:nth-child(3),.agent-chips .chip:nth-child(3){--stagger:.14s;}
-  .modules .module:nth-child(4),.tools-grid .tool:nth-child(4),.agent-chips .chip:nth-child(4){--stagger:.20s;}
-  .modules .module:nth-child(5),.agent-chips .chip:nth-child(5){--stagger:.26s;}
-  .modules .module:nth-child(6),.agent-chips .chip:nth-child(6){--stagger:.32s;}
-  .modules .module:nth-child(7),.agent-chips .chip:nth-child(7){--stagger:.38s;}
-  .modules .module:nth-child(8),.agent-chips .chip:nth-child(8){--stagger:.44s;}
+  .aria-stages .aria-stage:nth-child(1),.modules .module:nth-child(1),.tools-grid .tool:nth-child(1){--stagger:.02s;}
+  .aria-stages .aria-stage:nth-child(2),.modules .module:nth-child(2),.tools-grid .tool:nth-child(2){--stagger:.08s;}
+  .aria-stages .aria-stage:nth-child(3),.modules .module:nth-child(3),.tools-grid .tool:nth-child(3){--stagger:.14s;}
+  .modules .module:nth-child(4),.tools-grid .tool:nth-child(4){--stagger:.20s;}
+  .modules .module:nth-child(5){--stagger:.26s;}
+  .modules .module:nth-child(6){--stagger:.32s;}
+  .modules .module:nth-child(7){--stagger:.38s;}
+  .modules .module:nth-child(8){--stagger:.44s;}
+  .modules .module:nth-child(9){--stagger:.50s;}
+  .modules .module:nth-child(10){--stagger:.56s;}
+  .modules .module:nth-child(11){--stagger:.62s;}
+  .modules .module:nth-child(12){--stagger:.68s;}
+  /* chip-group stagger: set once on the group, inherited by every chip inside it via var(--stagger) */
+  .chip-group:nth-child(1){--stagger:.02s;}
+  .chip-group:nth-child(2){--stagger:.10s;}
+  .chip-group:nth-child(3){--stagger:.18s;}
+  .chip-group:nth-child(4){--stagger:.26s;}
 
   @media (prefers-reduced-motion:reduce){
     .chapter{opacity:1;transform:none;transition:none;margin-top:36px;}
@@ -424,23 +439,41 @@
         <p>This is the layer taking charge. Ask a Joule Assistant and it puts the agents to work — or they run on their own, unprompted, on the module underneath.</p>
       </div>
       <div class="agent-chips">
-        <div class="chip" data-id="agent-edi" data-connects="ec" data-pulse="acts"><b>Core HR Assistant</b></div>
-        <div class="chip" data-id="agent-smartrecruiters" data-connects="smartrecruiters" data-pulse="acts"><b>Recruiting Assistant</b></div>
-        <div class="chip" data-id="agent-onboarding" data-connects="onboarding" data-pulse="acts"><b>Onboarding Assistant</b></div>
-        <div class="chip" data-id="agent-payroll" data-connects="ec-payroll" data-pulse="acts"><b>Payroll Assistant</b></div>
-        <div class="chip" data-id="agent-performance" data-connects="performance" data-pulse="acts"><b>Performance &amp; Goals Assistant</b></div>
-        <div class="chip" data-id="agent-careertalent" data-connects="succession" data-pulse="acts"><b>Career &amp; Talent Development Assistant</b></div>
-        <div class="chip" data-id="agent-peopleintel" data-connects="people-analytics" data-pulse="acts"><b>People Intelligence Assistant</b></div>
-        <div class="chip" data-id="agent-hrservice" data-connects="service-center" data-pulse="acts"><b>HR Service Assistant</b></div>
-        <div class="chip build" data-id="agent-custom" data-pulse="acts"><b>Build your own</b> <span>· on Joule Studio</span></div>
+        <div class="chip-group">
+          <div class="chip-glabel">Plan and Hire</div>
+          <div class="chip" data-id="agent-smartrecruiters" data-connects="smartrecruiters" data-pulse="acts"><b>Recruiting Assistant</b></div>
+          <div class="chip" data-id="agent-onboarding" data-connects="onboarding" data-pulse="acts"><b>Onboarding Assistant</b></div>
+        </div>
+        <div class="chip-group">
+          <div class="chip-glabel">Manage and Pay</div>
+          <div class="chip" data-id="agent-edi" data-connects="ec" data-pulse="acts"><b>Core HR Assistant</b></div>
+          <div class="chip" data-id="agent-time" data-connects="time-mgmt" data-pulse="acts"><b>Time Assistant</b></div>
+          <div class="chip" data-id="agent-payroll" data-connects="ec-payroll" data-pulse="acts"><b>Payroll Assistant</b></div>
+          <div class="chip" data-id="agent-compensation" data-connects="compensation" data-pulse="acts"><b>Compensation Assistant</b></div>
+        </div>
+        <div class="chip-group">
+          <div class="chip-glabel">Develop and Grow</div>
+          <div class="chip" data-id="agent-performance" data-connects="performance" data-pulse="acts"><b>Performance &amp; Goals Assistant</b></div>
+          <div class="chip" data-id="agent-learning" data-connects="learning" data-pulse="acts"><b>Learning Assistant</b></div>
+          <div class="chip" data-id="agent-careertalent" data-connects="succession" data-pulse="acts"><b>Career &amp; Talent Development Assistant</b></div>
+          <div class="chip" data-id="agent-skills" data-connects="talent-intel" data-pulse="acts"><b>Skills Assistant</b></div>
+        </div>
+        <div class="chip-group">
+          <div class="chip-glabel">Cross HCM</div>
+          <div class="chip" data-id="agent-peopleintel" data-connects="people-analytics" data-pulse="acts"><b>People Intelligence Assistant</b></div>
+          <div class="chip" data-id="agent-hrknowledge"><b>HR Knowledge Assistant</b></div>
+          <div class="chip" data-id="agent-hrservice" data-connects="service-center" data-pulse="acts"><b>HR Service Assistant</b></div>
+          <div class="chip" data-id="agent-hrsystem"><b>HR System Assistant</b></div>
+        </div>
       </div>
+      <div class="chip build wide" data-id="agent-custom" data-pulse="acts"><b>Build Custom Agents</b> <span>· on Joule Studio</span></div>
       <p class="agents-foot">SAP positions most of this as roadmap: the assistants are planned for 2026–2027 and the agents behind them are indicative and subject to change (SAP plan as of Q3 2026). Availability also depends on the edition the client has licensed.</p>
     </div>
 
     <div class="acts-on"><span>▼ the agents act on the configuration, the data and the processes underneath ▼</span></div>
 
     <div class="modules">
-      <div class="module" data-id="ec" data-connects="doc-generator talent-card docusign agent-edi" data-pulse="up acts">
+      <div class="module" data-id="ec" data-connects="doc-generator talent-card docusign nps360 agent-edi" data-pulse="up acts">
         <h3>Employee Central</h3>
         <div class="agentof">Core HR Assistant</div>
         <p>The core: one system of record for every employee, event and org structure.</p>
@@ -462,10 +495,25 @@
         <div class="agentof">Payroll Assistant</div>
         <p>Payroll running on the same core employee data — no re-keying.</p>
       </div>
+      <div class="module" data-id="time-mgmt" data-connects="agent-time" data-pulse="acts">
+        <h3>Time Management</h3>
+        <div class="agentof">Time Assistant</div>
+        <p>Time off, attendance and scheduling, tracked against the same core record.</p>
+      </div>
+      <div class="module" data-id="compensation" data-connects="agent-compensation" data-pulse="acts">
+        <h3>Compensation &amp; Variable Pay</h3>
+        <div class="agentof">Compensation Assistant</div>
+        <p>Merit, bonus and comp planning cycles run on real employee and pay data.</p>
+      </div>
       <div class="module" data-id="performance" data-connects="agent-performance" data-pulse="acts">
         <h3>Performance &amp; Goals</h3>
         <div class="agentof">Performance &amp; Goals Assistant</div>
         <p>Goals, reviews and continuous feedback across the year.</p>
+      </div>
+      <div class="module" data-id="learning" data-connects="agent-learning" data-pulse="acts">
+        <h3>Learning</h3>
+        <div class="agentof">Learning Assistant</div>
+        <p>Courses, compliance training and skill-building, tracked per employee.</p>
       </div>
       <div class="module" data-id="succession" data-connects="talent-card agent-careertalent" data-pulse="up acts">
         <h3>Succession &amp; Development</h3>
@@ -473,11 +521,15 @@
         <p>Succession pipelines, growth plans and internal mobility.</p>
         <div class="ext">↳ TSP Employee Talent Card</div>
       </div>
-      <div class="module" data-id="people-analytics" data-connects="agent-peopleintel nps360" data-pulse="acts up">
+      <div class="module" data-id="talent-intel" data-connects="agent-skills" data-pulse="acts">
+        <h3>Talent Intelligence Hub</h3>
+        <div class="agentof">Skills Assistant</div>
+        <p>The org's skills ontology behind Opportunity Marketplace — what people can do, kept current instead of stale.</p>
+      </div>
+      <div class="module" data-id="people-analytics" data-connects="agent-peopleintel" data-pulse="acts">
         <h3>People Analytics</h3>
         <div class="agentof">People Intelligence Assistant</div>
         <p>Workforce questions answered from the data the project left behind.</p>
-        <div class="ext">↳ TSP NPS 360</div>
       </div>
       <div class="module" data-id="service-center" data-connects="agent-hrservice" data-pulse="acts">
         <h3>EC Service Center</h3>
@@ -485,8 +537,6 @@
         <p>Employee questions on policy and process, ticketed and answered.</p>
       </div>
     </div>
-
-    <p class="mod-more">Also in scope for TSP: Compensation &amp; Variable Pay · Learning · Time Management · Opportunity Marketplace &amp; Talent Intelligence Hub</p>
   </div>
 
   <div class="link up">
@@ -536,12 +586,11 @@
         <div class="live">Live: Digicel · Gerdau · LA Care · NNS</div>
         <a class="store-link" href="https://store.sap.com/dcp/en/product/display-2001015863_live_v1/tsp-electronic-document-signing-docusign-integration-with-sf-ec" target="_blank" rel="noopener">See it on the SAP Store <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="tool" data-id="nps360" data-connects="people-analytics" data-pulse="up">
+      <div class="tool" data-id="nps360" data-connects="ec" data-pulse="up">
         <div class="storerow"></div>
         <h3>TSP NPS 360</h3>
         <p>Employee sentiment read continuously, not once a year. Employees answer in seconds — in a SAP BAIP app or through Joule — and AI agents read the scores, the open comments and exit interviews together.</p>
-        <div class="connects">Connects to <em>People Analytics</em><em>Joule</em></div>
-        <div class="live">Solution concept — no named customer yet</div>
+        <div class="connects">Connects to <em>Employee Central</em></div>
       </div>
     </div>
   </div>

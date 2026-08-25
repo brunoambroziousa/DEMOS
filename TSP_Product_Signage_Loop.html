@@ -167,17 +167,34 @@
   /* ---------- the SAP agents: the loudest grid in the loop ---------- */
   .agents-slide{align-items:stretch;}
   .agents-slide .inner{display:flex;flex-direction:column;justify-content:center;gap:clamp(10px,1.8vh,24px);}
+  .agroups{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,1.6vh,20px);}
+  @media (min-aspect-ratio:1/1){ .agroups{grid-template-columns:repeat(4,1fr);} }
+  .agroup{display:flex;flex-direction:column;gap:clamp(5px,.8vh,9px);}
+  .aglabel{text-align:center;font-size:clamp(10px,1.3vmin,16px);font-weight:800;
+    letter-spacing:.6px;text-transform:uppercase;color:var(--blue);
+    background:var(--sky);border-radius:7px;padding:.35em .3em;}
   .agrid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(8px,1.3vh,17px);}
   @media (min-aspect-ratio:1/1){ .agrid{grid-template-columns:repeat(3,1fr);} }
   .ag{background:#F5FBF7;border:2px solid #BEE0C8;border-radius:12px;
     padding:clamp(11px,1.9vh,25px) clamp(11px,1.3vw,24px);position:relative;
     display:flex;flex-direction:column;justify-content:center;min-height:clamp(58px,9vh,124px);}
+  .agroup .ag{min-height:clamp(44px,6.6vh,80px);padding:clamp(7px,1.1vh,14px) clamp(9px,1vw,16px);}
+  .agroup .ag b{font-size:clamp(11.5px,1.85vmin,25px);padding-right:.6em;}
+  .agroup .ag i{font-size:clamp(11px,1.55vmin,19px);margin-top:.25em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+  .agroup .ag .dot{top:clamp(7px,1.1vh,14px);right:clamp(7px,.8vw,14px);
+    width:clamp(6px,.8vmin,10px);height:clamp(6px,.8vmin,10px);}
   /* build-your-own is a capability, not a shipped agent — navy sets it apart */
   .ag.build{background:var(--navy);border:2px solid var(--blue-lt);
     box-shadow:0 8px 22px rgba(26,68,104,.26);}
+  .ag.build.wide{flex-direction:row;align-items:center;justify-content:center;gap:.6em;
+    padding:clamp(11px,1.7vh,22px) clamp(14px,2vw,28px);}
+  .ag.build.wide b,.ag.build.wide i{display:inline;}
+  .ag.build.wide i{margin-top:0;}
   .ag.build b{color:#fff;}
   .ag.build i{color:var(--straw);}
-  .ag.build .dot{background:var(--straw);box-shadow:0 0 0 clamp(2px,.35vmin,5px) rgba(243,222,158,.22);}
+  .ag.build .dot{position:static;background:var(--straw);box-shadow:0 0 0 clamp(2px,.35vmin,5px) rgba(243,222,158,.22);}
+  .ag.build.wide .dot{position:relative;top:0;right:0;}
   .ag .dot{position:absolute;top:clamp(9px,1.4vh,18px);right:clamp(9px,1vw,18px);
     width:clamp(7px,1vmin,13px);height:clamp(7px,1vmin,13px);border-radius:50%;
     background:var(--green);box-shadow:0 0 0 clamp(2px,.35vmin,5px) rgba(30,122,52,.16);}
@@ -294,7 +311,7 @@
         </div>
       </div>
     </section>
-    <section class="slide light agents-slide" data-chapter="Layer 2 · Agents" data-dwell="9.5" aria-hidden="true">
+    <section class="slide light agents-slide" data-chapter="Layer 2 · Agents" data-dwell="11.5" aria-hidden="true">
       <div class="inner">
         <div class="lmap" aria-hidden="true">
           <div class="lrow"><span>TSP ARIA</span><b>1</b></div>
@@ -306,17 +323,35 @@
           <h2>The AI layer is taking charge.</h2>
           <p class="kick" style="max-width:34em;">Ask a Joule Assistant, or let the agents run on their own.</p>
         </div>
-        <div class="agrid">
-          <div class="ag"><span class="dot"></span><b>Core HR</b><i>Assistant</i></div>
-          <div class="ag"><span class="dot"></span><b>Recruiting</b><i>Assistant</i></div>
-          <div class="ag"><span class="dot"></span><b>Onboarding</b><i>Assistant</i></div>
-          <div class="ag"><span class="dot"></span><b>Payroll</b><i>Assistant</i></div>
-          <div class="ag"><span class="dot"></span><b>Performance &amp; Goals</b><i>Assistant</i></div>
-          <div class="ag"><span class="dot"></span><b>Career &amp; Talent Dev.</b><i>Assistant</i></div>
-          <div class="ag"><span class="dot"></span><b>People Intelligence</b><i>Assistant</i></div>
-          <div class="ag"><span class="dot"></span><b>HR Service</b><i>Assistant</i></div>
-          <div class="ag build"><span class="dot"></span><b>Build your own</b><i>on Joule Studio</i></div>
+        <div class="agroups">
+          <div class="agroup">
+            <div class="aglabel">Plan and Hire</div>
+            <div class="ag"><span class="dot"></span><b>Recruiting</b><i>Assistant – Screens and shortlists candidates</i></div>
+            <div class="ag"><span class="dot"></span><b>Onboarding</b><i>Assistant – Preps new hires automatically</i></div>
+          </div>
+          <div class="agroup">
+            <div class="aglabel">Manage and Pay</div>
+            <div class="ag"><span class="dot"></span><b>Core HR</b><i>Assistant – Answers everyday HR questions</i></div>
+            <div class="ag"><span class="dot"></span><b>Time</b><i>Assistant – Manages time off requests</i></div>
+            <div class="ag"><span class="dot"></span><b>Payroll</b><i>Assistant – Explains pay to employees</i></div>
+            <div class="ag"><span class="dot"></span><b>Compensation</b><i>Assistant – Supports pay and bonus calls</i></div>
+          </div>
+          <div class="agroup">
+            <div class="aglabel">Develop and Grow</div>
+            <div class="ag"><span class="dot"></span><b>Performance &amp; Goals</b><i>Assistant – Preps managers for goal talks</i></div>
+            <div class="ag"><span class="dot"></span><b>Learning</b><i>Assistant – Recommends courses and training</i></div>
+            <div class="ag"><span class="dot"></span><b>Career &amp; Talent Dev.</b><i>Assistant – Plans succession and career growth</i></div>
+            <div class="ag"><span class="dot"></span><b>Skills</b><i>Assistant – Keeps skills data accurate</i></div>
+          </div>
+          <div class="agroup">
+            <div class="aglabel">Cross HCM</div>
+            <div class="ag"><span class="dot"></span><b>People Intelligence</b><i>Assistant – Turns workforce data into answers</i></div>
+            <div class="ag"><span class="dot"></span><b>HR Knowledge</b><i>Assistant – Answers policy questions, cited</i></div>
+            <div class="ag"><span class="dot"></span><b>HR Service</b><i>Assistant – Resolves employee HR tickets</i></div>
+            <div class="ag"><span class="dot"></span><b>HR System</b><i>Assistant – Helps admins manage configuration</i></div>
+          </div>
         </div>
+        <div class="ag build wide"><span class="dot"></span><b>Build Custom Agents</b><i>on Joule Studio</i></div>
         <p class="note" style="text-align:center;">They act on the configuration, the data and the processes underneath.<br><span class="road">SAP roadmap 2026–2027 · availability indicative and subject to change</span></p>
       </div>
     </section>
