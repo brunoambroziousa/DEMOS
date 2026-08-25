@@ -204,7 +204,7 @@
   .tools-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
   .tools-head h2{font-size:22px;font-weight:800;color:var(--tsp-navy);}
   .tools-head p{font-size:14px;color:#4C6A80;}
-  .tools-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;}
   .tool{border:1.5px solid var(--sky-2);border-radius:12px;padding:15px;display:flex;flex-direction:column;
     background:linear-gradient(180deg,#FBFDFF,#F1F7FB);}
   .tool .storerow{min-height:20px;margin-bottom:6px;}
@@ -397,7 +397,7 @@
       <span class="int-badge lead">SAP Cloud ALM<em>project data stays in sync, both ways</em></span>
       <span class="int-badge">SAP SuccessFactors</span>
       <span class="int-badge">SAP S/4HANA</span>
-      <span class="int-badge">ServiceNow<em>and other service desks</em></span>
+      <span class="int-badge">Third-party systems<em>ServiceNow · Jira · Zoho Desk · and more</em></span>
     </div>
     <p class="aria-note">ARIA doesn't execute HR processes — SuccessFactors does. And it doesn't replace SAP Cloud ALM — it feeds it. ARIA manages how the system is built and how it is operated.</p>
   </div>
@@ -473,10 +473,11 @@
         <p>Succession pipelines, growth plans and internal mobility.</p>
         <div class="ext">↳ TSP Employee Talent Card</div>
       </div>
-      <div class="module" data-id="people-analytics" data-connects="agent-peopleintel" data-pulse="acts">
+      <div class="module" data-id="people-analytics" data-connects="agent-peopleintel nps360" data-pulse="acts up">
         <h3>People Analytics</h3>
         <div class="agentof">People Intelligence Assistant</div>
         <p>Workforce questions answered from the data the project left behind.</p>
+        <div class="ext">↳ TSP NPS 360</div>
       </div>
       <div class="module" data-id="service-center" data-connects="agent-hrservice" data-pulse="acts">
         <h3>EC Service Center</h3>
@@ -500,8 +501,8 @@
   <div class="band tools chapter">
     <div class="band-label">TSP products — built on SAP BAIP, delivered inside SuccessFactors</div>
     <div class="tools-head">
-      <h2>Four clean-core extensions that keep the data ready for AI</h2>
-      <p>No new platform, no new data location — everything lives in SuccessFactors. <b>Three of the four are published on the SAP Store.</b></p>
+      <h2>Five clean-core extensions that keep the data ready for AI</h2>
+      <p>No new platform, no new data location — everything lives in SuccessFactors. <b>Three of the five are published on the SAP Store.</b></p>
     </div>
     <div class="tools-grid">
       <div class="tool" data-id="data-collection" data-connects="onboarding ec" data-pulse="up">
@@ -534,6 +535,13 @@
         <div class="connects">Connects to <em>Employee Central</em><em>Workflows</em></div>
         <div class="live">Live: Digicel · Gerdau · LA Care · NNS</div>
         <a class="store-link" href="https://store.sap.com/dcp/en/product/display-2001015863_live_v1/tsp-electronic-document-signing-docusign-integration-with-sf-ec" target="_blank" rel="noopener">See it on the SAP Store <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="tool" data-id="nps360" data-connects="people-analytics" data-pulse="up">
+        <div class="storerow"></div>
+        <h3>TSP NPS 360</h3>
+        <p>Employee sentiment read continuously, not once a year. Employees answer in seconds — in a SAP BAIP app or through Joule — and AI agents read the scores, the open comments and exit interviews together.</p>
+        <div class="connects">Connects to <em>People Analytics</em><em>Joule</em></div>
+        <div class="live">Solution concept — no named customer yet</div>
       </div>
     </div>
   </div>
