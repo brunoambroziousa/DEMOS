@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Gerdau · SAP SuccessFactors Release</title>
+<title>SAP SuccessFactors Release</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -170,7 +170,7 @@ let L="pt",AUD=0;const shots={};
 try{const s=localStorage.getItem("rel26-lang");if(s&&UI[s])L=s;}catch(e){}
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fd=s=>{const[y,m,d]=s.split('-').map(Number);return L==='en'?`${MON.en[m-1]} ${d}, ${y}`:`${String(d).padStart(2,'0')}/${String(m).padStart(2,'0')}/${y}`};
-const REL=CFG.prod;const TITLE=`Gerdau · SAP SuccessFactors Release ${CFG.release} · ${CFG.escopo.pt}`;const FN=`Gerdau_Release_${CFG.release.replace(/\s+/g,"")}_${CFG.slug}`;document.title=TITLE;
+const REL=CFG.prod;const TITLE=`SAP SuccessFactors Release ${CFG.release} · ${CFG.escopo.pt}`;const FN=`Release_${CFG.release.replace(/\s+/g,"")}_${CFG.slug}`;document.title=TITLE;
 const wl=w=>{const r=WHEN.find(x=>x[0]===w);return r?r[{pt:0,en:1,es:2}[L]]:w};
 const wi=w=>WHEN.findIndex(x=>x[0]===w);
 const reqRefs=Object.keys(META).filter(r=>META[r].action==='Required');
